@@ -1,57 +1,50 @@
 <div fxFlex>
-<mat-toolbar color="primary">
-  <img
-    alt="{{ title }}"
-    width="34"
-    height="34"
-    align="top"
-    src="./assets/ME_lista_beztextu_white.png"
-  />
+  <mat-toolbar color="primary">
+    <img
+      alt="{{ title }}"
+      width="34"
+      height="34"
+      align="top"
+      src="./assets/ME_lista_beztextu_white.png"
+    />
+    <a
+      mat-button
+      routerLink="./mapa"
+      style="padding-left: 5px;"
+      fxShow
+      fxHide.xs
+    >
+      {{ title }}
+    </a>
 
-  <a
-    mat-button
-    routerLink="./mapa"
-    style="padding-left: 5px;"
-    fxShow
-    fxHide.xs="true"
-  >
-    {{ title }}
-  </a>
+    <span class="block-separator"></span>
+    <span class="block-separator"></span>
 
-  <span class="block-separator"></span>
-  <span class="block-separator"></span>
+    <a mat-button routerLink="/map" routerLinkActive="active">
+      <mat-icon fxHide fxShow.xs>map</mat-icon>
+      <span fxShow fxHide.xs>Mapa</span>
+    </a>
+    <a mat-button routerLink="/incident" routerLinkActive="active">
+      <mat-icon fxHide fxShow.xs>notes</mat-icon>
+      <span fxShow fxHide.xs>Události</span>
+    </a>
 
-  <a mat-button routerLink="/map" routerLinkActive="active">
-    <mat-icon>map</mat-icon>
-    Mapa
-  </a>
-  <a mat-button routerLink="/incident" routerLinkActive="active">
-    <mat-icon>notes</mat-icon>
-    Události
-  </a>
+    <span class="block-spacer"></span>
 
-  <span class="block-spacer"></span>
-
-  <button fxShow fxHide.xs="true" mat-button [matMenuTriggerFor]="appMenu">
-    <mat-icon>account_circle</mat-icon>
-    user name
-  </button>
-
-  <button
-    fxHide
-    fxHide.xs="false"
-    mat-icon-button
-    [matMenuTriggerFor]="appMenu"
-  >
-    <mat-icon>more_vert</mat-icon>
-  </button>
-
-  <mat-menu #appMenu="matMenu">
-    <button mat-menu-item>
-      <mat-icon>info</mat-icon>
-      <span>Info</span>
+    <button fxShow fxHide.xs mat-button [matMenuTriggerFor]="appMenu">
+      <mat-icon>account_circle</mat-icon>
+      Host
     </button>
-  </mat-menu>
-</mat-toolbar>
 
+    <button fxHide fxShow.xs mat-icon-button [matMenuTriggerFor]="appMenu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+
+    <mat-menu #appMenu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>info</mat-icon>
+        <span>Info</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar>
 </div>
