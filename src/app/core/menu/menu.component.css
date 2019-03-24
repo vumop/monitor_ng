@@ -1,0 +1,9 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.block-spacer {
+  flex: 1 1 auto;
+}
+
+.block-separator {
+  width: 15px;
+}

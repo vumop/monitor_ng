@@ -1,11 +1,28 @@
 import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { MatButtonModule } from "@angular/material";
 
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
+import {
+  MatButtonModule,
+  MatToolbarModule,
+  MatIconModule,
+  MatMenuModule
+} from "@angular/material";
+
 @NgModule({
-  imports: [CommonModule, BrowserAnimationsModule, MatButtonModule],
-  exports: [BrowserAnimationsModule, MatButtonModule]
+  imports: [
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatMenuModule
+  ],
+  exports: [
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatMenuModule
+  ]
 })
 export class SharedMaterialModule {}
