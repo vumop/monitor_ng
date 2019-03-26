@@ -4,11 +4,11 @@ import { NgModule } from "@angular/core";
 import { AppRoutingModule } from "./app-routing.module";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { SharedMaterialModule } from "./shared/material/shared-material.module";
+import { IncidentModule } from "./core/incident/incident.module";
 
 import { AppComponent } from "./app.component";
 import { MenuComponent } from "./core/menu/menu.component";
 import { MapComponent } from "./core/map/map.component";
-import { IncidentComponent } from "./core/incident/incident.component";
 import { PageNotFoundComponent } from "./shared/page/page-not-found/page-not-found.component";
 import { PageErrorComponent } from "./shared/page/page-error/page-error.component";
 
@@ -26,7 +26,6 @@ import { MapService } from "./services/map.service";
     AppComponent,
     MenuComponent,
     MapComponent,
-    IncidentComponent,
     PageNotFoundComponent,
     PageErrorComponent,
     CreateComponent,
@@ -37,6 +36,7 @@ import { MapService } from "./services/map.service";
     AppRoutingModule,
     FlexLayoutModule,
     SharedMaterialModule,
+    IncidentModule,
     NgxsModule.forRoot([TutorialState]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot()

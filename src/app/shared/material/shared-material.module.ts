@@ -6,8 +6,11 @@ import {
   MatButtonModule,
   MatToolbarModule,
   MatIconModule,
-  MatMenuModule
+  MatMenuModule,
+  MatTableModule,
+  MatCardModule
 } from "@angular/material";
+
 
 @NgModule({
   imports: [
@@ -15,14 +18,18 @@ import {
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTableModule,
+    MatCardModule
   ],
   exports: [
     BrowserAnimationsModule,
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTableModule,
+    MatCardModule
   ]
 })
 export class SharedMaterialModule {}
