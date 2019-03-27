@@ -9,8 +9,14 @@ import {
   GetIncident
 } from "./../../../actions/incident.actions";
 
-import { MatSort, MatTableDataSource } from "@angular/material";
+import { MatSort, MatTableDataSource, MatPaginator } from "@angular/material";
 
+export interface PeriodicElement {
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
+}
 @Component({
   selector: "app-incident-table",
   templateUrl: "./incident-table.component.html",
@@ -24,35 +30,25 @@ export class IncidentTableComponent {
     "typ_eroze",
     "opakovana"
   ];
-  incidents$: Observable<Incident>;
 
-  dataSource = new MatTableDataSource([
-    { position: 1, name: "Hydrogen", weight: 1.0079, symbol: "H" },
-    { position: 2, name: "Helium", weight: 4.0026, symbol: "He" }
-  ]);
+  incidents$: MatTableDataSource<Incident>;
 
   constructor(private store: Store) {
-
-    this.store.dispatch(new GetIncident());
-
-    this.incidents$ = this.store.select(state => state.Incidents.Incidents);
-
     //https://stackoverflow.com/questions/49995159/mat-table-datasource-using-ngrx-store-effects
-    
-    /*
-    this.store.select(state => state.Incidents.Incidents).subscribe(arr => {
-      console.log("fromStore.getAllEmp: " + arr);
-    });
-    */
-
-
-    console.log('incident table',this.incidents$);
-
+    this.store
+      .select(state => state.Incidents.Incidents)
+      .subscribe(arr => {
+        this.incidents$ = new MatTableDataSource(arr);
+        this.incidents$.sort = this.sort;
+        this.incidents$.paginator = this.paginator;
+      });
   }
 
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
-    this.dataSource.sort = this.sort;
+    this.store.dispatch(new GetIncident());
   }
 }

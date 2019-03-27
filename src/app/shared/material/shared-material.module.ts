@@ -8,7 +8,9 @@ import {
   MatIconModule,
   MatMenuModule,
   MatTableModule,
-  MatCardModule
+  MatCardModule,
+  MatSortModule,
+  MatPaginatorModule
 } from "@angular/material";
 
 
@@ -20,7 +22,9 @@ import {
     MatIconModule,
     MatMenuModule,
     MatTableModule,
-    MatCardModule
+    MatCardModule,
+    MatSortModule,
+    MatPaginatorModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -29,7 +33,9 @@ import {
     MatIconModule,
     MatMenuModule,
     MatTableModule,
-    MatCardModule
+    MatCardModule,
+    MatSortModule,
+    MatPaginatorModule
   ]
 })
 export class SharedMaterialModule {}
