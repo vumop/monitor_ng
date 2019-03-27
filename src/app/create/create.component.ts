@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 
 import { Store } from "@ngxs/store";
-import { AddTutorial } from "./../actions/tutorial.actions";
+import { AddIncident } from "./../actions/incident.actions";
 
 @Component({
   selector: "app-create",
@@ -9,11 +9,15 @@ import { AddTutorial } from "./../actions/tutorial.actions";
   styleUrls: ["./create.component.css"]
 })
 export class CreateComponent implements OnInit {
-  
   constructor(private store: Store) {}
 
-  addTutorial(name, url) {
-    this.store.dispatch(new AddTutorial({ name: name, url: url }));
+  addIncident(nazev, id) {
+    this.store.dispatch(
+      new AddIncident({
+        id: id,
+        misto_nazev: nazev
+      })
+    );
   }
 
   ngOnInit() {}

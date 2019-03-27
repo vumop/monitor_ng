@@ -1,10 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 
 import { Store, Select } from "@ngxs/store";
-import { Tutorial } from "./../models/tutorial.model";
-import { TutorialState } from "./../state/tutorial.state"; // We will use this shortly
+import { Incident } from "./../models/incident.model";
+import { IncidentState } from "./../state/incident.state"; // We will use this shortly
 import { Observable } from "rxjs/Observable";
-import { RemoveTutorial } from "./../actions/tutorial.actions";
+import { RemoveIncident } from "./../actions/incident.actions";
 
 @Component({
   selector: "app-read",
@@ -12,14 +12,14 @@ import { RemoveTutorial } from "./../actions/tutorial.actions";
   styleUrls: ["./read.component.css"]
 })
 export class ReadComponent implements OnInit {
-  tutorials$: Observable<Tutorial>;
+  Incidents$: Observable<Incident>;
 
   constructor(private store: Store) {
-    this.tutorials$ = this.store.select(state => state.tutorials.tutorials);
+    this.Incidents$ = this.store.select(state => state.Incidents.Incidents);
   }
 
-  delTutorial(name) {
-    this.store.dispatch(new RemoveTutorial(name));
+  delIncident(name) {
+    this.store.dispatch(new RemoveIncident(name));
   }
 
   ngOnInit() {}

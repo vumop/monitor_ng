@@ -1,9 +1,9 @@
-<div class="right" *ngIf="tutorials$">
+<div class="right" *ngIf="Incidents$">
 
-  <h3>Tutorials</h3>
+  <h3>Incidents</h3>
   <ul>
-    <li (click)="delTutorial(tutorial.name)" *ngFor="let tutorial of tutorials$ | async">
-      <a [href]="tutorial.url" target="_blank">{{ tutorial.name }}</a>
+    <li (click)="delIncident(Incident.id)" *ngFor="let Incident of Incidents$ | async">
+      <a [href]="Incident.id" target="_blank">{{ Incident.id }}</a>
     </li>
   </ul>
 

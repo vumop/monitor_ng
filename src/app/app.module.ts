@@ -1,7 +1,9 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
+import {environment} from '../environments/environment';
 
 import { AppRoutingModule } from "./app-routing.module";
+import { HttpClientModule } from '@angular/common/http'; 
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { SharedMaterialModule } from "./shared/material/shared-material.module";
 import { IncidentModule } from "./core/incident/incident.module";
@@ -13,13 +15,14 @@ import { PageNotFoundComponent } from "./shared/page/page-not-found/page-not-fou
 import { PageErrorComponent } from "./shared/page/page-error/page-error.component";
 
 import { NgxsModule } from "@ngxs/store";
-import { TutorialState } from "./state/tutorial.state";
+import { IncidentState } from "./state/incident.state";
 import { NgxsReduxDevtoolsPluginModule } from "@ngxs/devtools-plugin";
 import { NgxsLoggerPluginModule } from "@ngxs/logger-plugin";
 import { CreateComponent } from "./create/create.component";
 import { ReadComponent } from "./read/read.component";
 
 import { MapService } from "./services/map.service";
+import { IncidentService } from "./services/incident.service";
 
 @NgModule({
   declarations: [
@@ -34,14 +37,15 @@ import { MapService } from "./services/map.service";
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     FlexLayoutModule,
     SharedMaterialModule,
     IncidentModule,
-    NgxsModule.forRoot([TutorialState]),
+    NgxsModule.forRoot([IncidentState], { developmentMode: !environment.production }),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot()
   ],
-  providers: [MapService],
+  providers: [MapService, IncidentService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
