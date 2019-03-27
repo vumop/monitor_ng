@@ -1,19 +1,21 @@
 // Section 1
-import { State, Action, StateContext, Selector } from '@ngxs/store';
+import { State, Action, StateContext, Selector } from "@ngxs/store";
 
-import { Tutorial } from './../models/tutorial.model';
-import { AddTutorial, RemoveTutorial } from './../actions/tutorial.actions';
+import { Tutorial } from "./../models/tutorial.model";
+import { AddTutorial, RemoveTutorial } from "./../actions/tutorial.actions";
 
 // Section 2
 export class TutorialStateModel {
   tutorials: Tutorial[];
+  test: any[];
 }
 
 // Section 3
 @State<TutorialStateModel>({
-  name: 'tutorials',
+  name: "tutorials",
   defaults: {
-    tutorials: []
+    tutorials: [],
+    test: []
   }
 })
 export class TutorialState {
@@ -26,13 +28,19 @@ export class TutorialState {
   // Section 5
   @Action(AddTutorial)
   add(
-    { getState, patchState }: StateContext<TutorialStateModel>,
+    {
+      dispatch,
+      getState,
+      patchState,
+      setState
+    }: StateContext<TutorialStateModel>,
     { payload }: AddTutorial
   ) {
     const state = getState();
     patchState({
       tutorials: [...state.tutorials, payload]
     });
+    //dispatch(new RemoveTutorial('pok'));
   }
 
   @Action(RemoveTutorial)
