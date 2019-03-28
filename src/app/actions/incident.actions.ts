@@ -13,20 +13,3 @@ export class PageIncident {
   static readonly type = '[Incident] Page';
   constructor(public payload: object) {}
 }
-/**
- * 
- * 
- * 
- * 
- */
-export class AddIncident {
-  static readonly type = '[Incident] Add';
-
-  constructor(public payload: Incident) {}
-}
-
-export class RemoveIncident {
-  static readonly type = '[Incident] Remove';
-
-  constructor(public payload: string) {}
-}

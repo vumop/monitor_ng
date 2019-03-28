@@ -3,8 +3,6 @@ import { State, Action, StateContext, Selector } from "@ngxs/store";
 
 import { Incident } from "./../models/incident.model";
 import {
-  AddIncident,
-  RemoveIncident,
   GetIncident,
   PageIncident,
   SortIncident
@@ -71,40 +69,6 @@ export class IncidentState {
   ) {
     patchState({
       page: payload
-    });
-  }
-  /***
-   *
-   *
-   *
-   *
-   *
-   */
-
-  @Action(AddIncident)
-  add(
-    {
-      dispatch,
-      getState,
-      patchState,
-      setState
-    }: StateContext<IncidentStateModel>,
-    { payload }: AddIncident
-  ) {
-    const state = getState();
-    patchState({
-      incidents: [...state.incidents, payload]
-    });
-    dispatch(new GetIncident());
-  }
-
-  @Action(RemoveIncident)
-  remove(
-    { getState, patchState }: StateContext<IncidentStateModel>,
-    { payload }: RemoveIncident
-  ) {
-    patchState({
-      incidents: getState().incidents.filter(a => a.id != payload)
     });
   }
 }

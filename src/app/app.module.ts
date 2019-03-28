@@ -18,8 +18,6 @@ import { NgxsModule } from "@ngxs/store";
 import { IncidentState } from "./state/incident.state";
 import { NgxsReduxDevtoolsPluginModule } from "@ngxs/devtools-plugin";
 import { NgxsLoggerPluginModule } from "@ngxs/logger-plugin";
-import { CreateComponent } from "./create/create.component";
-import { ReadComponent } from "./read/read.component";
 
 import { MapService } from "./services/map.service";
 import { IncidentService } from "./services/incident.service";
@@ -30,9 +28,7 @@ import { IncidentService } from "./services/incident.service";
     MenuComponent,
     MapComponent,
     PageNotFoundComponent,
-    PageErrorComponent,
-    CreateComponent,
-    ReadComponent
+    PageErrorComponent
   ],
   imports: [
     BrowserModule,
