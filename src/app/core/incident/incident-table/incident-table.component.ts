@@ -40,6 +40,9 @@ export class IncidentTableComponent implements OnInit {
 
   ngOnInit() {
     /**
+     * 
+     * https://github.com/angular-university/angular-material-course/blob/2-data-table-finished/src/app/course/course.component.ts
+     * 
      * pouze jednou - take(1)
      
     this.store
@@ -53,6 +56,8 @@ export class IncidentTableComponent implements OnInit {
       .subscribe(data => {
         this.loading = data;
       });
+
+  
 
     this.store
       .select(state => state.Incidents)

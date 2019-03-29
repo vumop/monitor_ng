@@ -13,6 +13,8 @@ import {
   MatPaginatorModule
 } from "@angular/material";
 
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
+
 
 @NgModule({
   imports: [
@@ -24,7 +26,8 @@ import {
     MatTableModule,
     MatCardModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -35,7 +38,8 @@ import {
     MatTableModule,
     MatCardModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatProgressSpinnerModule
   ]
 })
 export class SharedMaterialModule {}
