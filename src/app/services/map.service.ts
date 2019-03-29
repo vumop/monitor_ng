@@ -3,8 +3,17 @@ import { Injectable } from "@angular/core";
 import { HttpParams } from "@angular/common/http";
 
 import { Map, View } from "ol";
+import { defaults as defaultControls, ScaleLine } from "ol/control.js";
+import proj4 from "proj4/dist/proj4";
+import { register } from "ol/proj/proj4";
+
+import { LayerModel } from "../models/layer.model";
+
+import TileWMS from "ol/source/TileWMS";
 import TileLayer from "ol/layer/Tile";
-import OSM from "ol/source/OSM";
+
+import { Vector as OlVectorLayer } from "ol/layer.js";
+import { Vector as OlVectorSource } from "ol/source.js";
 
 @Injectable({
   providedIn: "root"
@@ -14,14 +23,48 @@ export class MapService {
 
   private updateHistory: boolean;
 
+  featureOverlay: any;
+
   constructor() {
+    proj4.defs(
+      "EPSG:102067",
+      "+proj=krovak +lat_0=49.5 +lon_0=24.83333333333333 +alpha=30.28813972222222 +k=0.9999 +x_0=0 +y_0=0 +ellps=bessel +pm=greenwich +units=m +no_defs +towgs84=570.8,85.7,462.8,4.998,1.587,5.261,3.56"
+    );
+
+    register(proj4);
+
+    this.featureOverlay = new OlVectorLayer({
+      source: new OlVectorSource(),
+      visible: true
+    });
+
     this.map = new Map({
+      controls: defaultControls({
+        rotate: true
+      }).extend([new ScaleLine({ units: "metric" })]),
       layers: [
         new TileLayer({
-          source: new OSM()
-        })
+          name: "Ortofoto ČR <small>(ČÚZK online)</small>",
+          metadata:
+            "https://geoportal.cuzk.cz/(S(qbwjf2d5q0uzcem1kajcj35r))/Default.aspx?mode=TextMeta&metadataXSL=full&side=wms.verejne&metadataID=CZ-CUZK-WMS-ORTOFOTO-P",
+          preload: 3,
+          source: new TileWMS({
+            url: "https://geoportal.cuzk.cz/WMS_ORTOFOTO_PUB/WMService.aspx",
+            params: { LAYERS: "GR_ORTFOTORGB" },
+            crossOrigin: "anonymous"
+          }),
+          visible: true
+        }),
+        this.featureOverlay
       ],
       view: new View({
+        extent: [-925000, -1230000, -400000, -900000],
+        projection: "EPSG:102067",
+        maxZoom: 20,
+        minZoom: 8,
+        /**
+         * used from URL history
+         */
         center: this.getCenterFromUrl(),
         zoom: this.getZoomFromUrl()
       })
@@ -90,6 +133,18 @@ export class MapService {
 
   public getMap(): Map {
     return this.map;
+  }
+
+  public addFeature(feat) {
+    this.featureOverlay.getSource().addFeature(feat);
+  }
+
+  public addLayer(layer: LayerModel): void {
+    this.map.addLayer(layer.olLayer);
+  }
+
+  public removeLayer(layer: LayerModel): void {
+    this.map.removeLayer(layer.olLayer);
   }
 
   public getScaleFromResolution(resolution, round): string {

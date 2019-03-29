@@ -1,59 +1,67 @@
-<div class="example-container mat-elevation-z2">
-  <table
-    mat-table
-    [dataSource]="incidents$"
-    matSort
-    (matSortChange)="changeSort($event)"
-    matSortDirection="{{ sortState.direction }}"
-    matSortActive="{{ sortState.active }}"
-  >
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
-      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="misto_nazev">
-      <th mat-header-cell *matHeaderCellDef>Místní nazev</th>
-      <td mat-cell *matCellDef="let element">{{ element.misto_nazev }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="typ_eroze">
-      <th mat-header-cell *matHeaderCellDef>Typ eroze</th>
-      <td mat-cell *matCellDef="let element">{{ element.typ_eroze }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="datum_vzniku_od">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Vznik</th>
-      <td mat-cell *matCellDef="let element">
-        {{ element.datum_vzniku_od }}
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="opakovana">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Opakovaná</th>
-      <td mat-cell *matCellDef="let element">{{ element.opakovana }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="delete">
-      <th mat-header-cell *matHeaderCellDef> Delete </th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-icon-button color="warn" (click)="redirectToDelete(element.id)">
-            <mat-icon class="mat-18">delete</mat-icon>
-        </button>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
+<div class="center-loader" *ngIf="loading; else incidentTable">
+  <img src="./assets/loader.gif" />
 </div>
 
-<div class="mat-elevation-z2">
-  <mat-paginator
-    [pageSizeOptions]="[25, 50, 100]"
-    showFirstLastButtons
-    (page)="changePage($event)"
-    pageIndex="{{ pageState.pageIndex }}"
-    pageSize="{{ pageState.pageSize }}"
-  ></mat-paginator>
-</div>
+<ng-template #incidentTable>
+  <div class="example-container mat-elevation-z2">
+    <table
+      mat-table
+      [dataSource]="incidents$"
+      matSort
+      (matSortChange)="changeSort($event)"
+      matSortDirection="{{ sortState.direction }}"
+      matSortActive="{{ sortState.active }}"
+    >
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+        <td mat-cell *matCellDef="let element">{{ element.getId() }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="misto_nazev">
+        <th mat-header-cell *matHeaderCellDef>Místní nazev</th>
+        <td mat-cell *matCellDef="let element">{{ element.misto_nazev }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="typ_eroze">
+        <th mat-header-cell *matHeaderCellDef>Typ eroze</th>
+        <td mat-cell *matCellDef="let element">{{ element.typ_eroze }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="datum_vzniku_od">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Vznik</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.getDatumVzniku() | date: "d.M.yyyy" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="opakovana">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Opakovaná</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element | repeatedIncident }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="zoom">
+        <th mat-header-cell *matHeaderCellDef>Mapa</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)="toZoom(element.id)">
+            <mat-icon class="mat-18">search</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+
+  <div class="mat-elevation-z2">
+    <mat-paginator
+      [pageSizeOptions]="[25, 50, 100]"
+      showFirstLastButtons
+      (page)="changePage($event)"
+      pageIndex="{{ pageState.pageIndex }}"
+      pageSize="{{ pageState.pageSize }}"
+    ></mat-paginator>
+  </div>
+</ng-template>

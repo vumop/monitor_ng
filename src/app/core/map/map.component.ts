@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-
+import { Store, Select } from "@ngxs/store";
 import { MapService } from "../../services/map.service";
 
 @Component({
@@ -8,9 +8,7 @@ import { MapService } from "../../services/map.service";
   styleUrls: ["./map.component.css"]
 })
 export class MapComponent implements OnInit {
-  constructor(private mapService: MapService) {
-    console.log("construct");
-  }
+  constructor(private mapService: MapService, private store: Store) {}
 
   ngOnInit() {
     this.mapService.getMap().setTarget(null);

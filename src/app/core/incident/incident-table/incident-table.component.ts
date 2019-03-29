@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 
 import { Store, Select } from "@ngxs/store";
 import { Observable } from "rxjs/Observable";
+import { take, pipe } from "rxjs/operators";
 import { Incident } from "./../../../models/incident.model";
 import {
   GetIncident,
@@ -16,19 +17,20 @@ import { MatSort, MatTableDataSource, MatPaginator } from "@angular/material";
   templateUrl: "./incident-table.component.html",
   styleUrls: ["./incident-table.component.css"]
 })
-export class IncidentTableComponent {
+export class IncidentTableComponent implements OnInit {
   private displayedColumns: string[] = [
     "id",
     "misto_nazev",
     "datum_vzniku_od",
     "typ_eroze",
     "opakovana",
-    "delete"
+    "zoom"
   ];
 
   private incidents$: MatTableDataSource<Incident>;
   private sortState;
   private pageState;
+  private loading: boolean;
 
   constructor(private store: Store) {}
 
@@ -37,32 +39,30 @@ export class IncidentTableComponent {
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
-    // https://stackoverflow.com/questions/49995159/mat-table-datasource-using-ngrx-store-effects
+    /**
+     * pouze jednou - take(1)
+     
+    this.store
+      .select(state => state.Incidents)
+      .pipe(take(1))
+      .subscribe(val => console.log("pokpok", val));
+      */
+
+    this.store
+      .select(state => state.Incidents.loading)
+      .subscribe(data => {
+        this.loading = data;
+      });
+
     this.store
       .select(state => state.Incidents)
       .subscribe(data => {
-        console.log("Incident", data);
-        if (!data.incidents.length) {
-          this.store.dispatch(new GetIncident());
-        }
-
         this.incidents$ = new MatTableDataSource(data.incidents);
         this.incidents$.sort = this.sort;
         this.incidents$.paginator = this.paginator;
-
         this.sortState = data.sort;
         this.pageState = data.page;
       });
-
-    this.store
-      .select(state => state.Incidents.incident)
-      .subscribe(data => {
-        console.log("Incident.incident", data);
-      });
-
-    this.store.subscribe(data => {
-      console.log("no select Incident.incident", data);
-    });
   }
 
   public changeSort($event): void {
@@ -71,5 +71,5 @@ export class IncidentTableComponent {
 
   public changePage = ($event: Event) => {
     this.store.dispatch(new PageIncident($event));
-  }
+  };
 }

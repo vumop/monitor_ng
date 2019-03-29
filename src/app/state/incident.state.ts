@@ -1,7 +1,9 @@
 // Section 1
 import { State, Action, StateContext, Selector } from "@ngxs/store";
+import { tap } from "rxjs/operators";
 
 import { Incident } from "./../models/incident.model";
+
 import {
   GetIncident,
   PageIncident,
@@ -9,7 +11,7 @@ import {
 } from "./../actions/incident.actions";
 
 import { IncidentService } from "../services/incident.service";
-import { tap } from "rxjs/operators";
+import { MapService } from "../services/map.service";
 
 // Section 2
 export class IncidentStateModel {
@@ -30,7 +32,10 @@ export class IncidentStateModel {
   }
 })
 export class IncidentState {
-  constructor(private incidentService: IncidentService) {}
+  constructor(
+    private incidentService: IncidentService,
+    private mapService: MapService
+  ) {}
 
   @Selector()
   static getIncidents(state: IncidentStateModel) {
@@ -42,9 +47,17 @@ export class IncidentState {
     return this.incidentService.fetchIncidents().pipe(
       tap(result => {
         const state = getState();
+        const incidentRes = [];
+        result.map(res => {
+          const incident = new Incident(res);
+          this.mapService.featureOverlay
+            .getSource()
+            .addFeature(incident.createFeature());
+          incidentRes.push(incident);
+        });
         setState({
           ...state,
-          incidents: result,
+          incidents: incidentRes,
           loading: false
         });
       })
