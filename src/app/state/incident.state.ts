@@ -12,16 +12,12 @@ import {
 
 import { IncidentService } from "../services/incident.service";
 import { MapService } from "../services/map.service";
-
-// Section 2
 export class IncidentStateModel {
   incidents: Incident[];
   loading: boolean;
   sort: object;
   page: object;
 }
-
-// Section 3
 @State<IncidentStateModel>({
   name: "Incidents",
   defaults: {
@@ -44,8 +40,11 @@ export class IncidentState {
 
   @Action(GetIncident)
   getIncidents({ getState, setState }: StateContext<IncidentStateModel>) {
-    return this.incidentService.fetchIncidents().pipe(
-      tap(result => {
+
+    return this.incidentService
+      .fetchIncidents()
+      .toPromise()
+      .then(result => {
         const state = getState();
         const incidentRes = [];
         result.map(res => {
@@ -60,8 +59,7 @@ export class IncidentState {
           incidents: incidentRes,
           loading: false
         });
-      })
-    );
+      });
   }
 
   @Action(SortIncident)

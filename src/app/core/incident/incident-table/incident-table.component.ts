@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 
 import { Store, Select } from "@ngxs/store";
 import { Observable } from "rxjs/Observable";
-import { take, pipe } from "rxjs/operators";
+import { take } from "rxjs/operators";
 import { Incident } from "./../../../models/incident.model";
 import {
   GetIncident,
@@ -27,7 +27,7 @@ export class IncidentTableComponent implements OnInit {
     "zoom"
   ];
 
-  private incidents$: MatTableDataSource<Incident>;
+  private incidents: MatTableDataSource<Incident>;
   private sortState;
   private pageState;
   private loading: boolean;
@@ -39,34 +39,20 @@ export class IncidentTableComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
-    /**
-     * 
-     * https://github.com/angular-university/angular-material-course/blob/2-data-table-finished/src/app/course/course.component.ts
-     * 
-     * pouze jednou - take(1)
-     
-    this.store
-      .select(state => state.Incidents)
-      .pipe(take(1))
-      .subscribe(val => console.log("pokpok", val));
-      */
-
     this.store
       .select(state => state.Incidents.loading)
       .subscribe(data => {
         this.loading = data;
       });
 
-  
-
     this.store
       .select(state => state.Incidents)
       .subscribe(data => {
-        this.incidents$ = new MatTableDataSource(data.incidents);
-        this.incidents$.sort = this.sort;
-        this.incidents$.paginator = this.paginator;
-        this.sortState = data.sort;
-        this.pageState = data.page;
+          this.incidents = new MatTableDataSource(data.incidents);
+          this.incidents.sort = this.sort;
+          this.incidents.paginator = this.paginator;
+          this.sortState = data.sort;
+          this.pageState = data.page;
       });
   }
 
@@ -77,4 +63,8 @@ export class IncidentTableComponent implements OnInit {
   public changePage = ($event: Event) => {
     this.store.dispatch(new PageIncident($event));
   };
+
+  public toZoom = evt => {
+    console.log("zoom", evt);
+  }
 }
