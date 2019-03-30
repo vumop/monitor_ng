@@ -67,4 +67,8 @@ export class IncidentTableComponent implements OnInit {
   public toZoom = evt => {
     console.log("zoom", evt);
   }
+
+  public applyFilter(filterValue: string) {
+    this.incidents.filter = filterValue.trim().toLowerCase();
+  }
 }

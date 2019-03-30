@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-
 import {
   MatButtonModule,
   MatToolbarModule,
@@ -10,11 +9,12 @@ import {
   MatTableModule,
   MatCardModule,
   MatSortModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatNativeDateModule
 } from "@angular/material";
-
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
-
+import {MatProgressBarModule} from '@angular/material/progress-bar'; 
+import { MatInputModule } from "@angular/material/input";
+import {MatDatepickerModule} from '@angular/material/datepicker'; 
 
 @NgModule({
   imports: [
@@ -27,7 +27,10 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatCardModule,
     MatSortModule,
     MatPaginatorModule,
-    MatProgressSpinnerModule
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatProgressBarModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -39,7 +42,10 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatCardModule,
     MatSortModule,
     MatPaginatorModule,
-    MatProgressSpinnerModule
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatProgressBarModule
   ]
 })
 export class SharedMaterialModule {}
