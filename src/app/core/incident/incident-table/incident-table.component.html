@@ -5,7 +5,7 @@
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-    <div fxFlex="10"></div>
+    <div fxFlex="5"></div>
     <mat-form-field fxFlex>
       <input
         matInput
@@ -13,9 +13,9 @@
         placeholder="Vyhledávání..."
       />
     </mat-form-field>
-    <div fxFlex="10"></div>
+    <div fxFlex="5"></div>
     <a mat-fab color="primary" routerLink=".">
-        <mat-icon>add</mat-icon>
+      <mat-icon>add</mat-icon>
     </a>
   </div>
 
@@ -32,29 +32,35 @@
     >
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
-        <td  style="width: 100px" mat-cell *matCellDef="let element">{{ element.getId() }}</td>
+        <td style="width: 100px" mat-cell *matCellDef="let element">
+          {{ element.getId() }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="misto_nazev">
         <th mat-header-cell *matHeaderCellDef>Místní nazev (okres)</th>
-        <td  style="width: 20%" mat-cell *matCellDef="let element">{{ element.misto_nazev }} ({{ element.okres }})</td>
+        <td style="width: 20%" mat-cell *matCellDef="let element">
+          {{ element.misto_nazev }} ({{ element.okres }})
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="typ_eroze">
         <th mat-header-cell *matHeaderCellDef>Typ eroze</th>
-        <td  style="width: 20%;" mat-cell *matCellDef="let element">{{ element.typ_eroze }}</td>
+        <td style="width: 20%;" mat-cell *matCellDef="let element">
+          {{ element.typ_eroze }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="datum_vzniku_od">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Vznik</th>
-        <td  style="width: 20%" mat-cell *matCellDef="let element">
+        <td style="width: 20%" mat-cell *matCellDef="let element">
           {{ element.getDatumVzniku() | date: "d.M.yyyy" }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="opakovana">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Opakovaná</th>
-        <td  style="width: 20%" mat-cell *matCellDef="let element">
+        <td style="width: 20%" mat-cell *matCellDef="let element">
           {{ element | repeatedIncident }}
         </td>
       </ng-container>
@@ -62,9 +68,9 @@
       <ng-container matColumnDef="zoom">
         <th mat-header-cell *matHeaderCellDef>Mapa</th>
         <td style="width: 100px" mat-cell *matCellDef="let element">
-          <button mat-icon-button (click)="toZoom(element.id)">
+          <a mat-icon-button routerLink="../map/{{element.id}}" routerLinkActive="active">
             <mat-icon class="mat-18">search</mat-icon>
-          </button>
+          </a>
         </td>
       </ng-container>
 

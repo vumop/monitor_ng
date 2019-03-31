@@ -20,13 +20,15 @@ import { NgxsLoggerPluginModule } from "@ngxs/logger-plugin";
 
 import { MapService } from "./services/map.service";
 import { IncidentService } from "./services/incident.service";
+import { InfoComponent } from './core/info/info.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
     PageNotFoundComponent,
-    PageErrorComponent
+    PageErrorComponent,
+    InfoComponent
   ],
   imports: [
     BrowserModule,

@@ -21,12 +21,16 @@
     <span class="block-separator"></span>
 
     <a mat-button routerLink="/map" routerLinkActive="active">
-      <mat-icon fxHide fxShow.xs>map</mat-icon>
+      <mat-icon matTooltip="Mapa" fxHide fxShow.xs>map</mat-icon>
       <span fxShow fxHide.xs>Mapa</span>
     </a>
     <a mat-button routerLink="/incident" routerLinkActive="active">
-      <mat-icon fxHide fxShow.xs>notes</mat-icon>
+      <mat-icon matTooltip="Události" fxHide fxShow.xs>subject</mat-icon>
       <span fxShow fxHide.xs>Události</span>
+    </a>
+    <a mat-button routerLink="/info" routerLinkActive="active">
+      <mat-icon  matTooltip="O aplikaci" fxHide fxShow.xs>info</mat-icon>
+      <span fxShow fxHide.xs>O aplikaci</span>
     </a>
 
     <span class="block-spacer"></span>
@@ -42,9 +46,13 @@
 
     <mat-menu #appMenu="matMenu">
       <button mat-menu-item>
-        <mat-icon>info</mat-icon>
-        <span>Info</span>
+        <mat-icon>lock_open</mat-icon>
+        <span>Přihlášení</span>
       </button>
+      <button mat-menu-item>
+          <mat-icon>power_settings_new</mat-icon>
+          <span>Odhlášení</span>
+        </button>
     </mat-menu>
   </mat-toolbar>
 </div>

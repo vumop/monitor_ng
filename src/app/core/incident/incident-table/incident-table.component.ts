@@ -62,10 +62,6 @@ export class IncidentTableComponent implements OnInit {
 
   public changePage = ($event: Event) => {
     this.store.dispatch(new PageIncident($event));
-  };
-
-  public toZoom = evt => {
-    console.log("zoom", evt);
   }
 
   public applyFilter(filterValue: string) {

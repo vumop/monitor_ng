@@ -12,7 +12,7 @@ export class MenuComponent implements OnInit {
   public title: string;
 
   constructor() {
-    this.title = "Monitoring eroze";
+    this.title = "Mapování eroze";
   }
 
   ngOnInit() {}
