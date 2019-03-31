@@ -27,6 +27,8 @@ export class IncidentTableComponent implements OnInit {
     "zoom"
   ];
 
+  private defaultFilter;
+
   private incidents: MatTableDataSource<Incident>;
   private sortState;
   private pageState;
@@ -48,11 +50,12 @@ export class IncidentTableComponent implements OnInit {
     this.store
       .select(state => state.Incidents)
       .subscribe(data => {
-          this.incidents = new MatTableDataSource(data.incidents);
-          this.incidents.sort = this.sort;
-          this.incidents.paginator = this.paginator;
-          this.sortState = data.sort;
-          this.pageState = data.page;
+        this.incidents = new MatTableDataSource(data.incidents);
+        this.defaultFilter = this.incidents.filterPredicate;
+        this.incidents.sort = this.sort;
+        this.incidents.paginator = this.paginator;
+        this.sortState = data.sort;
+        this.pageState = data.page;
       });
   }
 
@@ -62,9 +65,17 @@ export class IncidentTableComponent implements OnInit {
 
   public changePage = ($event: Event) => {
     this.store.dispatch(new PageIncident($event));
-  }
+  };
 
   public applyFilter(filterValue: string) {
+    this.incidents.filterPredicate = this.defaultFilter;
     this.incidents.filter = filterValue.trim().toLowerCase();
+  }
+
+  public applyDateFilter(value: Date) {
+    this.incidents.filterPredicate = (data, filter) => {
+      return new Date(data.getDatumVzniku()) > value;
+    };
+    this.incidents.filter =  (value) ? value.toString() : null ;
   }
 }
