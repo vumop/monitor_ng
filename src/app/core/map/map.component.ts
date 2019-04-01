@@ -24,7 +24,9 @@ export class MapComponent implements OnInit {
     setTimeout(() => {
       this.mapService.getMap().setTarget("map");
       if (id) {
-        this.dialog.open(IncidentDetailComponent);
+        this.dialog.open(IncidentDetailComponent, {
+          data: { id_incident: id }
+        });
       }
     }, 100);
   }

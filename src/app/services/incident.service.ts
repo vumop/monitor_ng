@@ -14,8 +14,8 @@ export class IncidentService {
     return this.http.get<Incident[]>(`${ApiConfig.apiUrl}/incident/list/`);
   }
 
-  deleteIncident(id: number) {
-    return this.http.delete(`https://jsonplaceholder.typicode.com/todos/${id}`);
+  getIncident(id: number) {
+    return this.http.get<Incident[]>(`${ApiConfig.apiUrl}/incident/detail/${id}/`);
   }
 
   addIncident(payload: Incident) {

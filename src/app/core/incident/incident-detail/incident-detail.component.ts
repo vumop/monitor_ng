@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from "@angular/core";
-import { MatDialog} from "@angular/material";
+import { MAT_DIALOG_DATA} from "@angular/material";
 
 @Component({
   selector: "app-incident-detail",
@@ -7,7 +7,9 @@ import { MatDialog} from "@angular/material";
   styleUrls: ["./incident-detail.component.css"]
 })
 export class IncidentDetailComponent implements OnInit {
-  constructor() {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any){
+
+  }
 
   ngOnInit() {}
 }

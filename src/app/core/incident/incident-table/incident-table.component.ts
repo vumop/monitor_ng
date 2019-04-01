@@ -1,5 +1,10 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { MatSort, MatTableDataSource, MatPaginator, MatDialog } from "@angular/material";
+import {
+  MatSort,
+  MatTableDataSource,
+  MatPaginator,
+  MatDialog
+} from "@angular/material";
 import { FormGroup, FormControl } from "@angular/forms";
 
 import { Store, Select } from "@ngxs/store";
@@ -116,9 +121,8 @@ export class IncidentTableComponent implements OnInit {
   }
 
   openDialog(id: number) {
-
-    console.log(id);
-
-    this.dialog.open(IncidentDetailComponent);
+    this.dialog.open(IncidentDetailComponent, {
+      data: { id_incident: id }
+    });
   }
 }

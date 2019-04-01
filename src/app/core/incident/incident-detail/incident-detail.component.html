@@ -1,5 +1,35 @@
-<h1 mat-dialog-title>Favorite Animal</h1>
-<div mat-dialog-content>
-  My favorite animal is:
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <div>Číslo události: {{ data.id_incident }}</div>
+    <span class="block-spacer"></span>
+    <button mat-icon-button mat-dialog-close> 
+      <mat-icon class="mat-18">close</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
 
-</div>
+<mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4">
+  <mat-tab label="Základí popis">
+
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Shiba Inu</mat-card-title>
+        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+      </mat-card-header>
+    
+      <mat-card-content>
+        <p>
+          The Shiba Inu is the smallest of the six original and distinct spitz
+          breeds of dog from Japan.
+        </p>
+      </mat-card-content>
+    </mat-card>
+    
+
+  </mat-tab>
+  <mat-tab label="Fotky"> Content 2 </mat-tab>
+  <mat-tab label="Detailní popis"> Content 3 </mat-tab>
+</mat-tab-group>
+
+
+
