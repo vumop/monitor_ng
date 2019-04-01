@@ -7,24 +7,32 @@ import { Incident } from "./../models/incident.model";
 import {
   GetIncident,
   PageIncident,
-  SortIncident
+  SortIncident,
+  FilterIncident
 } from "./../actions/incident.actions";
 
 import { IncidentService } from "../services/incident.service";
 import { MapService } from "../services/map.service";
+
 export class IncidentStateModel {
   incidents: Incident[];
   loading: boolean;
   sort: object;
   page: object;
+  filter: object;
 }
+
 @State<IncidentStateModel>({
   name: "Incidents",
   defaults: {
     incidents: [],
     loading: true,
     sort: {},
-    page: {}
+    page: {},
+    filter: {
+      date: null,
+      district: ''
+    }
   }
 })
 export class IncidentState {
@@ -40,7 +48,6 @@ export class IncidentState {
 
   @Action(GetIncident)
   getIncidents({ getState, setState }: StateContext<IncidentStateModel>) {
-
     return this.incidentService
       .fetchIncidents()
       .toPromise()
@@ -81,5 +88,37 @@ export class IncidentState {
     patchState({
       page: payload
     });
+  }
+
+  @Action(FilterIncident)
+  filter(
+    { getState, patchState, setState }: StateContext<IncidentStateModel>,
+    { payload, type }: FilterIncident
+  ) {
+    const state = getState();
+    switch (type) {
+      case "date":
+        setState({
+          ...state,
+          ...{
+            filter: {
+              date: payload,
+              district: ''
+            }
+          }
+        });
+        break;
+      case "district":
+        setState({
+          ...state,
+          ...{
+            filter: {
+              date: null,
+              district: payload
+            }
+          }
+        });
+        break;
+    }
   }
 }

@@ -1,4 +1,5 @@
 import { NgModule } from "@angular/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { IncidentTableComponent } from "./incident-table/incident-table.component";
 import { MenuComponent } from "./../menu/menu.component";
@@ -8,16 +9,25 @@ import { SharedMaterialModule } from "./../../shared/material/shared-material.mo
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { AppRoutingModule } from "./../../app-routing.module";
 
-import { RepeatedIncidentPipe } from "./../../shared/helpers/pipes"; // import our pipe here
+import { RepeatedIncidentPipe } from "./../../shared/helpers/pipes";
+import { IncidentDetailComponent } from "./incident-detail/incident-detail.component";
 
 @NgModule({
   declarations: [
     IncidentComponent,
     IncidentTableComponent,
     RepeatedIncidentPipe,
-    MenuComponent
+    MenuComponent,
+    IncidentDetailComponent
   ],
-  imports: [SharedMaterialModule, FlexLayoutModule, AppRoutingModule],
+  entryComponents: [IncidentDetailComponent],
+  imports: [
+    SharedMaterialModule,
+    FlexLayoutModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
   exports: [MenuComponent]
 })
 export class IncidentModule {}

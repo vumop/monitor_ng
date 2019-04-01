@@ -1,23 +1,33 @@
 <div fxFlex fxLayout="column">
-  <div fxLayout="row">
+  <form [formGroup]="filterForm" fxLayout="row">
     <mat-form-field fxFlex="15">
-      <input matInput [matDatepicker]="picker" placeholder="Událost od" (dateChange) = "applyDateFilter($event.target.value)"/>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        placeholder="Událost od"
+        (dateChange)="applyDateFilter($event.target.value)"
+        name="filterDate"
+        formControlName="filterDate"
+      />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
+
     <div fxFlex="5"></div>
     <mat-form-field fxFlex>
       <input
         matInput
-        (keyup)="applyFilter($event.target.value)"
+        (keyup)="searchDistrict($event.target.value)"
         placeholder="Místní název nebo okres..."
+        name="searchText"
+        formControlName="searchText"
       />
     </mat-form-field>
     <div fxFlex="5"></div>
-    <a mat-fab color="primary" routerLink=".">
+    <a mat-fab color="primary" routerLink="." >
       <mat-icon>add</mat-icon>
     </a>
-  </div>
+  </form>
 
   <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
 
@@ -66,11 +76,19 @@
       </ng-container>
 
       <ng-container matColumnDef="zoom">
-        <th mat-header-cell *matHeaderCellDef>Mapa</th>
+        <th mat-header-cell *matHeaderCellDef>Mapa / Detail</th>
         <td style="width: 100px" mat-cell *matCellDef="let element">
-          <a mat-icon-button routerLink="../map/{{element.id}}" routerLinkActive="active">
+          <a
+            mat-icon-button
+            routerLink="../map/{{ element.id }}"
+            routerLinkActive="active"
+          >
             <mat-icon class="mat-18">search</mat-icon>
           </a>
+          &nbsp;&nbsp;
+        <button mat-icon-button (click)="openDialog(element.id)"> 
+          <mat-icon class="mat-18">open_in_new</mat-icon>
+        </button>
         </td>
       </ng-container>
 

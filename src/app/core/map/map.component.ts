@@ -1,9 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { Store, Select } from "@ngxs/store";
 import { MapService } from "../../services/map.service";
+import { MatDialog } from "@angular/material";
 
-import { ActivatedRoute} from "@angular/router";
-
+import { ActivatedRoute } from "@angular/router";
+import { IncidentDetailComponent } from "../incident/incident-detail/incident-detail.component";
 @Component({
   selector: "app-map",
   templateUrl: "./map.component.html",
@@ -13,17 +14,18 @@ export class MapComponent implements OnInit {
   constructor(
     private mapService: MapService,
     private store: Store,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
     this.mapService.getMap().setTarget(null);
+    const id = this.route.snapshot.paramMap.get("id");
     setTimeout(() => {
       this.mapService.getMap().setTarget("map");
+      if (id) {
+        this.dialog.open(IncidentDetailComponent);
+      }
     }, 100);
-
-
-    let id = this.route.snapshot.paramMap.get('id');
-    console.log('id incident', id);
   }
 }

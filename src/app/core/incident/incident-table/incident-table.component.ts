@@ -1,16 +1,20 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
+import { MatSort, MatTableDataSource, MatPaginator, MatDialog } from "@angular/material";
+import { FormGroup, FormControl } from "@angular/forms";
 
 import { Store, Select } from "@ngxs/store";
-import { Observable } from "rxjs/Observable";
-import { take } from "rxjs/operators";
+import { Subject } from "rxjs/Subject";
+import { take, debounceTime, distinctUntilChanged } from "rxjs/operators";
+
 import { Incident } from "./../../../models/incident.model";
 import {
   GetIncident,
   PageIncident,
-  SortIncident
+  SortIncident,
+  FilterIncident
 } from "./../../../actions/incident.actions";
 
-import { MatSort, MatTableDataSource, MatPaginator } from "@angular/material";
+import { IncidentDetailComponent } from "../incident-detail/incident-detail.component";
 
 @Component({
   selector: "app-incident-table",
@@ -27,35 +31,67 @@ export class IncidentTableComponent implements OnInit {
     "zoom"
   ];
 
+  public incidents = new MatTableDataSource<Incident>();
   private defaultFilter;
+  public sortState;
+  public pageState;
+  public loading: boolean;
+  private searchTextChanged = new Subject<string>();
+  public filterForm: FormGroup;
 
-  private incidents: MatTableDataSource<Incident>;
-  private sortState;
-  private pageState;
-  private loading: boolean;
-
-  constructor(private store: Store) {}
+  constructor(private store: Store, public dialog: MatDialog) {}
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
-    this.store
-      .select(state => state.Incidents.loading)
-      .subscribe(data => {
-        this.loading = data;
-      });
+    this.filterForm = new FormGroup({
+      filterDate: new FormControl(null),
+      searchText: new FormControl("")
+    });
+
+    this.defaultFilter = this.incidents.filterPredicate;
+    this.incidents.sort = this.sort;
+    this.incidents.paginator = this.paginator;
+
+    this.searchTextChanged
+      .pipe(
+        debounceTime(400),
+        distinctUntilChanged()
+      )
+      .subscribe(val => this.applyFilter(val));
 
     this.store
       .select(state => state.Incidents)
       .subscribe(data => {
-        this.incidents = new MatTableDataSource(data.incidents);
-        this.defaultFilter = this.incidents.filterPredicate;
-        this.incidents.sort = this.sort;
-        this.incidents.paginator = this.paginator;
+        this.loading = data.loading;
+        //
+        this.incidents.data = data.incidents;
         this.sortState = data.sort;
         this.pageState = data.page;
+      });
+
+    this.store
+      .select(state => state.Incidents.filter.date)
+      .subscribe(value => {
+        this.filterForm.patchValue({
+          filterDate: value
+        });
+        this.incidents.filterPredicate = (data, filter) => {
+          return new Date(data.getDatumVzniku()) > value;
+        };
+        this.incidents.filter = value ? value.toString() : null;
+      });
+
+    this.store
+      .select(state => state.Incidents.filter.district)
+      .subscribe(value => {
+        this.filterForm.patchValue({
+          searchText: value
+        });
+        this.incidents.filterPredicate = this.defaultFilter;
+        this.incidents.filter = value.trim().toLowerCase();
       });
   }
 
@@ -67,15 +103,22 @@ export class IncidentTableComponent implements OnInit {
     this.store.dispatch(new PageIncident($event));
   };
 
-  public applyFilter(filterValue: string) {
-    this.incidents.filterPredicate = this.defaultFilter;
-    this.incidents.filter = filterValue.trim().toLowerCase();
+  public searchDistrict(filterValue: string) {
+    this.searchTextChanged.next(filterValue);
   }
 
-  public applyDateFilter(value: Date) {
-    this.incidents.filterPredicate = (data, filter) => {
-      return new Date(data.getDatumVzniku()) > value;
-    };
-    this.incidents.filter =  (value) ? value.toString() : null ;
+  private applyFilter(filterValue: string) {
+    this.store.dispatch(new FilterIncident(filterValue, "district"));
+  }
+
+  public applyDateFilter(filterValue: Date) {
+    this.store.dispatch(new FilterIncident(filterValue, "date"));
+  }
+
+  openDialog(id: number) {
+
+    console.log(id);
+
+    this.dialog.open(IncidentDetailComponent);
   }
 }

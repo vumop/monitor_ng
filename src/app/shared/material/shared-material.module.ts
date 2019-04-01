@@ -12,12 +12,12 @@ import {
   MatPaginatorModule,
   MatNativeDateModule,
   MatTooltipModule,
-  MatGridListModule
+  MatGridListModule,
+  MatDialogModule
 } from "@angular/material";
 import {MatProgressBarModule} from '@angular/material/progress-bar'; 
 import { MatInputModule } from "@angular/material/input";
 import {MatDatepickerModule} from '@angular/material/datepicker'; 
-
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -34,7 +34,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     MatNativeDateModule,
     MatProgressBarModule,
     MatTooltipModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDialogModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -51,7 +52,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     MatNativeDateModule,
     MatProgressBarModule,
     MatTooltipModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDialogModule
   ]
 })
 export class SharedMaterialModule {}

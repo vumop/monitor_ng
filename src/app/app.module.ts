@@ -1,5 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { environment } from "../environments/environment";
 
 import { AppRoutingModule } from "./app-routing.module";
@@ -20,7 +21,7 @@ import { NgxsLoggerPluginModule } from "@ngxs/logger-plugin";
 
 import { MapService } from "./services/map.service";
 import { IncidentService } from "./services/incident.service";
-import { InfoComponent } from './core/info/info.component';
+import { InfoComponent } from "./core/info/info.component";
 
 @NgModule({
   declarations: [
@@ -41,7 +42,9 @@ import { InfoComponent } from './core/info/info.component';
       developmentMode: !environment.production
     }),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsLoggerPluginModule.forRoot()
+    NgxsLoggerPluginModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [MapService, IncidentService],
   bootstrap: [AppComponent]
