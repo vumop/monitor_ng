@@ -62,44 +62,44 @@
       matSortDirection="{{ sortState.direction }}"
       matSortActive="{{ sortState.active }}"
     >
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
-        <td style="width: 100px" mat-cell *matCellDef="let element">
+      <ng-container matColumnDef="id" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header fxShow fxHide.lt-md>ID</th>
+        <td mat-cell *matCellDef="let element" fxShow fxHide.lt-md>
           {{ element.getId() }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="misto_nazev">
-        <th mat-header-cell *matHeaderCellDef>Místní nazev (okres)</th>
-        <td style="width: 20%" mat-cell *matCellDef="let element">
+        <th mat-header-cell *matHeaderCellDef>Místní nazev</th>
+        <td mat-cell *matCellDef="let element">
           {{ element.misto_nazev }} ({{ element.okres }})
         </td>
       </ng-container>
 
       <ng-container matColumnDef="typ_eroze">
-        <th mat-header-cell *matHeaderCellDef>Typ eroze</th>
-        <td style="width: 20%;" mat-cell *matCellDef="let element">
+        <th mat-header-cell *matHeaderCellDef fxShow fxHide.xs>Typ eroze</th>
+        <td mat-cell *matCellDef="let element" fxShow fxHide.xs>
           {{ element.typ_eroze }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="datum_vzniku_od">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Vznik</th>
-        <td style="width: 20%" mat-cell *matCellDef="let element">
+        <td mat-cell *matCellDef="let element">
           {{ element.getDatumVzniku() | date: "d.M.yyyy" }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="opakovana">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Opakovaná</th>
-        <td style="width: 20%" mat-cell *matCellDef="let element">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header fxShow fxHide.xs>Opakovaná</th>
+        <td mat-cell *matCellDef="let element" fxShow fxHide.xs>
           {{ element | repeatedIncident }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="zoom">
         <th mat-header-cell *matHeaderCellDef>Mapa / Detail</th>
-        <td style="width: 100px" mat-cell *matCellDef="let element">
+        <td mat-cell *matCellDef="let element">
           <a
             mat-icon-button
             routerLink="../map/{{ element.id }}"
