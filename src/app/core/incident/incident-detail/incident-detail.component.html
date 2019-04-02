@@ -2,34 +2,115 @@
   <mat-toolbar-row>
     <div>Číslo události: {{ data.id_incident }}</div>
     <span class="block-spacer"></span>
-    <button mat-icon-button mat-dialog-close> 
+    <button mat-icon-button mat-dialog-close>
       <mat-icon class="mat-18">close</mat-icon>
     </button>
   </mat-toolbar-row>
 </mat-toolbar>
 
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
 <mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4">
   <mat-tab label="Základí popis">
-
     <mat-card>
       <mat-card-header>
-        <mat-card-title>Shiba Inu</mat-card-title>
-        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+        <mat-card-title
+          >{{ detail.misto_nazev }} ({{ detail.okres }})</mat-card-title
+        >
+        <mat-card-subtitle
+          >Vznik:
+          {{ detail.datum_vzniku_od | date: "d.M.yyyy" }}</mat-card-subtitle
+        >
       </mat-card-header>
-    
+
       <mat-card-content>
-        <p>
-          The Shiba Inu is the smallest of the six original and distinct spitz
-          breeds of dog from Japan.
-        </p>
+        <mat-list>
+          <mat-list-item>
+            <h3 mat-subheader>Obec:</h3>
+            <p>{{ detail.obec }}</p>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>
+            <h3 mat-subheader>Typ eroze:</h3>
+            <p>{{ detail.typ_eroze }}</p>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>
+            <h3 mat-subheader>Akumulace sedimentů:</h3>
+            <p>{{ detail.akumulace }}</p>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>
+            <h3 mat-subheader>Akcelerátory eroze:</h3>
+            <p>{{ detail.akceler }}</p>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>
+            <h3 mat-subheader>Plocha zákresu [ha]:</h3>
+            <p>{{ detail.area / 10000 | number }}</p>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item> </mat-list-item>
+        </mat-list>
       </mat-card-content>
     </mat-card>
-    
-
   </mat-tab>
-  <mat-tab label="Fotky"> Content 2 </mat-tab>
-  <mat-tab label="Detailní popis"> Content 3 </mat-tab>
+  <mat-tab label="Fotky">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title
+          >Fotka {{ fotoViewer.activeIndex + 1 }} /
+          {{ fotoViewer.countFotos }}</mat-card-title
+        >
+      </mat-card-header>
+      <img
+        mat-card-image
+        height="350px"
+        src="{{ getUrlFoto() }}"
+        alt="Fotka z šetření"
+      />
+      <mat-card-content>
+        <p>
+          {{ fotoViewer.desc }}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-stroked-button (click)="prevFoto()">Zpět</button>
+        &nbsp;
+        <button mat-stroked-button (click)="nextFoto()">Další</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-tab>
+  <mat-tab label="Detailní popis">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Bloky LPIS</mat-card-title>
+        <mat-card-subtitle>Počet: {{ lpis.length }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-list>
+          <div *ngFor="let dpb of lpis">
+            <mat-list-item>
+              <h3 mat-subheader>Zk. kód a čtverec:</h3>
+              <p>{{ dpb.zkod }} {{ dpb.ctverec }}</p>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+              <h3 mat-subheader>Kultura:</h3>
+              <p>{{ dpb.kultura }} ({{ dpb.kultura_znacka }})</p>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <div *ngFor="let vegetace of dpb.vegetace">
+              <mat-list-item>
+                <h3 mat-subheader>Vegetace:</h3>
+                <p>{{ vegetace.plodina }} {{ vegetace.agrotech }}</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+            </div>
+            <mat-list-item> </mat-list-item>
+          </div>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </mat-tab>
 </mat-tab-group>
-
-
-

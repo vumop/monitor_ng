@@ -15,7 +15,21 @@ export class IncidentService {
   }
 
   getIncident(id: number) {
-    return this.http.get<Incident[]>(`${ApiConfig.apiUrl}/incident/detail/${id}/`);
+    return this.http.get<Incident[]>(
+      `${ApiConfig.apiUrl}/incident/detail/${id}/`
+    );
+  }
+
+  getFotos(id: number) {
+    return this.http.get<Incident[]>(
+      `${ApiConfig.apiUrl}/incident/foto/${id}/`
+    );
+  }
+
+  getLpis(id: number) {
+    return this.http.get<Incident[]>(
+      `${ApiConfig.apiUrl}/incident/lpis/${id}/`
+    );
   }
 
   addIncident(payload: Incident) {

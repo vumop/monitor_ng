@@ -120,7 +120,7 @@ export class IncidentTableComponent implements OnInit {
     this.store.dispatch(new FilterIncident(filterValue, "date"));
   }
 
-  openDialog(id: number) {
+  public openDialog(id: number) {
     this.dialog.open(IncidentDetailComponent, {
       data: { id_incident: id }
     });

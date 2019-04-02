@@ -19,6 +19,10 @@ import {
 import {MatProgressBarModule} from '@angular/material/progress-bar'; 
 import { MatInputModule } from "@angular/material/input";
 import {MatDatepickerModule} from '@angular/material/datepicker'; 
+
+import {MatDividerModule} from '@angular/material/divider'; 
+import {MatListModule} from '@angular/material/list'; 
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -37,7 +41,9 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     MatTooltipModule,
     MatGridListModule,
     MatDialogModule,
-    MatTabsModule
+    MatTabsModule,
+    MatDividerModule,
+    MatListModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -56,7 +62,9 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     MatTooltipModule,
     MatGridListModule,
     MatDialogModule,
-    MatTabsModule
+    MatTabsModule,
+    MatDividerModule,
+    MatListModule
   ]
 })
 export class SharedMaterialModule {}

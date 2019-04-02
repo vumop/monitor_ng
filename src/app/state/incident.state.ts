@@ -20,6 +20,7 @@ export class IncidentStateModel {
   sort: object;
   page: object;
   filter: object;
+  detail: object;
 }
 
 @State<IncidentStateModel>({
@@ -31,8 +32,9 @@ export class IncidentStateModel {
     page: {},
     filter: {
       date: null,
-      district: ''
-    }
+      district: ""
+    },
+    detail: {}
   }
 })
 export class IncidentState {
@@ -103,7 +105,7 @@ export class IncidentState {
           ...{
             filter: {
               date: payload,
-              district: ''
+              district: ""
             }
           }
         });

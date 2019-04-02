@@ -16,6 +16,7 @@ import { PageErrorComponent } from "./shared/page/page-error/page-error.componen
 
 import { NgxsModule } from "@ngxs/store";
 import { IncidentState } from "./state/incident.state";
+import { DetailState } from "./state/detail.state";
 import { NgxsReduxDevtoolsPluginModule } from "@ngxs/devtools-plugin";
 import { NgxsLoggerPluginModule } from "@ngxs/logger-plugin";
 
@@ -38,7 +39,7 @@ import { InfoComponent } from "./core/info/info.component";
     SharedMaterialModule,
     AppRoutingModule,
     IncidentModule,
-    NgxsModule.forRoot([IncidentState], {
+    NgxsModule.forRoot([IncidentState, DetailState], {
       developmentMode: !environment.production
     }),
     NgxsReduxDevtoolsPluginModule.forRoot(),

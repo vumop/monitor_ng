@@ -18,7 +18,7 @@
         matSuffix
         mat-icon-button
         aria-label="Clear"
-        (click)="dateFilter.value = ''"
+        (click)="applyDateFilter(null)"
       >
         <mat-icon>close</mat-icon>
       </button>
@@ -40,7 +40,7 @@
         matSuffix
         mat-icon-button
         aria-label="Clear"
-        (click)="searchFilter.value = ''"
+        (click)="applyFilter('')"
       >
         <mat-icon>close</mat-icon>
       </button>
