@@ -10,6 +10,7 @@ import {
 import { FormGroup, FormControl } from "@angular/forms";
 
 import { Store, Select } from "@ngxs/store";
+import { Observable } from "rxjs";
 import { Subject } from "rxjs/Subject";
 import { take, debounceTime, distinctUntilChanged } from "rxjs/operators";
 
@@ -20,6 +21,7 @@ import {
   SortIncident,
   FilterIncident
 } from "./../../../actions/incident.actions";
+import { IncidentState, IncidentStateModel } from "./../../../state/incident.state";
 
 import { IncidentDetailComponent } from "../incident-detail/incident-detail.component";
 
@@ -29,6 +31,8 @@ import { IncidentDetailComponent } from "../incident-detail/incident-detail.comp
   styleUrls: ["./incident-table.component.css"]
 })
 export class IncidentTableComponent implements OnInit {
+  @Select(IncidentState.getIncidents) selectedIncidents: Observable<IncidentStateModel>;
+
   private displayedColumns: string[] = [
     "id",
     "datum_vzniku_od",
@@ -53,6 +57,7 @@ export class IncidentTableComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
+
     this.filterForm = new FormGroup({
       filterDate: new FormControl(null),
       searchText: new FormControl("")
@@ -69,15 +74,13 @@ export class IncidentTableComponent implements OnInit {
       )
       .subscribe(val => this.applyFilter(val));
 
-    this.store
-      .select(state => state.Incidents)
-      .subscribe(data => {
-        this.loading = data.loading;
-        //
-        this.incidents.data = data.incidents;
-        this.sortState = data.sort;
-        this.pageState = data.page;
-      });
+    this.selectedIncidents.subscribe(data => {
+      this.loading = data.loading;
+      //
+      this.incidents.data = data.incidents;
+      this.sortState = data.sort;
+      this.pageState = data.page;
+    });
 
     this.store
       .select(state => state.Incidents.filter.date)
@@ -128,4 +131,3 @@ export class IncidentTableComponent implements OnInit {
     });
   }
 }
-

@@ -11,8 +11,11 @@ import { AppRoutingModule } from "./../../app-routing.module";
 
 import { RepeatedIncidentPipe } from "./../../shared/helpers/pipes";
 import { IncidentDetailComponent } from "./incident-detail/incident-detail.component";
-import { DateFilterComponent } from './components/date-filter/date-filter.component';
-import { SearchFilterComponent } from './components/search-filter/search-filter.component';
+import { DateFilterComponent } from "./components/date-filter/date-filter.component";
+import { SearchFilterComponent } from "./components/search-filter/search-filter.component";
+import { LpisTabComponent } from "./components/lpis-tab/lpis-tab.component";
+import { FotosTabComponent } from "./components/fotos-tab/fotos-tab.component";
+import { BasicTabComponent } from "./components/basic-tab/basic-tab.component";
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { SearchFilterComponent } from './components/search-filter/search-filter.
     MenuComponent,
     IncidentDetailComponent,
     DateFilterComponent,
-    SearchFilterComponent
+    SearchFilterComponent,
+    LpisTabComponent,
+    FotosTabComponent,
+    BasicTabComponent
   ],
   entryComponents: [IncidentDetailComponent],
   imports: [

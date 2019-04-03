@@ -16,123 +16,12 @@
   (selectedTabChange)="onTabChange($event)"
 >
   <mat-tab label="Základí popis">
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>
-          {{ detail.misto_nazev }} {{ detail.okres }}
-        </mat-card-title>
-        <mat-card-subtitle>
-          Vznik:
-          {{ detail.datum_vzniku_od | date: "d.M.yyyy" }}
-        </mat-card-subtitle>
-      </mat-card-header>
-
-      <mat-list>
-        <mat-list-item>
-          <h3 mat-subheader>Obec:&nbsp;</h3>
-          <p>{{ detail.obec }}</p>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item>
-          <h3 mat-subheader>Typ eroze:&nbsp;</h3>
-          <p>{{ detail.typ_eroze }}</p>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item>
-          <h3 mat-subheader>Akumulace sedimentů:&nbsp;</h3>
-          <p>{{ detail.akumulace }}</p>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item>
-          <h3 mat-subheader>Akcelerátory eroze:&nbsp;</h3>
-          <p>{{ detail.akceler }}</p>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item>
-          <h3 mat-subheader>Plocha zákresu [ha]:&nbsp;</h3>
-          <p>{{ detail.area / 10000 | number }}</p>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item> </mat-list-item>
-      </mat-list>
-    </mat-card>
+    <app-basic-tab [idIncident]="data.id_incident"></app-basic-tab>
   </mat-tab>
   <mat-tab label="Fotky">
-    <mat-card class="example-card">
-      <mat-card-header>
-        <mat-card-title>
-          Fotky
-        </mat-card-title>
-        <mat-card-subtitle>
-          <p *ngIf="fotoViewer.countFotos != 0">
-            {{ fotoViewer.activeIndex + 1 }} /
-            {{ fotoViewer.countFotos }}
-          </p>
-          <p *ngIf="fotoViewer.countFotos == 0">
-            Nejsou k dispozici
-          </p>
-        </mat-card-subtitle>
-      </mat-card-header>
-      <img
-        mat-card-image
-        height="350px"
-        src="{{ getUrlFoto() }}"
-        alt="&nbsp;"
-      />
-      <mat-card-content>
-        <p>
-          {{ getDescFoto() }}
-        </p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button
-          mat-stroked-button
-          disabled="{{ fotoViewer.activeIndex == 0 }}"
-          (click)="prevFoto()"
-        >
-          Zpět
-        </button>
-        &nbsp;
-        <button
-          mat-stroked-button
-          disabled="{{ fotoViewer.activeIndex + 1 == fotoViewer.countFotos }}"
-          (click)="nextFoto()"
-        >
-          Další
-        </button>
-      </mat-card-actions>
-    </mat-card>
+    <app-fotos-tab [idIncident]="data.id_incident"></app-fotos-tab>
   </mat-tab>
   <mat-tab label="Detailní popis">
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>Bloky LPIS</mat-card-title>
-        <mat-card-subtitle>Počet: {{ lpis.length }}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <mat-list>
-          <div *ngFor="let dpb of lpis">
-            <mat-list-item>
-              <h3 mat-subheader>Zk. kód a čtverec:&nbsp;</h3>
-              <p>{{ dpb.zkod }} {{ dpb.ctverec }}</p>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item>
-              <h3 mat-subheader>Kultura:&nbsp;</h3>
-              <p>{{ dpb.kultura }} ({{ dpb.kultura_znacka }})</p>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-            <div *ngFor="let vegetace of dpb.vegetace">
-              <mat-list-item>
-                <h3 mat-subheader>Vegetace:&nbsp;</h3>
-                <p>{{ vegetace.plodina }} {{ vegetace.agrotech }}</p>
-              </mat-list-item>
-              <mat-divider></mat-divider>
-            </div>
-            <mat-list-item> </mat-list-item>
-          </div>
-        </mat-list>
-      </mat-card-content>
-    </mat-card>
+    <app-lpis-tab [idIncident]="data.id_incident"></app-lpis-tab>
   </mat-tab>
 </mat-tab-group>

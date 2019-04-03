@@ -1,0 +1,44 @@
+<mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>
+        Fotky
+      </mat-card-title>
+      <mat-card-subtitle>
+        <p *ngIf="fotoViewer.countFotos != 0">
+          {{ fotoViewer.activeIndex + 1 }} /
+          {{ fotoViewer.countFotos }}
+        </p>
+        <p *ngIf="fotoViewer.countFotos == 0">
+          Nejsou k dispozici
+        </p>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <img
+      mat-card-image
+      height="350px"
+      src="{{ getUrlFoto() }}"
+      alt="&nbsp;"
+    />
+    <mat-card-content>
+      <p>
+        {{ getDescFoto() }}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button
+        mat-stroked-button
+        disabled="{{ fotoViewer.activeIndex == 0 }}"
+        (click)="prevFoto()"
+      >
+        Zpět
+      </button>
+      &nbsp;
+      <button
+        mat-stroked-button
+        disabled="{{ fotoViewer.activeIndex + 1 == fotoViewer.countFotos }}"
+        (click)="nextFoto()"
+      >
+        Další
+      </button>
+    </mat-card-actions>
+  </mat-card>

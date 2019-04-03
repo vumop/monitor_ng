@@ -1,0 +1,40 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      {{ data.misto_nazev }} {{ data.okres }}
+    </mat-card-title>
+    <mat-card-subtitle>
+      Vznik:
+      {{ data.datum_vzniku_od | date: "d.M.yyyy" }}
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-list>
+    <mat-list-item>
+      <h3 mat-subheader>Obec:&nbsp;</h3>
+      <p>{{ data.obec }}</p>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h3 mat-subheader>Typ eroze:&nbsp;</h3>
+      <p>{{ data.typ_eroze }}</p>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h3 mat-subheader>Akumulace sedimentů:&nbsp;</h3>
+      <p>{{ data.akumulace }}</p>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h3 mat-subheader>Akcelerátory eroze:&nbsp;</h3>
+      <p>{{ data.akceler }}</p>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <h3 mat-subheader>Plocha zákresu [ha]:&nbsp;</h3>
+      <p>{{ data.area / 10000 | number }}</p>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item> </mat-list-item>
+  </mat-list>
+</mat-card>

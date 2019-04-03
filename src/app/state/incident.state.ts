@@ -45,7 +45,7 @@ export class IncidentState {
 
   @Selector()
   static getIncidents(state: IncidentStateModel) {
-    return state.incidents;
+    return state;
   }
 
   @Action(GetIncident)

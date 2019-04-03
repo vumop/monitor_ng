@@ -19,4 +19,8 @@ export class DateFilterComponent implements OnInit {
   public onChange(value) {
     this.parentApplyDateFilter.emit(value);
   }
+
+  public clear(value) {
+    this.parentApplyDateFilter.emit(value);
+  }
 }

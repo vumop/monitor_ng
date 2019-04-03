@@ -30,11 +30,6 @@ export class DetailStateModel {
 export class DetailState {
   constructor(private incidentService: IncidentService) {}
 
-  @Selector()
-  static getDetail(state: DetailStateModel) {
-    return state.basic;
-  }
-
   @Action(GetDetail)
   getDetail(
     { getState, setState }: StateContext<DetailStateModel>,
