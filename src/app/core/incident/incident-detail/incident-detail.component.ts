@@ -54,8 +54,8 @@ export class IncidentDetailComponent implements OnInit {
       lpis: false
     };
     this.fotoViewer = {
-      activeIndex: null,
-      countFotos: null
+      activeIndex: 0,
+      countFotos: 0
     };
   }
 

@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
+
 import {
   MatSort,
   MatTableDataSource,
   MatPaginator,
   MatDialog
 } from "@angular/material";
+
 import { FormGroup, FormControl } from "@angular/forms";
 
 import { Store, Select } from "@ngxs/store";
@@ -29,8 +31,8 @@ import { IncidentDetailComponent } from "../incident-detail/incident-detail.comp
 export class IncidentTableComponent implements OnInit {
   private displayedColumns: string[] = [
     "id",
-    "misto_nazev",
     "datum_vzniku_od",
+    "misto_nazev",
     "typ_eroze",
     "opakovana",
     "zoom"
@@ -126,3 +128,4 @@ export class IncidentTableComponent implements OnInit {
     });
   }
 }
+

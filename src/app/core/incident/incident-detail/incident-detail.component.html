@@ -8,7 +8,7 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+<mat-progress-bar *ngIf="loader.basic" mode="indeterminate"></mat-progress-bar>
 
 <mat-tab-group
   mat-stretch-tabs
@@ -18,60 +18,66 @@
   <mat-tab label="Základí popis">
     <mat-card>
       <mat-card-header>
-        <mat-card-title
-          >{{ detail.misto_nazev }} ({{ detail.okres }})</mat-card-title
-        >
-        <mat-card-subtitle
-          >Vznik:
-          {{ detail.datum_vzniku_od | date: "d.M.yyyy" }}</mat-card-subtitle
-        >
+        <mat-card-title>
+          {{ detail.misto_nazev }} {{ detail.okres }}
+        </mat-card-title>
+        <mat-card-subtitle>
+          Vznik:
+          {{ detail.datum_vzniku_od | date: "d.M.yyyy" }}
+        </mat-card-subtitle>
       </mat-card-header>
 
-      <mat-card-content>
-        <mat-list>
-          <mat-list-item>
-            <h3 mat-subheader>Obec:</h3>
-            <p>{{ detail.obec }}</p>
-          </mat-list-item>
-          <mat-divider></mat-divider>
-          <mat-list-item>
-            <h3 mat-subheader>Typ eroze:</h3>
-            <p>{{ detail.typ_eroze }}</p>
-          </mat-list-item>
-          <mat-divider></mat-divider>
-          <mat-list-item>
-            <h3 mat-subheader>Akumulace sedimentů:</h3>
-            <p>{{ detail.akumulace }}</p>
-          </mat-list-item>
-          <mat-divider></mat-divider>
-          <mat-list-item>
-            <h3 mat-subheader>Akcelerátory eroze:</h3>
-            <p>{{ detail.akceler }}</p>
-          </mat-list-item>
-          <mat-divider></mat-divider>
-          <mat-list-item>
-            <h3 mat-subheader>Plocha zákresu [ha]:</h3>
-            <p>{{ detail.area / 10000 | number }}</p>
-          </mat-list-item>
-          <mat-divider></mat-divider>
-          <mat-list-item> </mat-list-item>
-        </mat-list>
-      </mat-card-content>
+      <mat-list>
+        <mat-list-item>
+          <h3 mat-subheader>Obec:&nbsp;</h3>
+          <p>{{ detail.obec }}</p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <h3 mat-subheader>Typ eroze:&nbsp;</h3>
+          <p>{{ detail.typ_eroze }}</p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <h3 mat-subheader>Akumulace sedimentů:&nbsp;</h3>
+          <p>{{ detail.akumulace }}</p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <h3 mat-subheader>Akcelerátory eroze:&nbsp;</h3>
+          <p>{{ detail.akceler }}</p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <h3 mat-subheader>Plocha zákresu [ha]:&nbsp;</h3>
+          <p>{{ detail.area / 10000 | number }}</p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item> </mat-list-item>
+      </mat-list>
     </mat-card>
   </mat-tab>
   <mat-tab label="Fotky">
     <mat-card class="example-card">
       <mat-card-header>
-        <mat-card-title
-          >Fotka {{ fotoViewer.activeIndex + 1 }} /
-          {{ fotoViewer.countFotos }}</mat-card-title
-        >
+        <mat-card-title>
+          Fotky
+        </mat-card-title>
+        <mat-card-subtitle>
+          <p *ngIf="fotoViewer.countFotos != 0">
+            {{ fotoViewer.activeIndex + 1 }} /
+            {{ fotoViewer.countFotos }}
+          </p>
+          <p *ngIf="fotoViewer.countFotos == 0">
+            Nejsou k dispozici
+          </p>
+        </mat-card-subtitle>
       </mat-card-header>
       <img
         mat-card-image
         height="350px"
         src="{{ getUrlFoto() }}"
-        alt="Fotka z šetření"
+        alt="&nbsp;"
       />
       <mat-card-content>
         <p>
@@ -107,18 +113,18 @@
         <mat-list>
           <div *ngFor="let dpb of lpis">
             <mat-list-item>
-              <h3 mat-subheader>Zk. kód a čtverec:</h3>
+              <h3 mat-subheader>Zk. kód a čtverec:&nbsp;</h3>
               <p>{{ dpb.zkod }} {{ dpb.ctverec }}</p>
             </mat-list-item>
             <mat-divider></mat-divider>
             <mat-list-item>
-              <h3 mat-subheader>Kultura:</h3>
+              <h3 mat-subheader>Kultura:&nbsp;</h3>
               <p>{{ dpb.kultura }} ({{ dpb.kultura_znacka }})</p>
             </mat-list-item>
             <mat-divider></mat-divider>
             <div *ngFor="let vegetace of dpb.vegetace">
               <mat-list-item>
-                <h3 mat-subheader>Vegetace:</h3>
+                <h3 mat-subheader>Vegetace:&nbsp;</h3>
                 <p>{{ vegetace.plodina }} {{ vegetace.agrotech }}</p>
               </mat-list-item>
               <mat-divider></mat-divider>

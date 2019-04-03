@@ -1,4 +1,21 @@
 <div fxFlex fxLayout="column">
+
+
+
+
+ 
+     
+          <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+            <div fxFlex> I'm above on mobile, and to the left on larger devices.</div>
+            <div fxFlex> I'm below on mobile, and to the right on larger devices.</div>
+          </div>
+       
+  
+
+
+
+
+
   <form [formGroup]="filterForm" fxLayout="row">
     <mat-form-field fxFlex="15">
       <input
@@ -25,11 +42,13 @@
     </mat-form-field>
 
     <div fxFlex="5"></div>
+
     <mat-form-field fxFlex>
       <input
         matInput
+        type="text"
         (keyup)="searchDistrict($event.target.value)"
-        placeholder="Místní název nebo okres..."
+        placeholder="Místní název..."
         name="searchText"
         formControlName="searchText"
         #searchFilter
@@ -45,6 +64,7 @@
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
+
     <div fxFlex="5"></div>
     <a mat-fab color="primary" routerLink=".">
       <mat-icon>add</mat-icon>
@@ -62,10 +82,25 @@
       matSortDirection="{{ sortState.direction }}"
       matSortActive="{{ sortState.active }}"
     >
-      <ng-container matColumnDef="id" >
-        <th mat-header-cell *matHeaderCellDef mat-sort-header fxShow fxHide.lt-md>ID</th>
+      <ng-container matColumnDef="id">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          fxShow
+          fxHide.lt-md
+        >
+          ID
+        </th>
         <td mat-cell *matCellDef="let element" fxShow fxHide.lt-md>
           {{ element.getId() }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="datum_vzniku_od">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>&nbsp;Vznik</th>
+        <td mat-cell *matCellDef="let element">
+            &nbsp;{{ element.getDatumVzniku() | date: "d.M.yyyy" }}
         </td>
       </ng-container>
 
@@ -83,15 +118,10 @@
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="datum_vzniku_od">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Vznik</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.getDatumVzniku() | date: "d.M.yyyy" }}
-        </td>
-      </ng-container>
-
       <ng-container matColumnDef="opakovana">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header fxShow fxHide.xs>Opakovaná</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header fxShow fxHide.xs>
+          Opakovaná
+        </th>
         <td mat-cell *matCellDef="let element" fxShow fxHide.xs>
           {{ element | repeatedIncident }}
         </td>
@@ -107,7 +137,7 @@
           >
             <mat-icon class="mat-18">search</mat-icon>
           </a>
-          &nbsp;&nbsp;
+          &nbsp;
           <button mat-icon-button (click)="openDialog(element.id)">
             <mat-icon class="mat-18">open_in_new</mat-icon>
           </button>

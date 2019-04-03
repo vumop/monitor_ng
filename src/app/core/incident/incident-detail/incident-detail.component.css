@@ -1,3 +1,7 @@
 .block-spacer {
   flex: 1 1 auto;
 }
+
+.mat-subheader{
+  padding: 0px !important;
+}
