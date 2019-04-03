@@ -1,56 +1,27 @@
 <div fxFlex fxLayout="column">
   <form [formGroup]="filterForm" fxLayout="row" fxLayout.xs="column">
     <div fxLayout.xs="row">
-      <mat-form-field fxFlex>
-        <input
-          matInput
-          [matDatepicker]="picker"
-          placeholder="Událost od"
-          (dateChange)="applyDateFilter($event.target.value)"
-          name="filterDate"
-          formControlName="filterDate"
-          #dateFilter
-        />
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-        <button
-          mat-button
-          *ngIf="dateFilter.value"
-          matSuffix
-          mat-icon-button
-          aria-label="Clear"
-          (click)="applyDateFilter(null)"
-        >
-          <mat-icon>close</mat-icon>
-        </button>
-      </mat-form-field>
+
+      <app-date-filter
+        fxFlex
+        [parentForm]="filterForm"
+        (parentApplyDateFilter)="applyDateFilter($event)"
+      ></app-date-filter>
+
       <div fxHide fxShow.xs fxFlex="5"></div>
       <a fxHide fxShow.xs mat-fab color="primary" routerLink=".">
         <mat-icon>add</mat-icon>
       </a>
     </div>
     <div fxShow fxHide.xs fxFlex="5"></div>
-    <mat-form-field fxFlex>
-      <input
-        matInput
-        type="text"
-        (keyup)="searchDistrict($event.target.value)"
-        placeholder="Místní název nebo okres..."
-        name="searchText"
-        formControlName="searchText"
-        #searchFilter
-      />
-      <button
-        mat-button
-        *ngIf="searchFilter.value"
-        matSuffix
-        mat-icon-button
-        aria-label="Clear"
-        (click)="applyFilter('')"
-      >
-        <mat-icon>close</mat-icon>
-      </button>
-    </mat-form-field>
+
+    <app-search-filter
+      fxFlex
+      [parentForm]="filterForm"
+      (parentApplyFilter)="applyFilter($event)"
+      (parentSearchDistrict)="searchDistrict($event)"
+    ></app-search-filter>
+    
     <div fxShow fxHide.xs fxFlex="5"></div>
     <a fxShow fxHide.xs mat-fab color="primary" routerLink=".">
       <mat-icon>add</mat-icon>

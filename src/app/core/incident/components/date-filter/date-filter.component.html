@@ -1,0 +1,23 @@
+<mat-form-field fxFlex [formGroup]="parentForm">
+  <input
+    matInput
+    [matDatepicker]="picker"
+    placeholder="Událost od"
+    (dateChange)="onChange($event.target.value)"
+    name="filterDate"
+    formControlName="filterDate"
+    #dateFilter
+  />
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+  <button
+    mat-button
+    *ngIf="dateFilter.value"
+    matSuffix
+    mat-icon-button
+    aria-label="Clear"
+    (click)="onChange(null)"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>

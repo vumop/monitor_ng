@@ -11,6 +11,8 @@ import { AppRoutingModule } from "./../../app-routing.module";
 
 import { RepeatedIncidentPipe } from "./../../shared/helpers/pipes";
 import { IncidentDetailComponent } from "./incident-detail/incident-detail.component";
+import { DateFilterComponent } from './components/date-filter/date-filter.component';
+import { SearchFilterComponent } from './components/search-filter/search-filter.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { IncidentDetailComponent } from "./incident-detail/incident-detail.compo
     IncidentTableComponent,
     RepeatedIncidentPipe,
     MenuComponent,
-    IncidentDetailComponent
+    IncidentDetailComponent,
+    DateFilterComponent,
+    SearchFilterComponent
   ],
   entryComponents: [IncidentDetailComponent],
   imports: [
