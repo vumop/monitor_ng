@@ -16,12 +16,18 @@
   (selectedTabChange)="onTabChange($event)"
 >
   <mat-tab label="Základí popis">
-    <app-basic-tab [idIncident]="data.id_incident"></app-basic-tab>
-  </mat-tab>
-  <mat-tab label="Fotky">
-    <app-fotos-tab [idIncident]="data.id_incident"></app-fotos-tab>
+    <mat-dialog-content>
+      <app-basic-tab></app-basic-tab>
+    </mat-dialog-content>
   </mat-tab>
   <mat-tab label="Detailní popis">
-    <app-lpis-tab [idIncident]="data.id_incident"></app-lpis-tab>
+      <mat-dialog-content>
+        <app-lpis-tab></app-lpis-tab>
+      </mat-dialog-content>
+    </mat-tab>
+  <mat-tab label="Fotky">
+    <mat-dialog-content>
+      <app-fotos-tab [idIncident]="data.id_incident"></app-fotos-tab>
+    </mat-dialog-content>
   </mat-tab>
 </mat-tab-group>

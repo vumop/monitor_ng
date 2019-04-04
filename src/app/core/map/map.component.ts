@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, AfterViewInit } from "@angular/core";
 import { Store, Select } from "@ngxs/store";
 import { MapService } from "../../services/map.service";
 import { MatDialog } from "@angular/material";
@@ -10,7 +10,7 @@ import { IncidentDetailComponent } from "../incident/incident-detail/incident-de
   templateUrl: "./map.component.html",
   styleUrls: ["./map.component.css"]
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, AfterViewInit {
   constructor(
     private mapService: MapService,
     private store: Store,
@@ -20,14 +20,17 @@ export class MapComponent implements OnInit {
 
   ngOnInit() {
     this.mapService.getMap().setTarget(null);
+  }
+
+  ngAfterViewInit() {
     const id = this.route.snapshot.paramMap.get("id");
     setTimeout(() => {
       this.mapService.getMap().setTarget("map");
       if (id) {
         this.dialog.open(IncidentDetailComponent, {
-          data: { id_incident: id }
+          data: { id_incident: id, navigateTo: "map" }
         });
       }
-    }, 100);
+    });
   }
 }

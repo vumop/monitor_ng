@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  OnDestroy,
+  ViewChild
+} from "@angular/core";
 
 import {
   MatSort,
@@ -8,6 +14,7 @@ import {
 } from "@angular/material";
 
 import { FormGroup, FormControl } from "@angular/forms";
+import { ActivatedRoute } from "@angular/router";
 
 import { Store, Select } from "@ngxs/store";
 import { Observable } from "rxjs";
@@ -21,7 +28,10 @@ import {
   SortIncident,
   FilterIncident
 } from "./../../../actions/incident.actions";
-import { IncidentState, IncidentStateModel } from "./../../../state/incident.state";
+import {
+  IncidentState,
+  IncidentStateModel
+} from "./../../../state/incident.state";
 
 import { IncidentDetailComponent } from "../incident-detail/incident-detail.component";
 
@@ -30,8 +40,11 @@ import { IncidentDetailComponent } from "../incident-detail/incident-detail.comp
   templateUrl: "./incident-table.component.html",
   styleUrls: ["./incident-table.component.css"]
 })
-export class IncidentTableComponent implements OnInit {
-  @Select(IncidentState.getIncidents) selectedIncidents: Observable<IncidentStateModel>;
+export class IncidentTableComponent
+  implements OnInit, AfterViewInit, OnDestroy {
+  @Select(IncidentState.getIncidents) selectedIncidents: Observable<
+    IncidentStateModel
+  >;
 
   private displayedColumns: string[] = [
     "id",
@@ -48,24 +61,18 @@ export class IncidentTableComponent implements OnInit {
   public pageState;
   public loading: boolean;
   private searchTextChanged = new Subject<string>();
+  private subscription = [];
   public filterForm: FormGroup;
 
-  constructor(private store: Store, public dialog: MatDialog) {}
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-
-  @ViewChild(MatSort) sort: MatSort;
-
-  ngOnInit() {
-
+  constructor(
+    private store: Store,
+    public dialog: MatDialog,
+    private route: ActivatedRoute
+  ) {
     this.filterForm = new FormGroup({
       filterDate: new FormControl(null),
       searchText: new FormControl("")
     });
-
-    this.defaultFilter = this.incidents.filterPredicate;
-    this.incidents.sort = this.sort;
-    this.incidents.paginator = this.paginator;
 
     this.searchTextChanged
       .pipe(
@@ -73,6 +80,16 @@ export class IncidentTableComponent implements OnInit {
         distinctUntilChanged()
       )
       .subscribe(val => this.applyFilter(val));
+  }
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  @ViewChild(MatSort) sort: MatSort;
+
+  ngOnInit() {
+    this.defaultFilter = this.incidents.filterPredicate;
+    this.incidents.sort = this.sort;
+    this.incidents.paginator = this.paginator;
 
     this.selectedIncidents.subscribe(data => {
       this.loading = data.loading;
@@ -82,27 +99,42 @@ export class IncidentTableComponent implements OnInit {
       this.pageState = data.page;
     });
 
-    this.store
-      .select(state => state.Incidents.filter.date)
-      .subscribe(value => {
-        this.filterForm.patchValue({
-          filterDate: value
-        });
-        this.incidents.filterPredicate = (data, filter) => {
-          return new Date(data.getDatumVzniku()) > value;
-        };
-        this.incidents.filter = value ? value.toString() : null;
-      });
+    this.subscription.push(
+      this.store
+        .select(state => state.Incidents.filter.date)
+        .subscribe(value => {
+          this.filterForm.patchValue({
+            filterDate: value
+          });
+          this.incidents.filterPredicate = (data, filter) => {
+            return new Date(data.getDatumVzniku()) > value;
+          };
+          this.incidents.filter = value ? value.toString() : null;
+        })
+    );
 
-    this.store
-      .select(state => state.Incidents.filter.district)
-      .subscribe(value => {
-        this.filterForm.patchValue({
-          searchText: value
-        });
-        this.incidents.filterPredicate = this.defaultFilter;
-        this.incidents.filter = value.trim().toLowerCase();
-      });
+    this.subscription.push(
+      this.store
+        .select(state => state.Incidents.filter.district)
+        .subscribe(value => {
+          this.filterForm.patchValue({
+            searchText: value
+          });
+          this.incidents.filterPredicate = this.defaultFilter;
+          this.incidents.filter = value.trim().toLowerCase();
+        })
+    );
+  }
+
+  ngAfterViewInit() {
+    const id = this.route.snapshot.paramMap.get("id");
+    if (id) {
+      setTimeout(() => this.openDialog(Number(id)));
+    }
+  }
+
+  ngOnDestroy() {
+    this.subscription.map(sub => sub.unsubscribe());
   }
 
   public changeSort($event): void {
@@ -127,7 +159,7 @@ export class IncidentTableComponent implements OnInit {
 
   public openDialog(id: number) {
     this.dialog.open(IncidentDetailComponent, {
-      data: { id_incident: id }
+      data: { id_incident: id, navigateTo: "incident" }
     });
   }
 }

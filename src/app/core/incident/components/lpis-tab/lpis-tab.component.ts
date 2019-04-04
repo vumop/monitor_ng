@@ -8,8 +8,6 @@ import { Store, Select } from "@ngxs/store";
   styleUrls: ["./lpis-tab.component.css"]
 })
 export class LpisTabComponent implements OnInit {
-  @Input() idIncident: number;
-
   public data: Array<object>;
 
   constructor(private store: Store) {}

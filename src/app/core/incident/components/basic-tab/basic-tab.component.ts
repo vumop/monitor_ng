@@ -8,7 +8,6 @@ import { Store, Select } from "@ngxs/store";
   styleUrls: ["./basic-tab.component.css"]
 })
 export class BasicTabComponent implements OnInit {
-  @Input() idIncident: number;
 
   public data: object;
 

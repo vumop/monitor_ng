@@ -19,7 +19,12 @@
         <div *ngFor="let vegetace of dpb.vegetace">
           <mat-list-item>
             <h3 mat-subheader>Vegetace:&nbsp;</h3>
-            <p>{{ vegetace.plodina }} {{ vegetace.agrotech }}</p>
+            <p>{{ vegetace.plodina }}</p>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>
+            <h3 mat-subheader>Agrotechnika:&nbsp;</h3>
+            <p>{{ vegetace.agrotech }}</p>
           </mat-list-item>
           <mat-divider></mat-divider>
         </div>
