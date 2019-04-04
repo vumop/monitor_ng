@@ -23,6 +23,7 @@ import { NgxsLoggerPluginModule } from "@ngxs/logger-plugin";
 import { MapService } from "./services/map.service";
 import { IncidentService } from "./services/incident.service";
 import { InfoComponent } from "./core/info/info.component";
+import { LoginComponent } from './core/account/login/login.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { InfoComponent } from "./core/info/info.component";
     MapComponent,
     PageNotFoundComponent,
     PageErrorComponent,
-    InfoComponent
+    InfoComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

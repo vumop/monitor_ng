@@ -7,20 +7,14 @@
       align="top"
       src="./assets/ME_lista_beztextu_white.png"
     />
-    <a
-      mat-button
-      routerLink="/map"
-      style="padding-left: 5px;"
-      fxShow
-      fxHide.xs
-    >
+    <a mat-button routerLink="/map" style="padding-left: 5px;" fxShow fxHide.xs>
       {{ title }}
     </a>
 
     <span class="block-separator"></span>
     <span class="block-separator"></span>
 
-    <a mat-button routerLink="/map" routerLinkActive="active">
+    <a mat-button md-large routerLink="/map" routerLinkActive="active">
       <mat-icon matTooltip="Mapa" fxHide fxShow.xs>map</mat-icon>
       <span fxShow fxHide.xs>Mapa</span>
     </a>
@@ -29,7 +23,7 @@
       <span fxShow fxHide.xs>Události</span>
     </a>
     <a mat-button routerLink="/info" routerLinkActive="active">
-      <mat-icon  matTooltip="O aplikaci" fxHide fxShow.xs>info</mat-icon>
+      <mat-icon matTooltip="O aplikaci" fxHide fxShow.xs>info</mat-icon>
       <span fxShow fxHide.xs>O aplikaci</span>
     </a>
 
@@ -45,14 +39,14 @@
     </button>
 
     <mat-menu #appMenu="matMenu">
-      <button mat-menu-item>
+      <a mat-menu-item routerLink="/login" routerLinkActive="active">
         <mat-icon>lock_open</mat-icon>
         <span>Přihlášení</span>
-      </button>
-      <button mat-menu-item>
-          <mat-icon>power_settings_new</mat-icon>
-          <span>Odhlášení</span>
-        </button>
+      </a>
+      <a mat-menu-item routerLink="/">
+        <mat-icon>power_settings_new</mat-icon>
+        <span>Odhlášení</span>
+      </a>
     </mat-menu>
   </mat-toolbar>
 </div>

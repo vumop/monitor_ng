@@ -15,3 +15,7 @@ mat-toolbar {
 .active{
   font-weight: bold;
 }
+
+.mat-button{
+  font-size: 16px;
+}
