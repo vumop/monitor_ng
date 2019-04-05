@@ -17,11 +17,14 @@ import { PageErrorComponent } from "./shared/page/page-error/page-error.componen
 import { NgxsModule } from "@ngxs/store";
 import { IncidentState } from "./state/incident.state";
 import { DetailState } from "./state/detail.state";
+import { UserState } from "./state/user.state";
 import { NgxsReduxDevtoolsPluginModule } from "@ngxs/devtools-plugin";
 import { NgxsLoggerPluginModule } from "@ngxs/logger-plugin";
 
 import { MapService } from "./services/map.service";
 import { IncidentService } from "./services/incident.service";
+import { UserService } from "./services/user.service";
+
 import { InfoComponent } from "./core/info/info.component";
 import { LoginComponent } from './core/account/login/login.component';
 import { LostPassComponent } from './core/account/lost-pass/lost-pass.component';
@@ -43,7 +46,7 @@ import { LostPassComponent } from './core/account/lost-pass/lost-pass.component'
     SharedMaterialModule,
     AppRoutingModule,
     IncidentModule,
-    NgxsModule.forRoot([IncidentState, DetailState], {
+    NgxsModule.forRoot([IncidentState, DetailState, UserState], {
       developmentMode: !environment.production
     }),
     NgxsReduxDevtoolsPluginModule.forRoot(),
@@ -51,7 +54,7 @@ import { LostPassComponent } from './core/account/lost-pass/lost-pass.component'
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [MapService, IncidentService],
+  providers: [MapService, IncidentService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
