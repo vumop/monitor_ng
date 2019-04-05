@@ -4,3 +4,8 @@ mat-form-field {
 mat-card-title {
   text-align: center;
 }
+
+mat-card-subtitle{
+  width: 310px;
+  text-align: center;
+}

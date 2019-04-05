@@ -24,6 +24,7 @@ import { MapService } from "./services/map.service";
 import { IncidentService } from "./services/incident.service";
 import { InfoComponent } from "./core/info/info.component";
 import { LoginComponent } from './core/account/login/login.component';
+import { LostPassComponent } from './core/account/lost-pass/lost-pass.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { LoginComponent } from './core/account/login/login.component';
     PageNotFoundComponent,
     PageErrorComponent,
     InfoComponent,
-    LoginComponent
+    LoginComponent,
+    LostPassComponent
   ],
   imports: [
     BrowserModule,
