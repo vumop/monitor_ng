@@ -29,6 +29,9 @@ import { InfoComponent } from "./core/info/info.component";
 import { LoginComponent } from './core/account/login/login.component';
 import { LostPassComponent } from './core/account/lost-pass/lost-pass.component';
 
+
+import { FakeBackendProvider } from './shared/helpers/fake-backend.service';
+
 @NgModule({
   declarations: [
     AppComponent,
