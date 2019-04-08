@@ -46,7 +46,7 @@ export class IncidentTableComponent
     IncidentStateModel
   >;
 
-  private displayedColumns: string[] = [
+  public displayedColumns: string[] = [
     "id",
     "datum_vzniku_od",
     "misto_nazev",
@@ -143,13 +143,13 @@ export class IncidentTableComponent
 
   public changePage = ($event: Event) => {
     this.store.dispatch(new PageIncident($event));
-  }
+  };
 
   public searchDistrict(filterValue: string) {
     this.searchTextChanged.next(filterValue);
   }
 
-  private applyFilter(filterValue: string) {
+  public applyFilter(filterValue: string) {
     this.store.dispatch(new FilterIncident(filterValue, "district"));
   }
 

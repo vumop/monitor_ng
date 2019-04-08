@@ -4,6 +4,8 @@ import { Incident } from "../models/incident.model";
 
 import { default as ApiConfig } from "../config/api"; //import  ApiConfig from "../config/api";
 
+import { environment } from "../../environments/environment";
+
 @Injectable({
   providedIn: "root"
 })
@@ -11,24 +13,24 @@ export class IncidentService {
   constructor(private http: HttpClient) {}
 
   fetchIncidents() {
-    return this.http.get<Incident[]>(`${ApiConfig.apiUrl}/incident/list/`);
+    return this.http.get<Incident[]>(`${environment.apiUrl}/incident/list/`);
   }
 
   getIncident(id: number) {
     return this.http.get<Incident[]>(
-      `${ApiConfig.apiUrl}/incident/detail/${id}/`
+      `${environment.apiUrl}/incident/detail/${id}/`
     );
   }
 
   getFotos(id: number) {
     return this.http.get<Incident[]>(
-      `${ApiConfig.apiUrl}/incident/foto/${id}/`
+      `${environment.apiUrl}/incident/foto/${id}/`
     );
   }
 
   getLpis(id: number) {
     return this.http.get<Incident[]>(
-      `${ApiConfig.apiUrl}/incident/lpis/${id}/`
+      `${environment.apiUrl}/incident/lpis/${id}/`
     );
   }
 
