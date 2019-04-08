@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { environment } from "../environments/environment";
 
 import { AppRoutingModule } from "./app-routing.module";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { SharedMaterialModule } from "./shared/material/shared-material.module";
 import { IncidentModule } from "./core/incident/incident.module";
@@ -13,24 +13,24 @@ import { AppComponent } from "./app.component";
 import { MapComponent } from "./core/map/map.component";
 import { PageNotFoundComponent } from "./shared/page/page-not-found/page-not-found.component";
 import { PageErrorComponent } from "./shared/page/page-error/page-error.component";
+import { ErrorInterceptor } from "./shared/helpers/error.interceptor";
 
 import { NgxsModule } from "@ngxs/store";
+import { NgxsReduxDevtoolsPluginModule } from "@ngxs/devtools-plugin";
+import { NgxsLoggerPluginModule } from "@ngxs/logger-plugin";
 import { IncidentState } from "./state/incident.state";
 import { DetailState } from "./state/detail.state";
 import { UserState } from "./state/user.state";
-import { NgxsReduxDevtoolsPluginModule } from "@ngxs/devtools-plugin";
-import { NgxsLoggerPluginModule } from "@ngxs/logger-plugin";
 
 import { MapService } from "./services/map.service";
 import { IncidentService } from "./services/incident.service";
 import { UserService } from "./services/user.service";
 
 import { InfoComponent } from "./core/info/info.component";
-import { LoginComponent } from './core/account/login/login.component';
-import { LostPassComponent } from './core/account/lost-pass/lost-pass.component';
+import { LoginComponent } from "./core/account/login/login.component";
+import { LostPassComponent } from "./core/account/lost-pass/lost-pass.component";
 
-
-import { FakeBackendProvider } from './shared/helpers/fake-backend.service';
+import { FakeBackendProvider } from "./shared/helpers/fake-backend.service";
 
 @NgModule({
   declarations: [
@@ -57,7 +57,13 @@ import { FakeBackendProvider } from './shared/helpers/fake-backend.service';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [MapService, IncidentService, UserService],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    MapService,
+    IncidentService,
+    UserService,
+    FakeBackendProvider
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

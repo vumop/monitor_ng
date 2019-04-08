@@ -143,7 +143,7 @@ export class IncidentTableComponent
 
   public changePage = ($event: Event) => {
     this.store.dispatch(new PageIncident($event));
-  };
+  }
 
   public searchDistrict(filterValue: string) {
     this.searchTextChanged.next(filterValue);

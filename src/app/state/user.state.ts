@@ -1,14 +1,17 @@
 import { State, Action, StateContext, Selector } from "@ngxs/store";
-import { Logout, Login } from "./../actions/user.actions";
+
+import { Logout, Login, LostPass } from "./../actions/user.actions";
 import { UserModel } from "../models/user.model";
 import { UserService } from "../services/user.service";
-import { tap } from "rxjs/operators";
+import { tap, first, catchError } from "rxjs/operators";
+import { Observable, throwError } from "rxjs";
 
 @State<UserModel>({
   name: "User",
   defaults: {
     token: "",
-    username: "Host"
+    username: "Host",
+    isLogged: false
   }
 })
 export class UserState {
@@ -17,23 +20,57 @@ export class UserState {
     return state.token;
   }
 
+  @Selector()
+  static isLoggend(state: UserModel) {
+    return state.isLogged;
+  }
+
   constructor(private userService: UserService) {}
 
   @Action(Login)
-  login({ patchState }: StateContext<UserModel>, { username, password }: Login) {
-    return this.userService.login(username, password).pipe(
-      tap((result: { token: string }) => {
-
-        console.log(result);
-
-        patchState({ token: "sdf", username: "jirka" });
-      })
-    );
+  login(
+    { patchState }: StateContext<UserModel>,
+    { username, password }: Login
+  ) {
+    return this.userService
+      .login(username, password)
+      .pipe(first())
+      .subscribe(
+        result => {
+          patchState({
+            token: result.token,
+            username: result.username,
+            isLogged: true
+          });
+        },
+        err => {
+          alert(err);
+        }
+      );
   }
 
   @Action(Logout)
-  logout({ setState, getState }: StateContext<UserModel>) {
+  logout({ setState, getState, patchState }: StateContext<UserModel>) {
     const { token } = getState();
-    return this.userService.logout();
+    patchState({ token: "", username: "Host", isLogged: false });
+    this.userService.logout();
+  }
+
+  @Action(LostPass)
+  lostPass(
+    { setState, getState, patchState }: StateContext<UserModel>,
+    { email }: LostPass
+  ) {
+    this.userService
+      .lostPass(email)
+      .pipe(first())
+      .subscribe(
+        result => {
+          console.log(result);
+        },
+        err => {
+          alert(err);
+        }
+      );
   }
 }

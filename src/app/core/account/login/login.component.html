@@ -9,8 +9,9 @@
       <mat-card-title>Přihlášení</mat-card-title>
       <form
         autocomplete="off"
-        novalidate
-        (ngSubmit)="createOwner(ownerForm.value)"
+        novalidate       
+        (ngSubmit)="onSubmit(loginForm.value)"
+        [formGroup]="loginForm"
         fxLayout="column wrap"
         fxLayoutAlign="center center"
         fxLayoutGap="10px"
@@ -21,13 +22,34 @@
               matInput
               type="text"
               placeholder="Uživ. jméno nebo e-mail"
-              id="name"
+              formControlName="jmeno_uzivatel"
+              required
             />
+            <mat-error *ngIf="formControls.jmeno_uzivatel.hasError('required')">
+              vyplňte <strong>jméno</strong>!
+            </mat-error>
+            <mat-error *ngIf="formControls.jmeno_uzivatel.errors?.minlength">
+              minimální délka 3
+            </mat-error>
+            <mat-error *ngIf="formControls.jmeno_uzivatel.errors?.maxlength">
+              maximální délka je 15
+            </mat-error>
+            <mat-error
+              *ngIf="formControls.jmeno_uzivatel.hasError('invalidChar')"
+            >
+              obsahuje nepovolené znaky
+            </mat-error>
           </mat-form-field>
         </mat-card-content>
         <mat-card-content>
           <mat-form-field>
-            <input matInput type="password" placeholder="Heslo" id="pass" />
+            <input
+              matInput
+              type="password"
+              placeholder="Heslo"
+              formControlName="heslo"
+              required
+            />
             <mat-hint align="end">
               <a
                 style="color: #0366d6; text-decoration: none;"
@@ -35,6 +57,18 @@
                 >Zapomenuté heslo?</a
               >
             </mat-hint>
+            <mat-error *ngIf="formControls.heslo.hasError('required')">
+              vyplňte <strong>heslo</strong>!
+            </mat-error>
+            <mat-error *ngIf="formControls.heslo.errors?.minlength">
+              minimální délka 3
+            </mat-error>
+            <mat-error *ngIf="formControls.heslo.errors?.maxlength">
+              maximální délka je 15
+            </mat-error>
+            <mat-error *ngIf="formControls.heslo.hasError('invalidChar')">
+              obsahuje nepovolené znaky
+            </mat-error>
           </mat-form-field>
         </mat-card-content>
         <mat-card-actions align="center">

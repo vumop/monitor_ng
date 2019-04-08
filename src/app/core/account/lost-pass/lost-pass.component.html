@@ -1,40 +1,52 @@
 <div fxLayout="column" style="height: 100%;">
-    <app-menu></app-menu>
-    <section
-      fxLayout="row wrap"
-      fxLayoutAlign="center center"
-      style="margin-top: 3%;"
-    >
-      <mat-card fxFlex="500px" fxFlex.xs="100%">
-        <mat-card-title>Zapomenuté heslo</mat-card-title>
-        <form
-          autocomplete="off"
-          novalidate
-          (ngSubmit)="createOwner(ownerForm.value)"
-          fxLayout="column wrap"
-          fxLayoutAlign="center center"
-          fxLayoutGap="10px"
-        >
-          <mat-card-content>
-            <mat-form-field hintLabel="Heslo bude odesláno na zadaný e-mail">
-              <input
-                matInput
-                type="email"
-                placeholder="E-mail"
-                id="name"
-              />
-            </mat-form-field>
-          </mat-card-content>
-          <mat-card-actions align="center">
-            <button mat-raised-button color="primary">
-              Odeslat
-            </button>
-            <a mat-raised-button color="warn" routerLink="/">
-              Zavřít
-            </a>
-          </mat-card-actions>
-        </form>
-      </mat-card>
-    </section>
-  </div>
-  
+  <app-menu></app-menu>
+  <section
+    fxLayout="row wrap"
+    fxLayoutAlign="center center"
+    style="margin-top: 3%;"
+  >
+    <mat-card fxFlex="500px" fxFlex.xs="100%">
+      <mat-card-title>Zapomenuté heslo</mat-card-title>
+      <form
+        autocomplete="off"
+        novalidate
+        (ngSubmit)="onSubmit(form.value)"
+        [formGroup]="form"
+        fxLayout="column wrap"
+        fxLayoutAlign="center center"
+        fxLayoutGap="10px"
+      >
+        <mat-card-content>
+          <mat-form-field hintLabel="Heslo bude odesláno na zadaný e-mail">
+            <input
+              matInput
+              type="email"
+              placeholder="E-mail"
+              formControlName="email"
+              required
+            />
+            <mat-error
+              *ngIf="
+                formControls.email.hasError('email') &&
+                !formControls.email.hasError('required')
+              "
+            >
+              Emailová adresa musí být ve formátu: uživatel@doména.cz
+            </mat-error>
+            <mat-error *ngIf="formControls.email.hasError('required')">
+              vyplňte <strong>e-mail</strong>!
+            </mat-error>
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions align="center">
+          <button mat-raised-button color="primary">
+            Odeslat
+          </button>
+          <a mat-raised-button color="warn" routerLink="/">
+            Zavřít
+          </a>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </section>
+</div>

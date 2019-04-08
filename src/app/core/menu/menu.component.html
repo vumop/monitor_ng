@@ -31,7 +31,7 @@
 
     <button fxShow fxHide.xs mat-button [matMenuTriggerFor]="appMenu">
       <mat-icon>account_circle</mat-icon>
-      Host
+      {{ userName }}
     </button>
 
     <button fxHide fxShow.xs mat-icon-button [matMenuTriggerFor]="appMenu">
@@ -39,11 +39,16 @@
     </button>
 
     <mat-menu #appMenu="matMenu">
-      <a mat-menu-item routerLink="/login" routerLinkActive="active">
+      <a
+        *ngIf="!isLogged"
+        mat-menu-item
+        routerLink="/login"
+        routerLinkActive="active"
+      >
         <mat-icon>lock_open</mat-icon>
         <span>Přihlášení</span>
       </a>
-      <a mat-menu-item routerLink="/">
+      <a *ngIf="isLogged" mat-menu-item (click)="logout()" routerLink="/">
         <mat-icon>power_settings_new</mat-icon>
         <span>Odhlášení</span>
       </a>

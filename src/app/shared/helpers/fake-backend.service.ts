@@ -20,19 +20,12 @@ export class FakeBackendService implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    /**
-     *
-     * http://jasonwatmore.com/post/2018/05/16/angular-6-user-registration-and-login-example-tutorial#alert-service-ts
-     *
-     */
-
-    console.log("Fake backend - request.url", request.url);
-
-    console.log("FakeBackendService request.method", request.method);
-
-    console.log("FakeBackendService request.body", request.body);
-
-    const users: any[] = JSON.parse(localStorage.getItem("users")) || [];
+    const users: any[] = [
+      {
+        username: "jirka",
+        password: "heslo"
+      }
+    ];
 
     return of(null)
       .pipe(
@@ -58,12 +51,22 @@ export class FakeBackendService implements HttpInterceptor {
                 token: "fake-jwt-token"
               };
 
-              return of(new HttpResponse({ status: 200, body: body }));
+              return of(new HttpResponse({ status: 200, body }));
             } else {
               return throwError({
                 error: { message: "Username or password is incorrect" }
               });
             }
+          }
+ 
+          if (
+            request.url.endsWith("/users/lostPass") &&
+            request.method === "POST"
+          ) {
+            const body = {
+              email: request.body.email
+            };
+            return of(new HttpResponse({ status: 200, body }));
           }
           return next.handle(request);
         })

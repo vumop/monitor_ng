@@ -11,27 +11,21 @@ import { map } from "rxjs/operators";
 export class UserService {
   constructor(private http: HttpClient) {}
 
-  login(user: string, pass: string) {
-    return this.http
-      .post<any>(`${ApiConfig.apiUrl}/users/authenticate`, {
-        username: user,
-        password: pass
-      })
-      .pipe(
-        map(user => {
-          // login successful if there's a jwt token in the response
-          if (user && user.token) {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem("currentUser", JSON.stringify(user));
-          }
-
-          return user;
-        })
-      );
+  login(username: string, password: string) {
+    return this.http.post<any>(`/users/authenticate`, {
+      username,
+      password
+    });
   }
 
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem("currentUser");
+  }
+
+  lostPass(email: string) {
+    return this.http.post<any>(`/users/lostPass`, {
+      email
+    });
   }
 }
