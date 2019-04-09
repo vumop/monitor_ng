@@ -13,7 +13,6 @@ import { IncidentService } from "../services/incident.service";
 
 export class DetailStateModel {
   basic: object;
-  loading: boolean;
   fotos: Array<object>;
   lpis: Array<object>;
 }
@@ -22,7 +21,6 @@ export class DetailStateModel {
   name: "Detail",
   defaults: {
     basic: {},
-    loading: true,
     fotos: [],
     lpis: []
   }
@@ -42,8 +40,7 @@ export class DetailState {
         const state = getState();
         setState({
           ...state,
-          basic: result,
-          loading: false
+          basic: result
         });
       });
   }
@@ -55,8 +52,7 @@ export class DetailState {
       ...state,
       basic: {},
       fotos: [],
-      lpis: [],
-      loading: true
+      lpis: []
     });
   }
 

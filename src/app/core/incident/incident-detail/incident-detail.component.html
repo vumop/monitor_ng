@@ -7,9 +7,7 @@
     </button>
   </mat-toolbar-row>
 </mat-toolbar>
-
-<mat-progress-bar *ngIf="loader.basic" mode="indeterminate"></mat-progress-bar>
-
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
 <mat-tab-group
   mat-stretch-tabs
   class="mat-elevation-z4"
@@ -17,17 +15,20 @@
 >
   <mat-tab label="Základí popis">
     <mat-dialog-content>
-      <app-basic-tab></app-basic-tab>
+      <app-basic-tab (parentSetLoading)="setLoading($event)"></app-basic-tab>
     </mat-dialog-content>
   </mat-tab>
   <mat-tab label="Detailní popis">
-      <mat-dialog-content>
-        <app-lpis-tab></app-lpis-tab>
-      </mat-dialog-content>
-    </mat-tab>
+    <mat-dialog-content>
+      <app-lpis-tab (parentSetLoading)="setLoading($event)"></app-lpis-tab>
+    </mat-dialog-content>
+  </mat-tab>
   <mat-tab label="Fotky">
     <mat-dialog-content>
-      <app-fotos-tab [idIncident]="data.id_incident"></app-fotos-tab>
+      <app-fotos-tab
+        [idIncident]="data.id_incident"
+        (parentSetLoading)="setLoading($event)"
+      ></app-fotos-tab>
     </mat-dialog-content>
   </mat-tab>
 </mat-tab-group>

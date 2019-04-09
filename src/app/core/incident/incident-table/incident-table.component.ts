@@ -33,6 +33,8 @@ import {
   IncidentStateModel
 } from "./../../../state/incident.state";
 
+import { UserState } from "./../../../state/user.state";
+
 import { IncidentDetailComponent } from "../incident-detail/incident-detail.component";
 
 @Component({
@@ -42,6 +44,8 @@ import { IncidentDetailComponent } from "../incident-detail/incident-detail.comp
 })
 export class IncidentTableComponent
   implements OnInit, AfterViewInit, OnDestroy {
+  @Select(UserState.isLoggend) selectedIsLoggend: Observable<boolean>;
+
   @Select(IncidentState.getIncidents) selectedIncidents: Observable<
     IncidentStateModel
   >;
@@ -63,6 +67,7 @@ export class IncidentTableComponent
   private searchTextChanged = new Subject<string>();
   private subscription = [];
   public filterForm: FormGroup;
+  public isLogged: boolean;
 
   constructor(
     private store: Store,
@@ -93,8 +98,18 @@ export class IncidentTableComponent
 
     this.selectedIncidents.subscribe(data => {
       this.loading = data.loading;
-      //
-      this.incidents.data = data.incidents;
+      /**
+       * 
+       *         const incidentRes = [];
+        result.map(res => {
+          const incident = new Incident(res);
+          this.mapService.featureOverlay
+            .getSource()
+            .addFeature(incident.createFeature());
+        });
+       * 
+       */
+      this.incidents.data = data.incidents.map(res => new Incident(res));
       this.sortState = data.sort;
       this.pageState = data.page;
     });
@@ -124,6 +139,10 @@ export class IncidentTableComponent
           this.incidents.filter = value.trim().toLowerCase();
         })
     );
+
+    this.selectedIsLoggend.subscribe(val => {
+      this.isLogged = val;
+    });
   }
 
   ngAfterViewInit() {

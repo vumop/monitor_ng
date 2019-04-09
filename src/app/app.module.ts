@@ -18,6 +18,7 @@ import { ErrorInterceptor } from "./shared/helpers/error.interceptor";
 import { NgxsModule } from "@ngxs/store";
 import { NgxsReduxDevtoolsPluginModule } from "@ngxs/devtools-plugin";
 import { NgxsLoggerPluginModule } from "@ngxs/logger-plugin";
+import { NgxsStoragePluginModule } from "@ngxs/storage-plugin";
 import { IncidentState } from "./state/incident.state";
 import { DetailState } from "./state/detail.state";
 import { UserState } from "./state/user.state";
@@ -52,6 +53,7 @@ import { FakeBackendProvider } from "./shared/helpers/fake-backend.service";
     NgxsModule.forRoot([IncidentState, DetailState, UserState], {
       developmentMode: !environment.production
     }),
+    NgxsStoragePluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     FormsModule,

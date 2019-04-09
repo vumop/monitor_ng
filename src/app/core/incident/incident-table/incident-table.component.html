@@ -7,8 +7,15 @@
         (parentApplyDateFilter)="applyDateFilter($event)"
       ></app-date-filter>
 
-      <div fxHide fxShow.xs fxFlex="5"></div>
-      <a fxHide fxShow.xs mat-fab color="primary" routerLink=".">
+      <div *ngIf="isLogged" fxHide fxShow.xs fxFlex="5"></div>
+      <a
+        *ngIf="isLogged"
+        fxHide
+        fxShow.xs
+        mat-fab
+        color="primary"
+        routerLink="."
+      >
         <mat-icon>add</mat-icon>
       </a>
     </div>
@@ -21,8 +28,8 @@
       (parentSearchDistrict)="searchDistrict($event)"
     ></app-search-filter>
 
-    <div fxShow fxHide.xs fxFlex="5"></div>
-    <a fxShow fxHide.xs mat-fab color="primary" routerLink=".">
+    <div *ngIf="isLogged" fxShow fxHide.xs fxFlex="5"></div>
+    <a *ngIf="isLogged" fxShow fxHide.xs mat-fab color="primary" routerLink=".">
       <mat-icon>add</mat-icon>
     </a>
   </form>

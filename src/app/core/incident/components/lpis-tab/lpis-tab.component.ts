@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, EventEmitter, Input, Output } from "@angular/core";
 
 import { Store, Select } from "@ngxs/store";
 
@@ -8,6 +8,9 @@ import { Store, Select } from "@ngxs/store";
   styleUrls: ["./lpis-tab.component.css"]
 })
 export class LpisTabComponent implements OnInit {
+
+  @Output() parentSetLoading = new EventEmitter<boolean>();
+
   public data: Array<object>;
 
   constructor(private store: Store) {}
@@ -17,6 +20,7 @@ export class LpisTabComponent implements OnInit {
       .select(state => state.Detail.lpis)
       .subscribe(data => {
         this.data = data;
+        setTimeout(() => this.parentSetLoading.emit(false));
       });
   }
 }

@@ -2,8 +2,6 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Incident } from "../models/incident.model";
 
-import { default as ApiConfig } from "../config/api"; //import  ApiConfig from "../config/api";
-
 import { environment } from "../../environments/environment";
 
 @Injectable({

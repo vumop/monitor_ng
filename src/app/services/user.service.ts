@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
-
 import { HttpClient } from "@angular/common/http";
 
-import { default as ApiConfig } from "../config/api"; //import  ApiConfig from "../config/api";
 import { map } from "rxjs/operators";
+
+import { environment } from "../../environments/environment";
 
 @Injectable({
   providedIn: "root"

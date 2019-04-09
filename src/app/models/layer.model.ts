@@ -56,7 +56,7 @@ export class LayerModel {
   }
 
   public getLegendUrls(): string[] {
-    const legendUrls = [];
+    let legendUrls = [];
     if (
       this.olLayer.getSource() instanceof OlTileWMS ||
       this.olLayer.getSource() instanceof OlImageWMS
@@ -79,16 +79,15 @@ export class LayerModel {
         .getParams()
         .LAYERS.split(",");
 
-      for (let i = 0; i < layersArray.length; i++) {
-        const layer = layersArray[i];
+      legendUrls = layersArray.map(layer => {
         let url: string;
         if (MAP) {
           url = `${urlSrc}?MAP=${MAP}&LAYER=${layer}&REQUEST=GetLegendGraphic&SERVICE=WMS&VERSION=1.1.1&FORMAT=image/png`;
         } else {
           url = `${urlSrc}?LAYER=${layer}&REQUEST=GetLegendGraphic&SERVICE=WMS&VERSION=1.1.1&FORMAT=image/png`;
         }
-        legendUrls.push(url);
-      }
+        return url;
+      });
     }
     return legendUrls;
   }

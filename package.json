@@ -24,6 +24,7 @@
     "@angular/router": "~7.2.0",
     "@ngxs/devtools-plugin": "^3.4.3",
     "@ngxs/logger-plugin": "^3.4.3-dev.master-0f1e084",
+    "@ngxs/storage-plugin": "^3.4.3",
     "@ngxs/store": "^3.4.3-dev.master-0f1e084",
     "core-js": "^2.5.4",
     "hammerjs": "^2.0.8",

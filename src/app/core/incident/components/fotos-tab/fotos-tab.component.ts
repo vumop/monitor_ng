@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, EventEmitter ,Input, Output } from "@angular/core";
 
 import { Store, Select } from "@ngxs/store";
 
@@ -20,6 +20,8 @@ export interface FotoModel {
 export class FotosTabComponent implements OnInit {
   @Input() idIncident: number;
 
+  @Output() parentSetLoading = new EventEmitter<boolean>();
+
   public fotoViewer: FotoViewerModel;
   public fotos: Array<FotoModel>;
 
@@ -35,6 +37,7 @@ export class FotosTabComponent implements OnInit {
       .select(state => state.Detail.fotos)
       .subscribe(data => {
         this.fotos = data;
+        setTimeout(() => this.parentSetLoading.emit(false));
 
         if (this.fotos.length) {
           this.fotoViewer.activeIndex = 0;

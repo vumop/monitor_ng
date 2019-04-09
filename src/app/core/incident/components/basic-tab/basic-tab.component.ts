@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, EventEmitter, Input, Output } from "@angular/core";
 
 import { Store, Select } from "@ngxs/store";
+import { delay } from "rxjs/operators";
 
 @Component({
   selector: "app-basic-tab",
@@ -8,6 +9,7 @@ import { Store, Select } from "@ngxs/store";
   styleUrls: ["./basic-tab.component.css"]
 })
 export class BasicTabComponent implements OnInit {
+  @Output() parentSetLoading = new EventEmitter<boolean>();
 
   public data: object;
 
@@ -18,6 +20,7 @@ export class BasicTabComponent implements OnInit {
       .select(state => state.Detail.basic)
       .subscribe(data => {
         this.data = data;
+        setTimeout(() => this.parentSetLoading.emit(false));
       });
   }
 }

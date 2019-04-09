@@ -1,8 +1,5 @@
 // Section 1
 import { State, Action, StateContext, Selector } from "@ngxs/store";
-import { tap } from "rxjs/operators";
-
-import { Incident } from "./../models/incident.model";
 
 import {
   GetIncident,
@@ -12,10 +9,9 @@ import {
 } from "./../actions/incident.actions";
 
 import { IncidentService } from "../services/incident.service";
-import { MapService } from "../services/map.service";
 
 export class IncidentStateModel {
-  incidents: Incident[];
+  incidents: Array<any>;
   loading: boolean;
   sort: object;
   page: object;
@@ -38,10 +34,7 @@ export class IncidentStateModel {
   }
 })
 export class IncidentState {
-  constructor(
-    private incidentService: IncidentService,
-    private mapService: MapService
-  ) {}
+  constructor(private incidentService: IncidentService) {}
 
   @Selector()
   static getIncidents(state: IncidentStateModel) {
@@ -55,17 +48,9 @@ export class IncidentState {
       .toPromise()
       .then(result => {
         const state = getState();
-        const incidentRes = [];
-        result.map(res => {
-          const incident = new Incident(res);
-          this.mapService.featureOverlay
-            .getSource()
-            .addFeature(incident.createFeature());
-          incidentRes.push(incident);
-        });
         setState({
           ...state,
-          incidents: incidentRes,
+          incidents: result,
           loading: false
         });
       });
