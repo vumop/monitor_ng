@@ -1,4 +1,11 @@
-import { Component, OnInit, EventEmitter ,Input, Output } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  EventEmitter,
+  Input,
+  Output
+} from "@angular/core";
 
 import { Store, Select } from "@ngxs/store";
 
@@ -17,13 +24,15 @@ export interface FotoModel {
   templateUrl: "./fotos-tab.component.html",
   styleUrls: ["./fotos-tab.component.css"]
 })
-export class FotosTabComponent implements OnInit {
+export class FotosTabComponent implements OnInit, OnDestroy {
   @Input() idIncident: number;
 
   @Output() parentSetLoading = new EventEmitter<boolean>();
 
   public fotoViewer: FotoViewerModel;
   public fotos: Array<FotoModel>;
+
+  private subscription;
 
   constructor(private store: Store) {
     this.fotoViewer = {
@@ -33,7 +42,7 @@ export class FotosTabComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store
+    this.subscription = this.store
       .select(state => state.Detail.fotos)
       .subscribe(data => {
         this.fotos = data;
@@ -44,6 +53,10 @@ export class FotosTabComponent implements OnInit {
           this.fotoViewer.countFotos = this.fotos.length;
         }
       });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   public prevFoto(): void {

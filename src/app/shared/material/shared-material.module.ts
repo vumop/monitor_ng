@@ -22,6 +22,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 
 import {MatDividerModule} from '@angular/material/divider'; 
 import {MatListModule} from '@angular/material/list'; 
+import {MatSidenavModule} from '@angular/material/sidenav'; 
+import {MatExpansionModule} from '@angular/material/expansion'; 
 
 @NgModule({
   imports: [
@@ -43,7 +45,9 @@ import {MatListModule} from '@angular/material/list';
     MatDialogModule,
     MatTabsModule,
     MatDividerModule,
-    MatListModule
+    MatListModule,
+    MatSidenavModule,
+    MatExpansionModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -64,7 +68,9 @@ import {MatListModule} from '@angular/material/list';
     MatDialogModule,
     MatTabsModule,
     MatDividerModule,
-    MatListModule
+    MatListModule,
+    MatSidenavModule,
+    MatExpansionModule
   ]
 })
 export class SharedMaterialModule {}

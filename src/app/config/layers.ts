@@ -15,11 +15,11 @@ export default {
           id: 1,
           name: "Ortofoto ČR",
           visible: true,
-          minResolution: 0,
-          maxResolution: Infinity,
+          min_resolution: 0,
+          max_resolution: Infinity,
           metadata:
             "https://geoportal.cuzk.cz/(S(qbwjf2d5q0uzcem1kajcj35r))/Default.aspx?mode=TextMeta&metadataXSL=full&side=wms.verejne&metadataID=CZ-CUZK-WMS-SPRAVHRAN-P",
-          legendUrl: false,
+          legend_url: false,
           opacity: 1,
           source: {
             url: "https://geoportal.cuzk.cz/WMS_ORTOFOTO_PUB/WMService.aspx",
@@ -37,9 +37,9 @@ export default {
           metadata:
             "https://geoportal.cuzk.cz/(S(qbwjf2d5q0uzcem1kajcj35r))/Default.aspx?mode=TextMeta&metadataXSL=full&side=wms.verejne&metadataID=CZ-00025712-CUZK_WMS-MD_KM",
           description: "<small>Max 1: 5000</small>",
-          minResolution: 0,
-          maxResolution: 6000,
-          legendUrl: false,
+          min_resolution: 0,
+          max_resolution: 6000,
+          legend_url: false,
           source: {
             url: "https://services.cuzk.cz/wms/local-km-wms.asp?",
             params: { LAYERS: "RST_PK" },
@@ -52,9 +52,9 @@ export default {
           id: 3,
           name: "Stínovaný model DMR5G",
           opacity: 0.65,
-          minResolution: 0,
-          maxResolution: Infinity,
-          legendUrl: false,
+          min_resolution: 0,
+          max_resolution: Infinity,
+          legend_url: false,
           metadata:
             "https://geoportal.cuzk.cz/(S(qbwjf2d5q0uzcem1kajcj35r))/Default.aspx?mode=TextMeta&metadataXSL=full&side=wms.verejne&metadataID=CZ-CUZK-WMS-DMR5G",
           source: {
@@ -78,9 +78,9 @@ export default {
           name: "LPIS dle kultury",
           description:
             "Kultury dílů půdních bloků DPB, LPIS – on-line<br><small>Max 1: 25k</small>",
-          legendUrl: true,
-          minResolution: 0,
-          maxResolution: 25000,
+          legend_url: true,
+          min_resolution: 0,
+          max_resolution: 25000,
           metadata: false,
           source: {
             url: "https://eagri.cz/public/app/wms/plpis.fcgi",
@@ -95,9 +95,9 @@ export default {
           name: "LPIS štítek",
           description:
             "Kódy dílů půdních bloků DPB, LPIS – on-line<br><small>Max 1: 25k</small>",
-          legendUrl: true,
-          minResolution: 0,
-          maxResolution: 25000,
+          legend_url: true,
+          min_resolution: 0,
+          max_resolution: 25000,
           metadata: false,
           source: {
             url: "https://eagri.cz/public/app/wms/plpis.fcgi",
@@ -112,9 +112,9 @@ export default {
           name: "LPIS",
           description:
             "Díly půdních bloků DPB, LPIS – on-line<br><small>Max 1: 25k</small>",
-          legendUrl: true,
-          minResolution: 0,
-          maxResolution: 25000,
+          legend_url: true,
+          min_resolution: 0,
+          max_resolution: 25000,
           metadata: false,
           source: {
             url: "https://eagri.cz/public/app/wms/plpis.fcgi",
@@ -135,10 +135,10 @@ export default {
           id: 7,
           name: "Správní hranice",
           visible: true,
-          minResolution: 0,
-          maxResolution: Infinity,
+          min_resolution: 0,
+          max_resolution: Infinity,
           metadata: false,
-          legendUrl: true,
+          legend_url: true,
           opacity: 1,
           source: {
             url: "https://kalkulacka.vumop.cz/cgi-bin/mapserv.fcgi",
@@ -162,9 +162,9 @@ export default {
           name: "Erozní události",
           description:
             "Erozní události evidované v rámci Monitoringu eroze, VÚMOP – on-line",
-          legendUrl: true,
-          minResolution: 0,
-          maxResolution: Infinity,
+          legend_url: true,
+          min_resolution: 0,
+          max_resolution: Infinity,
           metadata: false,
           source: {
             url: "http://wms.vumop.cz/public/udalosti.php",

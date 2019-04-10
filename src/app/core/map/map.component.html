@@ -1,4 +1,16 @@
 <div fxLayout="column" style="height: 100%;">
   <app-menu></app-menu>
-  <div fxFlex="100" id="map"></div>
+  <mat-drawer-container
+    fxFlex
+    fxLayout="column"
+    scroll="no"
+    hasBackdrop="false"
+  >
+    <mat-drawer #drawer opened mode="over" position="end">
+      <app-layers-tree></app-layers-tree>
+    </mat-drawer>
+    <mat-drawer-content fxFlex>
+      <div fxFlex id="map"></div>
+    </mat-drawer-content>
+  </mat-drawer-container>
 </div>

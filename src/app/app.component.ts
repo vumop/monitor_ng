@@ -1,8 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 
-import { Store } from "@ngxs/store";
+import { Store, Select } from "@ngxs/store";
+import { Observable } from "rxjs";
 
+import { LayersService } from "./services/layers.service";
 import { GetIncident } from "./actions/incident.actions";
+import { Incident } from "./models/incident.model";
+
+import { IncidentState, IncidentStateModel } from "./state/incident.state";
 
 @Component({
   selector: "app-root",
@@ -10,9 +15,25 @@ import { GetIncident } from "./actions/incident.actions";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent implements OnInit {
-  constructor(private store: Store) {}
+  @Select(IncidentState.getIncidents) selectedIncidents: Observable<
+    IncidentStateModel
+  >;
+
+  constructor(
+    private store: Store,
+    private layersService: LayersService
+  ) {}
 
   ngOnInit() {
     this.store.dispatch(new GetIncident());
+
+    this.selectedIncidents.subscribe(data => {
+      data.incidents.map(res =>
+        this.layersService
+          .getFeatureOverlay()
+          .getSource()
+          .addFeature(new Incident(res).createFeature())
+      );
+    });
   }
 }

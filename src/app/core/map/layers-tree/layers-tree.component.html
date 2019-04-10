@@ -1,0 +1,47 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    <small>Mapové vrstvy</small>
+    <span class="block-spacer"></span>
+    <button mat-icon-button>
+      <mat-icon class="mat-18">chevron_right</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-list #layersTree>
+  <div *ngFor="let layer of layers">
+    <mat-list-item>
+      <button
+        color="accent"
+        [disabled]="layer.disabled"
+        (click)="setVisibility(layer)"
+        mat-icon-button
+      >
+        <mat-icon *ngIf="layer.visible">visibility</mat-icon>
+        <mat-icon *ngIf="!layer.visible">visibility_off</mat-icon>
+      </button>
+      <div
+        [ngStyle]="{ color: layer.disabled ? 'gray' : '' }"
+        (click)="setVisibility(layer)"
+      >
+        <p matTooltip="{{ layer.olLayer.get('description') }}">
+          {{ layer.name }}
+        </p>
+      </div>
+      <button
+        *ngIf="layer.olLayer.get('metadata')"
+        mat-icon-button
+        matTooltip="Metadata"
+        (click)="getMetadata(layer)"
+      >
+        <mat-icon style="font-size: 100%">description</mat-icon>
+      </button>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </div>
+</mat-list>
+
+
+
+
+  

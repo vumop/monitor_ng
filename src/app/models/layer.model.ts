@@ -29,13 +29,12 @@ export class LayerModel {
     /**
      *
      */
+    // init disabled layer param
     this.controlDisabled(map.getView());
-    map.getView().on("change:resolution", e => {
-      this.controlDisabled(e.target);
-    });
+    map.getView().on("change:resolution", e => this.controlDisabled(e.target));
   }
 
-  private controlDisabled(view): void {
+  private controlDisabled = (view): void => {
     if (view.getResolution() < this.olLayer.getMinResolution()) {
       this.disabled = true;
     } else if (view.getResolution() > this.olLayer.getMaxResolution()) {
@@ -43,7 +42,7 @@ export class LayerModel {
     } else {
       this.disabled = false;
     }
-  }
+  };
 
   public setVisibility(visible: boolean) {
     this.visible = visible;
@@ -62,7 +61,7 @@ export class LayerModel {
       this.olLayer.getSource() instanceof OlImageWMS
     ) {
       if (this.olLayer.getSource().getParams().LAYERS == "undefined") {
-        console.log("The layer parameter is wrong defined.");
+        console.warn("The layer parameter is wrong defined.");
         return [];
       }
 

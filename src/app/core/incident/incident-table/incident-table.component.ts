@@ -98,17 +98,6 @@ export class IncidentTableComponent
 
     this.selectedIncidents.subscribe(data => {
       this.loading = data.loading;
-      /**
-       * 
-       *         const incidentRes = [];
-        result.map(res => {
-          const incident = new Incident(res);
-          this.mapService.featureOverlay
-            .getSource()
-            .addFeature(incident.createFeature());
-        });
-       * 
-       */
       this.incidents.data = data.incidents.map(res => new Incident(res));
       this.sortState = data.sort;
       this.pageState = data.page;

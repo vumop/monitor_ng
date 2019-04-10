@@ -10,7 +10,6 @@ import {
 
 import { IncidentService } from "../services/incident.service";
 
-
 export class DetailStateModel {
   basic: object;
   fotos: Array<object>;
@@ -30,26 +29,26 @@ export class DetailState {
 
   @Action(GetDetail)
   getDetail(
-    { getState, setState }: StateContext<DetailStateModel>,
+    { getState, setState, patchState }: StateContext<DetailStateModel>,
     { id }: GetDetail
   ) {
     return this.incidentService
       .getIncident(id)
       .toPromise()
       .then(result => {
-        const state = getState();
-        setState({
-          ...state,
+        patchState({
           basic: result
         });
       });
   }
 
   @Action(ResetDetail)
-  resetDetail({ getState, setState }: StateContext<DetailStateModel>) {
-    const state = getState();
-    setState({
-      ...state,
+  resetDetail({
+    getState,
+    setState,
+    patchState
+  }: StateContext<DetailStateModel>) {
+    patchState({
       basic: {},
       fotos: [],
       lpis: []
@@ -58,16 +57,14 @@ export class DetailState {
 
   @Action(GetFotos)
   getFotos(
-    { getState, setState }: StateContext<DetailStateModel>,
+    { getState, setState, patchState }: StateContext<DetailStateModel>,
     { id }: GetFotos
   ) {
     return this.incidentService
       .getFotos(id)
       .toPromise()
       .then(result => {
-        const state = getState();
-        setState({
-          ...state,
+        patchState({
           fotos: result
         });
       });
@@ -75,16 +72,14 @@ export class DetailState {
 
   @Action(GetLpis)
   getLpis(
-    { getState, setState }: StateContext<DetailStateModel>,
+    { getState, setState, patchState }: StateContext<DetailStateModel>,
     { id }: GetLpis
   ) {
     return this.incidentService
       .getLpis(id)
       .toPromise()
       .then(result => {
-        const state = getState();
-        setState({
-          ...state,
+        patchState({
           lpis: result
         });
       });

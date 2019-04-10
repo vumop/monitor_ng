@@ -25,14 +25,16 @@ export interface DataModel {
   styleUrls: ["./incident-detail.component.css"]
 })
 export class IncidentDetailComponent implements OnInit {
-  public loading = true;
+  public loading: boolean;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: DataModel,
     public dialogRef: MatDialogRef<IncidentDetailComponent>,
     private store: Store,
     private router: Router
-  ) {}
+  ) {
+    this.loading = true;
+  }
 
   ngOnInit() {
     this.store.dispatch(new GetDetail(this.data.id_incident));

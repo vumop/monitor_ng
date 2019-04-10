@@ -24,6 +24,7 @@ import { DetailState } from "./state/detail.state";
 import { UserState } from "./state/user.state";
 
 import { MapService } from "./services/map.service";
+import { LayersService } from "./services/layers.service";
 import { IncidentService } from "./services/incident.service";
 import { UserService } from "./services/user.service";
 
@@ -32,6 +33,7 @@ import { LoginComponent } from "./core/account/login/login.component";
 import { LostPassComponent } from "./core/account/lost-pass/lost-pass.component";
 
 import { FakeBackendProvider } from "./shared/helpers/fake-backend.service";
+import { LayersTreeComponent } from './core/map/layers-tree/layers-tree.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,8 @@ import { FakeBackendProvider } from "./shared/helpers/fake-backend.service";
     PageErrorComponent,
     InfoComponent,
     LoginComponent,
-    LostPassComponent
+    LostPassComponent,
+    LayersTreeComponent
   ],
   imports: [
     BrowserModule,
@@ -62,6 +65,7 @@ import { FakeBackendProvider } from "./shared/helpers/fake-backend.service";
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     MapService,
+    LayersService,
     IncidentService,
     UserService,
     FakeBackendProvider
