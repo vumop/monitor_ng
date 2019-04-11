@@ -19,7 +19,9 @@ import {
 export class LostPassComponent implements OnInit {
   public form: FormGroup;
 
-  get formControls(): object {
+  get formControls(): {
+    [key: string]: AbstractControl;
+  } {
     return this.form.controls;
   }
 

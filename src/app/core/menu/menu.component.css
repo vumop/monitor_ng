@@ -9,13 +9,17 @@
 }
 
 mat-toolbar {
-  box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }
 
-.active{
-  font-weight: bold;
+.active .material-icons {
+  font-size: 28px !important;
 }
 
-.mat-button{
+.active {
+  font-weight: 700;
+}
+
+.mat-button {
   font-size: 16px;
 }

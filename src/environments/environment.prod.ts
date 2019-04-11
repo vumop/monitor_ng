@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: "http://localhost/monitoring/public"
+  apiUrl: "https://test65.vumop.cz/dev_monitoring/public"
 };

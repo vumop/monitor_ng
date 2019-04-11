@@ -20,7 +20,7 @@ import { isEmpty } from "lodash";
 export class BasicTabComponent implements OnInit, OnDestroy {
   @Output() parentSetLoading = new EventEmitter<boolean>();
 
-  public data: object;
+  public data: { [key: string]: any };
   private subscription;
 
   constructor(private store: Store) {}
