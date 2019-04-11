@@ -1,16 +1,34 @@
 <div fxLayout="column" style="height: 100%;">
   <app-menu></app-menu>
+
   <mat-drawer-container
     fxFlex
     fxLayout="column"
     scroll="no"
     hasBackdrop="false"
   >
-    <mat-drawer #drawer opened mode="over" position="end">
-      <app-layers-tree></app-layers-tree>
+    <mat-drawer
+      #drawer
+      mode="push"
+      position="end"
+      [ngStyle]="{ 'width.px': 290 }"
+    >
+      <app-layers-tree [drawer]="drawer"></app-layers-tree>
     </mat-drawer>
     <mat-drawer-content fxFlex>
       <div fxFlex id="map"></div>
+      <app-zoom-panel id="zoom-panel"></app-zoom-panel>
+      <a
+        *ngIf="isLogged"
+        mat-fab
+        color="primary"
+        routerLink="."
+        id="add-incident-button"
+      >
+        <mat-icon>add</mat-icon>
+      </a>
     </mat-drawer-content>
   </mat-drawer-container>
+
+  <app-tool-panel id="tool-panel"  [drawer]="drawer"></app-tool-panel>
 </div>

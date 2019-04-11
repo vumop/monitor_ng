@@ -16,13 +16,12 @@ export class LayersService {
 
   private featureOverlay: FeatureOverlay;
 
-  constructor(private mapService: MapService) {  
-
+  constructor(private mapService: MapService) {
     this.layers = [];
 
     this.featureOverlay = new FeatureOverlay();
 
-    configLayers.groups.forEach(group => {
+    this.fetchLayers().groups.forEach(group => {
       group.layers.forEach(layer => {
         this.layers.push(
           new LayerModel(this.createLayer(layer), this.mapService.getMap())
@@ -44,6 +43,10 @@ export class LayersService {
   public getLayers = () => this.layers;
 
   public getFeatureOverlay = () => this.featureOverlay.getLayer();
+
+  public fetchLayers(): any {
+    return configLayers;
+  }
 
   private createLayer(layer): TileLayer {
     const olLayer = new TileLayer({

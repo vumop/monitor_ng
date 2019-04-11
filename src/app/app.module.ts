@@ -34,6 +34,8 @@ import { LostPassComponent } from "./core/account/lost-pass/lost-pass.component"
 
 import { FakeBackendProvider } from "./shared/helpers/fake-backend.service";
 import { LayersTreeComponent } from './core/map/layers-tree/layers-tree.component';
+import { ZoomPanelComponent } from './core/map/zoom-panel/zoom-panel.component';
+import { ToolPanelComponent } from './core/map/tool-panel/tool-panel.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { LayersTreeComponent } from './core/map/layers-tree/layers-tree.componen
     InfoComponent,
     LoginComponent,
     LostPassComponent,
-    LayersTreeComponent
+    LayersTreeComponent,
+    ZoomPanelComponent,
+    ToolPanelComponent
   ],
   imports: [
     BrowserModule,

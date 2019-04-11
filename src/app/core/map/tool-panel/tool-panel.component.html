@@ -1,0 +1,18 @@
+<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="10px">
+  <div>
+    <button mat-raised-button (click)="drawer.toggle()">
+      <mat-icon>layers</mat-icon>
+      <span fxHide.xs> Přehled vrstev</span>
+    </button>
+  </div>
+  <div>
+    <button mat-raised-button (click)="drawer.toggle()">
+      <mat-icon>search</mat-icon>
+    </button>
+  </div>
+  <div>
+    <button mat-raised-button (click)="drawer.toggle()">
+      <mat-icon>build</mat-icon>
+    </button>
+  </div>
+</div>

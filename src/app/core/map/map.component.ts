@@ -4,6 +4,9 @@ import { MapService } from "../../services/map.service";
 import { MatDialog } from "@angular/material";
 
 import { ActivatedRoute } from "@angular/router";
+import { Observable } from "rxjs";
+
+import { UserState } from "./../../state/user.state";
 import { IncidentDetailComponent } from "../incident/incident-detail/incident-detail.component";
 @Component({
   selector: "app-map",
@@ -11,6 +14,10 @@ import { IncidentDetailComponent } from "../incident/incident-detail/incident-de
   styleUrls: ["./map.component.css"]
 })
 export class MapComponent implements OnInit, AfterViewInit {
+  @Select(UserState.isLoggend) selectedIsLoggend: Observable<boolean>;
+
+  public isLogged: boolean;
+
   constructor(
     private mapService: MapService,
     private store: Store,
@@ -20,6 +27,10 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.mapService.getMap().setTarget(null);
+
+    this.selectedIsLoggend.subscribe(val => {
+      this.isLogged = val;
+    });
   }
 
   ngAfterViewInit() {

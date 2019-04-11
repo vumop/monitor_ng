@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 
 import { LayersService } from "./../../../services/layers.service";
 import { LayerModel } from "./../../../models/layer.model";
@@ -9,6 +9,10 @@ import { LayerModel } from "./../../../models/layer.model";
   styleUrls: ["./layers-tree.component.css"]
 })
 export class LayersTreeComponent implements OnInit {
+
+  @Input()
+  public drawer: any;
+
   public layers: Array<LayerModel>;
 
   constructor(private layersService: LayersService) {}

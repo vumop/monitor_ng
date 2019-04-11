@@ -3,7 +3,9 @@
     <small>Mapové vrstvy</small>
     <span class="block-spacer"></span>
     <button mat-icon-button>
-      <mat-icon class="mat-18">chevron_right</mat-icon>
+      <mat-icon class="mat-18" (click)="drawer.toggle()">
+        chevron_right
+      </mat-icon>
     </button>
   </mat-toolbar-row>
 </mat-toolbar>
@@ -12,7 +14,7 @@
   <div *ngFor="let layer of layers">
     <mat-list-item>
       <button
-        color="accent"
+        color=""
         [disabled]="layer.disabled"
         (click)="setVisibility(layer)"
         mat-icon-button
@@ -40,8 +42,3 @@
     <mat-divider></mat-divider>
   </div>
 </mat-list>
-
-
-
-
-  
