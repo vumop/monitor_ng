@@ -13,7 +13,14 @@
       position="end"
       [ngStyle]="{ 'width.px': 290 }"
     >
-      <app-layers-tree [drawer]="drawer"></app-layers-tree>
+      <app-layers-tree
+        *ngIf="drawerType === 'tree'"
+        [drawer]="drawer"
+      ></app-layers-tree>
+      <app-search-panel
+        *ngIf="drawerType === 'search'"
+        [drawer]="drawer"
+      ></app-search-panel>
     </mat-drawer>
     <mat-drawer-content fxFlex>
       <div fxFlex id="map"></div>
@@ -30,5 +37,9 @@
     </mat-drawer-content>
   </mat-drawer-container>
 
-  <app-tool-panel id="tool-panel"  [drawer]="drawer"></app-tool-panel>
+  <app-tool-panel
+    id="tool-panel"
+    [drawer]="drawer"
+    [sideType$]="sideType$"
+  ></app-tool-panel>
 </div>

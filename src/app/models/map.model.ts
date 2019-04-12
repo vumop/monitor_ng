@@ -23,7 +23,8 @@ export class MapModel {
 
     this.map = new Map({
       controls: defaultControls({
-        rotate: true
+        rotate: true,
+        zoom : false
       }).extend([new ScaleLine({ units: "metric" })]),
       view: new View({
         extent: [-925000, -1230000, -400000, -900000],

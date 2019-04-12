@@ -1,0 +1,49 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    <small>Vyhledávání</small>
+    <div fxFlex></div>
+    <button mat-icon-button>
+      <mat-icon class="mat-18" (click)="drawer.close()">
+        chevron_right
+      </mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div style="padding: 7px;">
+  <form fxLayout="column">
+    <mat-card-header>
+      <mat-card-subtitle
+        >Napiště území, které chcete vyhledat.
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field fxFlex>
+        <input matInput type="text" placeholder="název" />
+      </mat-form-field>
+    </mat-card-content>
+    <div><br /></div>
+    <mat-card-header>
+      <mat-card-subtitle>
+        Nebo čtverec a zk. kód DPB.
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field fxFlex>
+        <input matInput type="text" placeholder="čtverec" />
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-content>
+      <mat-form-field fxFlex>
+        <input matInput type="text" placeholder="zk. kód" />
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions>
+      <div fxFlex></div>
+      <button mat-raised-button color="primary">
+        <mat-icon>search</mat-icon>
+        Vyhledat
+      </button>
+    </mat-card-actions>
+  </form>
+</div>

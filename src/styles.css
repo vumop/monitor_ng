@@ -15,4 +15,13 @@ body {
 
 .mat-dialog-container {
   padding: 0 !important;
-  }
+}
+
+.ol-scale-line {
+  right: 8px;
+  left: auto !important;
+}
+
+.ol-attribution {
+  bottom: 2em;
+}

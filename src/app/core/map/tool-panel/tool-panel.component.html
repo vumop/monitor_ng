@@ -1,18 +1,28 @@
 <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="8px">
   <div>
-    <button mat-raised-button (click)="drawer.toggle()">
+    <button mat-raised-button (click)="activeDrawer('tree')">
       <mat-icon>layers</mat-icon>
       <span fxHide.xs> Přehled vrstev</span>
     </button>
   </div>
   <div>
-    <button mat-raised-button (click)="drawer.toggle()">
+    <button mat-raised-button (click)="activeDrawer('search')">
       <mat-icon>search</mat-icon>
     </button>
   </div>
   <div>
-    <button mat-raised-button (click)="drawer.toggle()">
+    <button mat-raised-button [matMenuTriggerFor]="toolsMenu">
       <mat-icon>build</mat-icon>
     </button>
+    <mat-menu #toolsMenu="matMenu">
+      <button mat-menu-item (click)="getArea()">
+        <mat-icon>border_style</mat-icon>
+        <span>Výměra</span>
+      </button>
+      <button mat-menu-item (click)="getLength()">
+        <mat-icon>show_chart</mat-icon>
+        <span>Vzdálenost</span>
+      </button>
+    </mat-menu>
   </div>
 </div>
