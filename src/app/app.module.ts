@@ -22,6 +22,7 @@ import { NgxsStoragePluginModule } from "@ngxs/storage-plugin";
 import { IncidentState } from "./state/incident.state";
 import { DetailState } from "./state/detail.state";
 import { UserState } from "./state/user.state";
+import { MapState } from "./state/map.state";
 
 import { MapService } from "./services/map.service";
 import { LayersService } from "./services/layers.service";
@@ -33,10 +34,10 @@ import { LoginComponent } from "./core/account/login/login.component";
 import { LostPassComponent } from "./core/account/lost-pass/lost-pass.component";
 
 import { FakeBackendProvider } from "./shared/helpers/fake-backend.service";
-import { LayersTreeComponent } from './core/map/layers-tree/layers-tree.component';
-import { ZoomPanelComponent } from './core/map/zoom-panel/zoom-panel.component';
-import { ToolPanelComponent } from './core/map/tool-panel/tool-panel.component';
-import { SearchPanelComponent } from './core/map/search-panel/search-panel.component';
+import { LayersTreeComponent } from "./core/map/layers-tree/layers-tree.component";
+import { ZoomPanelComponent } from "./core/map/zoom-panel/zoom-panel.component";
+import { ToolPanelComponent } from "./core/map/tool-panel/tool-panel.component";
+import { SearchPanelComponent } from "./core/map/search-panel/search-panel.component";
 
 @NgModule({
   declarations: [
@@ -59,7 +60,7 @@ import { SearchPanelComponent } from './core/map/search-panel/search-panel.compo
     SharedMaterialModule,
     AppRoutingModule,
     IncidentModule,
-    NgxsModule.forRoot([IncidentState, DetailState, UserState], {
+    NgxsModule.forRoot([IncidentState, DetailState, UserState, MapState], {
       developmentMode: !environment.production
     }),
     NgxsStoragePluginModule.forRoot(),

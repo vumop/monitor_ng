@@ -7,7 +7,8 @@ export class FeatureOverlay {
   constructor() {
     this.layer = new VectorLayer({
       source: new VectorSource(),
-      visible: true
+      visible: true,
+      zIndex: Infinity
     });
   }
 

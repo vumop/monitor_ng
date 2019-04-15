@@ -21,18 +21,6 @@ export class LayersService {
 
     this.featureOverlay = new FeatureOverlay();
 
-    this.fetchLayers().groups.forEach(group => {
-      group.layers.forEach(layer => {
-        this.layers.push(
-          new LayerModel(this.createLayer(layer), this.mapService.getMap())
-        );
-      });
-    });
-
-    this.getLayers().forEach(layer => {
-      this.mapService.getMapModel().addLayer(layer);
-    });
-
     this.mapService
       .getMapModel()
       .addLayer(
@@ -41,6 +29,15 @@ export class LayersService {
   }
 
   public getLayers = () => this.layers;
+
+  public addLayer = layer => {
+    const layerModel = new LayerModel(
+      this.createLayer(layer),
+      this.mapService.getMap()
+    );
+    this.layers.push(layerModel);
+    this.mapService.getMapModel().addLayer(layerModel);
+  };
 
   public getFeatureOverlay = () => this.featureOverlay.getLayer();
 
