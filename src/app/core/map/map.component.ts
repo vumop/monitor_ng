@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit, OnDestroy } from "@angular/core";
 import { Store, Select } from "@ngxs/store";
 import { MapService } from "../../services/map.service";
+import { LayersService } from "../../services/layers.service";
 import { MatDialog } from "@angular/material";
 
 import { ActivatedRoute } from "@angular/router";
@@ -25,6 +26,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private mapService: MapService,
+    private layersService: LayersService,
     private store: Store,
     private route: ActivatedRoute,
     public dialog: MatDialog
@@ -49,6 +51,13 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     setTimeout(() => {
       this.mapService.getMap().setTarget("map");
       if (id) {
+        // zoom to the feature incident
+        const feat = this.layersService
+          .getFeatureOverlay()
+          .getSource()
+          .getFeatureById(id);
+        this.mapService.zoomToFeature(feat);
+        // show incident detail
         this.dialog.open(IncidentDetailComponent, {
           data: { id_incident: id, navigateTo: "map" }
         });
