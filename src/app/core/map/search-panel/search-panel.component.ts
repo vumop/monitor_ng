@@ -43,8 +43,8 @@ export class SearchPanelComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar
   ) {
     this.searchForm = this.formBuilder.group({
-      ctv: ["720-1070"],
-      zkod: ["5304"],
+      ctv: [""],
+      zkod: [""],
       district: [""]
     });
 

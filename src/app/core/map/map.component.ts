@@ -10,6 +10,7 @@ import { Subject } from "rxjs/Subject";
 
 import { UserState } from "./../../state/user.state";
 import { IncidentDetailComponent } from "../incident/incident-detail/incident-detail.component";
+import { SelectModel } from "./../../models/select.model";
 @Component({
   selector: "app-map",
   templateUrl: "./map.component.html",
@@ -24,6 +25,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   public drawerType: string;
   private subscription = [];
 
+  public selector: SelectModel;
+
   constructor(
     private mapService: MapService,
     private layersService: LayersService,
@@ -34,10 +37,22 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscription.push(
       this.sideType$.subscribe(val => (this.drawerType = val))
     );
+
+    this.selector = new SelectModel(this.layersService.getFeatureOverlay());
   }
 
   ngOnInit() {
     this.mapService.getMap().setTarget(null);
+
+    this.selector.activate(this.mapService.getMap());
+    this.selector.select.on("select", obj => {
+      obj.selected.map(feat => {       
+        // show incident detail
+        this.dialog.open(IncidentDetailComponent, {
+          data: { id_incident: feat.getId(), navigateTo: "map" }
+        });
+      });
+    });
 
     this.subscription.push(
       this.selectedIsLoggend.subscribe(val => {
@@ -67,5 +82,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.map(sub => sub.unsubscribe());
+
+    delete this.selector;
   }
 }

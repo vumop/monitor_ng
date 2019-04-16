@@ -45,7 +45,7 @@ export class LayersService {
     return configLayers;
   }
 
-  private createLayer(layer): TileLayer {
+  private createLayer = (layer): TileLayer => {
     const olLayer = new TileLayer({
       minResolution: this.mapService
         .getMapModel()
@@ -71,5 +71,5 @@ export class LayersService {
     });
 
     return olLayer;
-  }
+  };
 }
