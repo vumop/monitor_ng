@@ -8,6 +8,7 @@
   </mat-toolbar-row>
 </mat-toolbar>
 <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+<div *ngIf="!loading" style="height: 4px;"></div>
 <mat-tab-group
   mat-stretch-tabs
   class="mat-elevation-z4"

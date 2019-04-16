@@ -9,7 +9,8 @@
     </button>
   </mat-toolbar-row>
 </mat-toolbar>
-
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+<div *ngIf="!loading" style="height: 4px;"></div>
 <div style="padding: 7px;">
   <form
     fxLayout="column"
@@ -25,7 +26,32 @@
     </mat-card-header>
     <mat-card-content>
       <mat-form-field fxFlex>
-        <input matInput type="text" placeholder="název" />
+        <input
+          type="text"
+          placeholder="název"
+          matInput
+          formControlName="district"
+          [matAutocomplete]="auto"
+        />
+        <button
+          mat-button
+          *ngIf="formControls.district.value"
+          matSuffix
+          mat-icon-button
+          aria-label="Clear"
+          (click)="formControls.district.reset('')"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-autocomplete
+          #auto="matAutocomplete"
+          (optionSelected)="districtSelect($event)"
+          [displayWith]="displayFn"
+        >
+          <mat-option *ngFor="let option of districtOptions" [value]="option">
+            {{ option.name }} ({{ option.typ }})
+          </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
     </mat-card-content>
     <div><br /></div>
