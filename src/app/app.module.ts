@@ -7,6 +7,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { SharedMaterialModule } from "./shared/material/shared-material.module";
+import { MatSnackBar } from "@angular/material";
 import { IncidentModule } from "./core/incident/incident.module";
 
 import { AppComponent } from "./app.component";
@@ -28,6 +29,7 @@ import { MapService } from "./services/map.service";
 import { LayersService } from "./services/layers.service";
 import { IncidentService } from "./services/incident.service";
 import { UserService } from "./services/user.service";
+import { DrawingService } from "./services/drawing.service";
 
 import { InfoComponent } from "./core/info/info.component";
 import { LoginComponent } from "./core/account/login/login.component";
@@ -75,7 +77,9 @@ import { SearchPanelComponent } from "./core/map/search-panel/search-panel.compo
     LayersService,
     IncidentService,
     UserService,
-    FakeBackendProvider
+    DrawingService,
+    FakeBackendProvider,
+    MatSnackBar
   ],
   bootstrap: [AppComponent]
 })

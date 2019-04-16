@@ -7,6 +7,7 @@ import {
   AbstractControl,
   FormControl
 } from "@angular/forms";
+import { MatSnackBar } from "@angular/material";
 
 import { debounceTime } from "rxjs/operators";
 import { isString } from "lodash";
@@ -38,7 +39,8 @@ export class SearchPanelComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private mapService: MapService
+    private mapService: MapService,
+    private snackBar: MatSnackBar
   ) {
     this.searchForm = this.formBuilder.group({
       ctv: ["720-1070"],
@@ -80,6 +82,9 @@ export class SearchPanelComponent implements OnInit, OnDestroy {
               this.mapService.zoomTo(result.data.geom);
               this.loading = false;
             } else {
+              this.snackBar.open("Vyhledávání DPB", result.msg, {
+                duration: 3500
+              });
               this.loading = false;
             }
           })

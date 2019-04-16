@@ -14,7 +14,8 @@ import {
   MatTooltipModule,
   MatGridListModule,
   MatDialogModule,
-  MatTabsModule
+  MatTabsModule,
+  MatSnackBarModule
 } from "@angular/material";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatInputModule } from "@angular/material/input";
@@ -49,7 +50,8 @@ import { MatAutocompleteModule } from "@angular/material/autocomplete";
     MatListModule,
     MatSidenavModule,
     MatExpansionModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatSnackBarModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -73,7 +75,8 @@ import { MatAutocompleteModule } from "@angular/material/autocomplete";
     MatListModule,
     MatSidenavModule,
     MatExpansionModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatSnackBarModule
   ]
 })
 export class SharedMaterialModule {}
