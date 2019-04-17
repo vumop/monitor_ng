@@ -1,16 +1,20 @@
 import { Component, OnInit, AfterViewInit, OnDestroy } from "@angular/core";
 import { Store, Select } from "@ngxs/store";
-import { MapService } from "../../services/map.service";
-import { LayersService } from "../../services/layers.service";
 import { MatDialog } from "@angular/material";
 
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { Subject } from "rxjs/Subject";
 
-import { UserState } from "./../../state/user.state";
+import { MapService } from "../../services/map.service";
+import { LayersService } from "../../services/layers.service";
+import { IncidentLayer } from "./../incident/incident-layer/incident.layer";
+import { Layers } from "./layers/layers";
+
 import { IncidentDetailComponent } from "../incident/incident-detail/incident-detail.component";
+import { UserState } from "./../../state/user.state";
 import { SelectModel } from "./../../models/select.model";
+
 @Component({
   selector: "app-map",
   templateUrl: "./map.component.html",
@@ -32,13 +36,17 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     private layersService: LayersService,
     private store: Store,
     private route: ActivatedRoute,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private router: Router,
+    private incidetnLayer: IncidentLayer,
+    private layers: Layers
   ) {
     this.subscription.push(
       this.sideType$.subscribe(val => (this.drawerType = val))
     );
-
-    this.selector = new SelectModel(this.layersService.getFeatureOverlay());
+    this.selector = new SelectModel(
+      this.layersService.getVectorLayer("incident_vector").olLayer
+    );
   }
 
   ngOnInit() {
@@ -46,11 +54,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.selector.activate(this.mapService.getMap());
     this.selector.select.on("select", obj => {
-      obj.selected.map(feat => {       
+      obj.selected.forEach(feat => {
         // show incident detail
-        this.dialog.open(IncidentDetailComponent, {
-          data: { id_incident: feat.getId(), navigateTo: "map" }
-        });
+        this.router.navigate([`map/${feat.getId()}`]);
       });
     });
 
@@ -59,17 +65,19 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         this.isLogged = val;
       })
     );
+    setTimeout(() => {
+      this.mapService.getMap().setTarget("map");
+    });
   }
 
   ngAfterViewInit() {
     const id = this.route.snapshot.paramMap.get("id");
     setTimeout(() => {
-      this.mapService.getMap().setTarget("map");
       if (id) {
         // zoom to the feature incident
         const feat = this.layersService
-          .getFeatureOverlay()
-          .getSource()
+          .getVectorLayer("incident_vector")
+          .olLayer.getSource()
           .getFeatureById(id);
         this.mapService.zoomToFeature(feat);
         // show incident detail
@@ -82,7 +90,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.map(sub => sub.unsubscribe());
-
+    this.selector.select.getFeatures().clear();
     delete this.selector;
   }
 }

@@ -7,17 +7,24 @@ import { FeatureOverlay } from "../models/featureOverlay.model";
 
 import TileWMS from "ol/source/TileWMS";
 import TileLayer from "ol/layer/Tile";
+import { Vector as VectorLayer } from "ol/layer.js";
 
 @Injectable({
   providedIn: "root"
 })
 export class LayersService {
+  /**
+   * configuration of the tree layer [array]
+   */
   private layers: Array<LayerModel>;
+
+  private vectorLayers: Array<LayerModel>;
 
   private featureOverlay: FeatureOverlay;
 
   constructor(private mapService: MapService) {
     this.layers = [];
+    this.vectorLayers = [];
 
     this.featureOverlay = new FeatureOverlay();
 
@@ -27,15 +34,24 @@ export class LayersService {
         new LayerModel(this.featureOverlay.getLayer(), this.mapService.getMap())
       );
   }
-
+  // get array of layers
   public getLayers = () => this.layers;
-
+  // fetch vector layers by idLayer
+  public getVectorLayer = idLayer =>
+    this.vectorLayers.find(vector => vector.olLayer.get("idLayer") === idLayer);
+  // add layer to OL map
   public addLayer = layer => {
     const layerModel = new LayerModel(
       this.createLayer(layer),
       this.mapService.getMap()
     );
     this.layers.push(layerModel);
+    this.mapService.getMapModel().addLayer(layerModel);
+  };
+  // add vector layer to OL map
+  public addVectorLayer = layer => {
+    const layerModel = new LayerModel(layer, this.mapService.getMap());
+    this.vectorLayers.push(layerModel);
     this.mapService.getMapModel().addLayer(layerModel);
   };
 

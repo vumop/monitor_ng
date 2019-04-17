@@ -19,16 +19,16 @@ export class SelectModel {
 
     this.style = new Style({
       fill: new Fill({
-        color: "rgba(50, 194, 187, 0.5)"
+        color: "rgba(50, 194, 187, 1)"
       }),
       stroke: new Stroke({
-        color: "rgba(0,0,0, 0.6)",
-        width: 2
+        color: "rgba(255, 255, 255, 1)",
+        width: 1
       }),
       image: new Circle({
         radius: 9,
         fill: new Fill({
-          color: "rgba(50, 194, 187, 0.5)"
+          color: "rgba(50, 194, 187, 1)"
         })
       })
     });
@@ -37,7 +37,6 @@ export class SelectModel {
       multi: false,
       hitTolerance: 0,
       layers: [this.layer],
-      features: this.layer.getSource().getFeatures(),
       filter: (feature, filteredLayer) => {
         /* some logic on a feature and layer to decide if it should be selectable; return true if yes */
         return filteredLayer.get("name") === this.layer.get("name");

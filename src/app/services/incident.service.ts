@@ -31,18 +31,4 @@ export class IncidentService {
       `${environment.apiUrl}/incident/lpis/${id}/`
     );
   }
-
-  addIncident(payload: Incident) {
-    return this.http.post<Incident>(
-      "https://jsonplaceholder.typicode.com/todos",
-      payload
-    );
-  }
-
-  updateIncident(payload: Incident, id: number) {
-    return this.http.put<Incident>(
-      `https://jsonplaceholder.typicode.com/todos/${id}`,
-      payload
-    );
-  }
 }

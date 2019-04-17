@@ -31,6 +31,8 @@ import { IncidentService } from "./services/incident.service";
 import { UserService } from "./services/user.service";
 import { DrawingService } from "./services/drawing.service";
 
+import { Layers } from "./core/map/layers/layers";
+
 import { InfoComponent } from "./core/info/info.component";
 import { LoginComponent } from "./core/account/login/login.component";
 import { LostPassComponent } from "./core/account/lost-pass/lost-pass.component";
@@ -79,7 +81,8 @@ import { SearchPanelComponent } from "./core/map/search-panel/search-panel.compo
     UserService,
     DrawingService,
     FakeBackendProvider,
-    MatSnackBar
+    MatSnackBar,
+    Layers
   ],
   bootstrap: [AppComponent]
 })

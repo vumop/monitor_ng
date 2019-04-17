@@ -17,6 +17,8 @@ import { LpisTabComponent } from "./components/lpis-tab/lpis-tab.component";
 import { FotosTabComponent } from "./components/fotos-tab/fotos-tab.component";
 import { BasicTabComponent } from "./components/basic-tab/basic-tab.component";
 
+import { IncidentLayer } from "./incident-layer/incident.layer";
+
 @NgModule({
   declarations: [
     IncidentComponent,
@@ -38,6 +40,7 @@ import { BasicTabComponent } from "./components/basic-tab/basic-tab.component";
     FormsModule,
     ReactiveFormsModule
   ],
-  exports: [MenuComponent]
+  exports: [MenuComponent],
+  providers: [IncidentLayer]
 })
 export class IncidentModule {}
