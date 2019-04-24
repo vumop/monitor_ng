@@ -9,7 +9,12 @@ import {
 } from "@angular/forms";
 import { MatSnackBar } from "@angular/material";
 
-import { debounceTime } from "rxjs/operators";
+import {
+  debounceTime,
+  distinctUntilChanged,
+  switchMap,
+  filter
+} from "rxjs/operators";
 import { isString } from "lodash";
 
 import { MapService } from "./../../../services/map.service";
@@ -54,15 +59,21 @@ export class SearchPanelComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription.push(
       this.searchForm.controls.district.valueChanges
-        .pipe(debounceTime(400))
-        .subscribe(term => {
-          if (term != "" && isString(term)) {
-            this.loading = true;
-            this.mapService.searchDistrict(term).subscribe((res: any) => {
-              this.districtOptions = res.searchingData;
-              this.loading = false;
-            });
-          }
+        .pipe(
+          debounceTime(400),
+          distinctUntilChanged(),
+          switchMap(term => {
+            if (term != "" && isString(term)) {
+              this.loading = true;
+              return this.mapService.searchDistrict(term);
+            } else {
+              this.districtOptions = [];
+            }
+          })
+        )
+        .subscribe((res: any) => {
+          this.districtOptions = res.searchingData;
+          this.loading = false;
         })
     );
   }

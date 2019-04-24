@@ -31,7 +31,7 @@ export class MapService {
           .readFeature(wkt)
           .getGeometry()
           .getExtent(),
-        this.getMap().getSize()
+        { duration: 1000 }
       );
   };
 
@@ -39,7 +39,7 @@ export class MapService {
     if (feat) {
       this.getMap()
         .getView()
-        .fit(feat.getGeometry().getExtent(), this.getMap().getSize());
+        .fit(feat.getGeometry().getExtent(), { duration: 1000 });
     }
   };
 

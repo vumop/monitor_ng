@@ -1,18 +1,18 @@
 import { Component, OnInit, AfterViewInit, OnDestroy } from "@angular/core";
-import { Store, Select } from "@ngxs/store";
-import { MatDialog } from "@angular/material";
+import { MatDialog, MatDialogRef } from "@angular/material";
 
 import { ActivatedRoute, Router } from "@angular/router";
-import { Observable } from "rxjs";
 import { Subject } from "rxjs/Subject";
 
 import { MapService } from "../../services/map.service";
 import { LayersService } from "../../services/layers.service";
+import { DrawingService } from "../../services/drawing.service";
 import { IncidentLayer } from "./../incident/incident-layer/incident.layer";
 import { Layers } from "./layers/layers";
 
 import { IncidentDetailComponent } from "../incident/incident-detail/incident-detail.component";
-import { UserState } from "./../../state/user.state";
+import { IncidentCreateComponent } from "../incident/incident-create/incident-create.component";
+import { IncidentCreateInfoComponent } from "../incident/incident-create-info/incident-create-info.component";
 import { SelectModel } from "./../../models/select.model";
 
 @Component({
@@ -21,20 +21,15 @@ import { SelectModel } from "./../../models/select.model";
   styleUrls: ["./map.component.css"]
 })
 export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
-  @Select(UserState.isLoggend) selectedIsLoggend: Observable<boolean>;
-
-  public isLogged: boolean;
-
   public sideType$ = new Subject<string>();
   public drawerType: string;
   private subscription = [];
-
   public selector: SelectModel;
 
   constructor(
     private mapService: MapService,
     private layersService: LayersService,
-    private store: Store,
+    private drawingService: DrawingService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
     private router: Router,
@@ -56,21 +51,14 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.selector.select.on("select", obj => {
       obj.selected.forEach(feat => {
         // show incident detail
-        this.router.navigate([`map/${feat.getId()}`]);
+        this.router.navigate([`map/detail/${feat.getId()}`]);
       });
-    });
-
-    this.subscription.push(
-      this.selectedIsLoggend.subscribe(val => {
-        this.isLogged = val;
-      })
-    );
-    setTimeout(() => {
-      this.mapService.getMap().setTarget("map");
     });
   }
 
   ngAfterViewInit() {
+    this.mapService.getMap().setTarget("map");
+
     const id = this.route.snapshot.paramMap.get("id");
     setTimeout(() => {
       if (id) {
@@ -84,6 +72,27 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         this.dialog.open(IncidentDetailComponent, {
           data: { id_incident: id, navigateTo: "map" }
         });
+      }
+      /**
+       * Create the new incident
+       */
+      if (this.route.snapshot.routeConfig.path === "incident/create") {
+
+        const dialogRef = this.dialog.open(IncidentCreateInfoComponent);
+
+        /*
+        this.drawingService.startDraw("Polygon");
+        this.drawingService.getDraw().vectorClear = false;
+        this.drawingService.getDraw().drawing.on("drawend", evt => {
+          const dialogRef = this.dialog.open(IncidentCreateComponent, {
+            data: { feature: evt.feature, navigateTo: "map" }
+          });
+          dialogRef.afterClosed().subscribe(() => {
+            this.drawingService.getDraw().source.removeFeature(evt.feature);
+          });
+        });
+
+        */
       }
     });
   }

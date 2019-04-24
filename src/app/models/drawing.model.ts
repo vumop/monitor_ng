@@ -18,29 +18,29 @@ export class Drawing {
   /**
    * Ol draw interation
    */
-  draw: Draw;
+  private _draw: Draw;
   /**
    * vector Ol source
    */
-  source: OlVectorSource;
+  public source: OlVectorSource;
   /**
    * vector cleaning on end of drawing
    */
-  vectorClear: boolean;
+  public vectorClear: boolean;
   /**
    * the delay time in milliseconds
    */
-  delayClear: number;
+  public delayClear: number;
   /**
    * deactivation of the tool on drawend event
    */
-  autoDeative: boolean;
+  public autoDeative: boolean;
   /**
    * OL style of drawing
    */
-  style: OlStyle;
+  public style: OlStyle;
   //
-  map: Map;
+  private map: Map;
 
   constructor(layer, map) {
     this.vectorClear = false;
@@ -75,26 +75,30 @@ export class Drawing {
    * activate draw interaction
    */
   public active(type: string = "Polygon") {
-    if (this.draw) {
+    if (this._draw) {
       this.deactive();
     }
-    this.draw = new Draw({
+    this._draw = new Draw({
       source: this.source,
       type,
       style: this.style
     });
-    this.draw.on("drawend", this.drawEnd);
+    this._draw.on("drawend", this.drawEnd);
     //
-    this.map.addInteraction(this.draw);
-    this.draw.setActive(true);
+    this.map.addInteraction(this._draw);
+    this._draw.setActive(true);
   }
   /**
    * deactivate draw interaction
    */
   public deactive() {
-    this.draw.setActive(false);
-    this.map.removeInteraction(this.draw);
-    delete this.draw;
+    this._draw.setActive(false);
+    this.map.removeInteraction(this._draw);
+    delete this._draw;
+  }
+
+  public get drawing(): Draw {
+    return this._draw;
   }
 
   private drawEnd = e => {

@@ -12,9 +12,10 @@ const routes: Routes = [
   { path: "login", component: LoginComponent },
   { path: "lostPass", component: LostPassComponent },
   { path: "map", component: MapComponent },
-  { path: "map/:id", component: MapComponent },
+  { path: "map/detail/:id", component: MapComponent },
   { path: "incident", component: IncidentComponent },
-  { path: "incident/:id", component: IncidentComponent },
+  { path: "incident/create", component: MapComponent },
+  { path: "incident/detail/:id", component: IncidentComponent },
   { path: "info", component: InfoComponent },
   { path: "", redirectTo: "/map", pathMatch: "full" },
   { path: "**", component: PageNotFoundComponent }
@@ -23,7 +24,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(
-      routes,
+      routes
       //{ enableTracing: true } // <-- debugging purposes only
     )
   ],

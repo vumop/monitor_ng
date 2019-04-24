@@ -11,6 +11,7 @@ import { AppRoutingModule } from "./../../app-routing.module";
 
 import { RepeatedIncidentPipe } from "./../../shared/helpers/pipes";
 import { IncidentDetailComponent } from "./incident-detail/incident-detail.component";
+import { IncidentCreateComponent, IncidentCreateInfo } from "./incident-create/incident-create.component";
 import { DateFilterComponent } from "./components/date-filter/date-filter.component";
 import { SearchFilterComponent } from "./components/search-filter/search-filter.component";
 import { LpisTabComponent } from "./components/lpis-tab/lpis-tab.component";
@@ -18,6 +19,7 @@ import { FotosTabComponent } from "./components/fotos-tab/fotos-tab.component";
 import { BasicTabComponent } from "./components/basic-tab/basic-tab.component";
 
 import { IncidentLayer } from "./incident-layer/incident.layer";
+import { IncidentCreateInfoComponent } from './incident-create-info/incident-create-info.component';
 
 @NgModule({
   declarations: [
@@ -30,9 +32,11 @@ import { IncidentLayer } from "./incident-layer/incident.layer";
     SearchFilterComponent,
     LpisTabComponent,
     FotosTabComponent,
-    BasicTabComponent
+    BasicTabComponent,
+    IncidentCreateComponent,
+    IncidentCreateInfoComponent
   ],
-  entryComponents: [IncidentDetailComponent],
+  entryComponents: [IncidentDetailComponent, IncidentCreateComponent, IncidentCreateInfoComponent],
   imports: [
     SharedMaterialModule,
     FlexLayoutModule,

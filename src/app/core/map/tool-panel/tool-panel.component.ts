@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output } from "@angular/core";
 import { Subject } from "rxjs/Subject";
 
 import { MatSnackBar } from "@angular/material";
-import { DrawingService } from "./.././/../../services/drawing.service";
+import { DrawingService } from "./.././../../services/drawing.service";
 
 @Component({
   selector: "app-tool-panel",
@@ -39,7 +39,7 @@ export class ToolPanelComponent implements OnInit {
   public getArea = () => {
     this.drawingService.startDraw("Polygon");
     this.drawingService.getDraw().vectorClear = true;
-    this.drawingService.getDraw().draw.on("drawend", evt => {
+    this.drawingService.getDraw().drawing.on("drawend", evt => {
       const area = Math.round(evt.feature.getGeometry().getArea() / 100) / 100;
       this.snackBar.open("Výměra: ", `${area} ha`, {
         duration: 3500
@@ -50,7 +50,7 @@ export class ToolPanelComponent implements OnInit {
   public getLength = () => {
     this.drawingService.startDraw("LineString");
     this.drawingService.getDraw().vectorClear = true;
-    this.drawingService.getDraw().draw.on("drawend", evt => {
+    this.drawingService.getDraw().drawing.on("drawend", evt => {
       const length =
         Math.round((evt.feature.getGeometry().getLength() / 1000) * 100) / 100;
       this.snackBar.open("Délka: ", `${length} km`, {
