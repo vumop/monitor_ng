@@ -70,4 +70,9 @@ export class IncidentCreateComponent implements OnInit {
 
     console.log(new OlFormatWKT().writeFeature(this.data.feature));
   }
+
+  onSubmit(value: any): void {
+    if (!this.form.invalid) {
+    }
+  }
 }
