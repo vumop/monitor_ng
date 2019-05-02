@@ -9,13 +9,8 @@ import { InfoComponent } from "./core/info/info.component";
 import { PageNotFoundComponent } from "./shared/page/page-not-found/page-not-found.component";
 
 const routes: Routes = [
-  { path: "login", component: LoginComponent },
-  { path: "lostPass", component: LostPassComponent },
   { path: "map", component: MapComponent },
   { path: "map/detail/:id", component: MapComponent },
-  { path: "incident", component: IncidentComponent },
-  { path: "incident/create", component: MapComponent },
-  { path: "incident/detail/:id", component: IncidentComponent },
   { path: "info", component: InfoComponent },
   { path: "", redirectTo: "/map", pathMatch: "full" },
   { path: "**", component: PageNotFoundComponent }

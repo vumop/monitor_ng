@@ -22,7 +22,7 @@ export class MenuComponent implements OnInit {
   public isLogged: boolean;
 
   constructor(private store: Store) {
-    this.title = "Mapování eroze";
+    this.title = "Monitoring eroze";
   }
 
   ngOnInit() {

@@ -150,35 +150,6 @@ export default {
           }
         }
       ]
-    },
-    {
-      name: "Vrstvy eroze",
-      description: "Tématické vrstvy eroze",
-      role: ["user", "vumop", "admin", "editor"],
-      group_key: "eroze",
-      layers: [
-        {
-          id: 8,
-          name: "Erozní události",
-          description:
-            "Erozní události evidované v rámci Monitoringu eroze, VÚMOP – on-line",
-          legend_url: true,
-          min_resolution: 0,
-          max_resolution: Infinity,
-          metadata: false,
-          source: {
-            url: "http://wms.vumop.cz/public/udalosti.php",
-            params: {
-              LAYERS: "eroze",
-              FORMAT: "image/png",
-              INFO_FORMAT: "text/html"
-            },
-            attributions:
-              '<a href="https://me.vumop.cz" target="_blank">Monitoring eroze zemědělské půdy</a>'
-          },
-          visible: false
-        }
-      ]
     }
   ]
 };
