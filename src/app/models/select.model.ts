@@ -56,6 +56,7 @@ export class SelectModel {
    * deactivate interaction
    */
   public deactivate() {
+    this.select.getFeatures().clear();
     this.select.setActive(false);
   }
 }

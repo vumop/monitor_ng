@@ -25,3 +25,8 @@ body {
 .ol-attribution {
   bottom: 2em;
 }
+
+.ol-rotate {
+  top: auto !important;
+  bottom: 4.5em;
+}

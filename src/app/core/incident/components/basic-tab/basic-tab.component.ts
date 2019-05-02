@@ -23,14 +23,18 @@ export class BasicTabComponent implements OnInit, OnDestroy {
   public data: { [key: string]: any };
   private subscription;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store) {
+    this.data = {};
+  }
 
   ngOnInit() {
     this.subscription = this.store
       .select(state => state.Detail.basic)
       .subscribe(data => {
-        this.data = data;
-        setTimeout(() => this.parentSetLoading.emit(false));
+        if (data) {
+          this.data = data;
+          setTimeout(() => this.parentSetLoading.emit(false));
+        }
       });
   }
 

@@ -19,9 +19,9 @@ export class DetailStateModel {
 @State<DetailStateModel>({
   name: "Detail",
   defaults: {
-    basic: {},
-    fotos: [],
-    lpis: []
+    basic: undefined,
+    fotos: undefined,
+    lpis: undefined
   }
 })
 export class DetailState {
@@ -49,9 +49,9 @@ export class DetailState {
     patchState
   }: StateContext<DetailStateModel>) {
     patchState({
-      basic: {},
-      fotos: [],
-      lpis: []
+      basic: undefined,
+      fotos: undefined,
+      lpis: undefined
     });
   }
 

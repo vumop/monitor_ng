@@ -9,6 +9,8 @@ import {
 
 import { Store, Select } from "@ngxs/store";
 
+import { isEmpty } from "lodash";
+
 export interface FotoViewerModel {
   activeIndex: number;
   countFotos: number;
@@ -39,15 +41,17 @@ export class FotosTabComponent implements OnInit, OnDestroy {
       activeIndex: 0,
       countFotos: 0
     };
+    this.fotos = [];
   }
 
   ngOnInit() {
     this.subscription = this.store
       .select(state => state.Detail.fotos)
       .subscribe(data => {
-        this.fotos = data;
-        setTimeout(() => this.parentSetLoading.emit(false));
-
+        if (data) {
+          this.fotos = data;
+          setTimeout(() => this.parentSetLoading.emit(false));
+        }
         if (this.fotos.length) {
           this.fotoViewer.activeIndex = 0;
           this.fotoViewer.countFotos = this.fotos.length;

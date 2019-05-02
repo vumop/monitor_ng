@@ -44,7 +44,6 @@ import { IncidentDetailComponent } from "../incident-detail/incident-detail.comp
 })
 export class IncidentTableComponent
   implements OnInit, AfterViewInit, OnDestroy {
-  @Select(UserState.isLoggend) selectedIsLoggend: Observable<boolean>;
 
   @Select(IncidentState.getIncidents) selectedIncidents: Observable<
     IncidentStateModel
@@ -67,7 +66,6 @@ export class IncidentTableComponent
   private searchTextChanged = new Subject<string>();
   private subscription = [];
   public filterForm: FormGroup;
-  public isLogged: boolean;
 
   constructor(
     private store: Store,
@@ -128,10 +126,6 @@ export class IncidentTableComponent
           this.incidents.filter = value.trim().toLowerCase();
         })
     );
-
-    this.selectedIsLoggend.subscribe(val => {
-      this.isLogged = val;
-    });
   }
 
   ngAfterViewInit() {

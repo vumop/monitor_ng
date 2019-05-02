@@ -46,14 +46,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.mapService.getMap().setTarget(null);
-
-    this.selector.activate(this.mapService.getMap());
-    this.selector.select.on("select", obj => {
-      obj.selected.forEach(feat => {
-        // show incident detail
-        this.router.navigate([`map/detail/${feat.getId()}`]);
-      });
-    });
+    this.selectActivation();
   }
 
   ngAfterViewInit() {
@@ -77,29 +70,47 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
        * Create the new incident
        */
       if (this.route.snapshot.routeConfig.path === "incident/create") {
-
-        const dialogRef = this.dialog.open(IncidentCreateInfoComponent);
-
-        /*
-        this.drawingService.startDraw("Polygon");
-        this.drawingService.getDraw().vectorClear = false;
-        this.drawingService.getDraw().drawing.on("drawend", evt => {
-          const dialogRef = this.dialog.open(IncidentCreateComponent, {
-            data: { feature: evt.feature, navigateTo: "map" }
+        const onActivate = () => {
+          this.selectDeactivation();
+          this.drawingService.startDraw("Polygon");
+          this.drawingService.getDraw().vectorClear = false;
+          this.drawingService.getDraw().drawing.on("drawend", evt => {
+            const dialogCreateRef = this.dialog.open(IncidentCreateComponent, {
+              disableClose: true,
+              data: { feature: evt.feature, navigateTo: "map" }
+            });
+            dialogCreateRef.afterClosed().subscribe(() => {
+              this.drawingService.getDraw().source.removeFeature(evt.feature);
+              this.selectActivation();
+            });
           });
-          dialogRef.afterClosed().subscribe(() => {
-            this.drawingService.getDraw().source.removeFeature(evt.feature);
-          });
+        };
+
+        this.dialog.open(IncidentCreateInfoComponent, {
+          disableClose: true,
+          data: { onActivate, navigateTo: "map" }
         });
-
-        */
       }
     });
   }
 
   ngOnDestroy() {
     this.subscription.map(sub => sub.unsubscribe());
-    this.selector.select.getFeatures().clear();
+    this.selectDeactivation();
     delete this.selector;
   }
+
+  private selectActivation = () => {
+    this.selector.activate(this.mapService.getMap());
+    this.selector.select.on("select", obj => {
+      obj.selected.forEach(feat => {
+        // show incident detail
+        this.router.navigate([`map/detail/${feat.getId()}`]);
+      });
+    });
+  };
+
+  private selectDeactivation = () => {
+    this.selector.deactivate();
+  };
 }

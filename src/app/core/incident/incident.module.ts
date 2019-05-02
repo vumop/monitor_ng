@@ -11,7 +11,7 @@ import { AppRoutingModule } from "./../../app-routing.module";
 
 import { RepeatedIncidentPipe } from "./../../shared/helpers/pipes";
 import { IncidentDetailComponent } from "./incident-detail/incident-detail.component";
-import { IncidentCreateComponent, IncidentCreateInfo } from "./incident-create/incident-create.component";
+import { IncidentCreateComponent } from "./incident-create/incident-create.component";
 import { DateFilterComponent } from "./components/date-filter/date-filter.component";
 import { SearchFilterComponent } from "./components/search-filter/search-filter.component";
 import { LpisTabComponent } from "./components/lpis-tab/lpis-tab.component";

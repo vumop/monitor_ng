@@ -7,25 +7,28 @@
   <mat-card-content>
     <mat-list>
       <mat-list-item>
-        <p mat-line>1. Vyberte místo eroze v mapě</p>
-        <p mat-line> &nbsp;&nbsp; (k aktivaci kreslení dojde automaticky).</p>
+        <small mat-list-icon style="font-size: 21px;">1. </small>
+        <p>
+           Vyberte místo eroze v mapě (k aktivaci kreslení dojde automaticky).
+        </p>
       </mat-list-item>
       <mat-list-item>
-        <p>2. Vyplňte základní informace o události.</p>
-        </mat-list-item>
+        <small mat-list-icon style="font-size: 21px;">2. </small>
+        <p> Vyplňte základní informace o události.</p>
+      </mat-list-item>
       <mat-list-item>
-        <p mat-line>3. Po uložení bude záznam dále validován</p>
-        <p mat-line> &nbsp;&nbsp; (až poté bude zveřejněn).</p>
+        <small mat-list-icon style="font-size: 21px;">3. </small>
+        <p> Po uložení bude záznam dále validován (až poté bude zveřejněn).</p>
       </mat-list-item>
     </mat-list>
   </mat-card-content>
   <mat-divider></mat-divider>
   <mat-card-actions>
-    <button mat-stroked-button color="primary" cdkFocusInitial>
-        <mat-icon>create</mat-icon>
-      Zakreslit místo eroze
+    <button mat-stroked-button color="primary" cdkFocusInitial (click)="onActivate()" mat-dialog-close>
+      <mat-icon>create</mat-icon>
+      Zakreslit erozi
     </button>
     <div fxFlex></div>
-    <button mat-stroked-button color="warn">Zrušit</button>
+    <button mat-stroked-button color="warn" routerLink="map" mat-dialog-close>Zrušit</button>
   </mat-card-actions>
 </mat-card>

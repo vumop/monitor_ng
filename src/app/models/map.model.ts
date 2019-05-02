@@ -2,6 +2,7 @@ import { HttpParams } from "@angular/common/http";
 
 import { Map, View } from "ol";
 import { defaults as defaultControls, ScaleLine } from "ol/control.js";
+import { defaults as defaultInteraction } from "ol/interaction.js";
 import proj4 from "proj4/dist/proj4";
 import { register } from "ol/proj/proj4";
 
@@ -24,8 +25,9 @@ export class MapModel {
     this.map = new Map({
       controls: defaultControls({
         rotate: true,
-        zoom : false
+        zoom: false
       }).extend([new ScaleLine({ units: "metric" })]),
+      interactions: defaultInteraction({ doubleClickZoom: false }),
       view: new View({
         extent: [-925000, -1230000, -400000, -900000],
         projection: "EPSG:102067",
