@@ -7,6 +7,8 @@ import {
   Output
 } from "@angular/core";
 
+import { environment } from "./../../../../../environments/environment";
+
 import { Store, Select } from "@ngxs/store";
 
 import { isEmpty } from "lodash";
@@ -77,9 +79,9 @@ export class FotosTabComponent implements OnInit, OnDestroy {
 
   public getUrlFoto(): string {
     return this.fotos[this.fotoViewer.activeIndex]
-      ? `http://test65.vumop.cz/dev_monitoring/public/upload_/${
-          this.idIncident
-        }/foto/${this.fotos[this.fotoViewer.activeIndex].soubor}`
+      ? `${environment.apiUrl}/upload_/${this.idIncident}/foto/${
+          this.fotos[this.fotoViewer.activeIndex].soubor
+        }`
       : ``;
   }
 
