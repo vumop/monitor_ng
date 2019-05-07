@@ -11,7 +11,6 @@ import { IncidentLayer } from "./../incident/incident-layer/incident.layer";
 import { Layers } from "./layers/layers";
 
 import { IncidentDetailComponent } from "../incident/incident-detail/incident-detail.component";
-import { IncidentCreateComponent } from "../incident/incident-create/incident-create.component";
 import { IncidentCreateInfoComponent } from "../incident/incident-create-info/incident-create-info.component";
 import { SelectModel } from "./../../models/select.model";
 
@@ -56,11 +55,12 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     setTimeout(() => {
       if (id) {
         // zoom to the feature incident
-        const feat = this.layersService
-          .getVectorLayer("incident_vector")
-          .olLayer.getSource()
-          .getFeatureById(id);
-        this.mapService.zoomToFeature(feat);
+        this.mapService.zoomToFeature(
+          this.layersService
+            .getVectorLayer("incident_vector")
+            .olLayer.getSource()
+            .getFeatureById(id)
+        );
         // show incident detail
         this.dialog.open(IncidentDetailComponent, {
           data: { id_incident: id, navigateTo: "map" }
@@ -70,25 +70,13 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
        * Create the new incident
        */
       if (this.route.snapshot.routeConfig.path === "incident/create") {
-        const onActivate = () => {
-          this.selectDeactivation();
-          this.drawingService.startDraw("Polygon");
-          this.drawingService.getDraw().vectorClear = false;
-          this.drawingService.getDraw().drawing.on("drawend", evt => {
-            const dialogCreateRef = this.dialog.open(IncidentCreateComponent, {
-              disableClose: true,
-              data: { feature: evt.feature, navigateTo: "map" }
-            });
-            dialogCreateRef.afterClosed().subscribe(() => {
-              this.drawingService.getDraw().source.removeFeature(evt.feature);
-              this.selectActivation();
-            });
-          });
-        };
-
         this.dialog.open(IncidentCreateInfoComponent, {
           disableClose: true,
-          data: { onActivate, navigateTo: "map" }
+          data: {
+            selectDeactivation: this.selectDeactivation,
+            selectActivation: this.selectActivation,
+            navigateTo: "map"
+          }
         });
       }
     });
@@ -108,9 +96,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         this.router.navigate([`map/detail/${feat.getId()}`]);
       });
     });
-  };
+  }
 
   private selectDeactivation = () => {
     this.selector.deactivate();
-  };
+  }
 }

@@ -64,7 +64,7 @@ export class IncidentDetailComponent implements OnInit {
     }
   }
 
-  public setLoading(val: boolean) { console.log('set loding',this.loading);
+  public setLoading(val: boolean) {
     this.loading = val;
   }
 }
