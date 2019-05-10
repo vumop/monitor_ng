@@ -34,6 +34,12 @@ export class IncidentCreateComponent implements OnInit {
 
   public form: FormGroup;
 
+  get formControls(): {
+    [key: string]: AbstractControl;
+  } {
+    return this.form.controls;
+  }
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: DataModel,
     public dialogRef: MatDialogRef<IncidentCreateComponent>,
@@ -41,22 +47,10 @@ export class IncidentCreateComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     this.form = this.formBuilder.group({
-      jmeno_uzivatel: [
-        "",
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(25)
-        ])
-      ],
-      heslo: [
-        "",
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(15)
-        ])
-      ]
+      email: ["", Validators.compose([Validators.required, Validators.email])],
+      datum_vzniku_od: ["", Validators.compose([Validators.required])],
+      cas_vzniku_od: ["", Validators.compose([Validators.required])],
+      popis: [""]
     });
   }
 
@@ -69,5 +63,13 @@ export class IncidentCreateComponent implements OnInit {
     });
 
     console.log(new OlFormatWKT().writeFeature(this.data.feature));
+  }
+
+  onSubmit(value: any): void {
+    if (!this.form.invalid) {
+
+      console.log(value);
+      
+    }
   }
 }
