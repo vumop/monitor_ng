@@ -31,6 +31,8 @@ export interface DataModel {
 })
 export class IncidentCreateComponent implements OnInit {
   public loading: boolean;
+  private idIncident: number;
+  public file: any;
 
   public form: FormGroup;
 
@@ -47,11 +49,21 @@ export class IncidentCreateComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     this.form = this.formBuilder.group({
-      email: ["", Validators.compose([Validators.required, Validators.email])],
-      datum_vzniku_od: ["", Validators.compose([Validators.required])],
-      cas_vzniku_od: ["", Validators.compose([Validators.required])],
-      popis: [""]
+      email: new FormControl(
+        { value: "test@mail.cz", disabled: false },
+        Validators.compose([Validators.required, Validators.email])
+      ),
+      datum_vzniku_od: [new Date(), Validators.compose([Validators.required])],
+      cas_vzniku_od: ["23:00", Validators.compose([Validators.required])],
+      popis: ["description"],
+      geom: [
+        new OlFormatWKT().writeFeature(this.data.feature),
+        Validators.compose([Validators.required])
+      ]
     });
+
+    this.idIncident = null;
+    this.file = null;
   }
 
   ngOnInit() {
@@ -61,15 +73,53 @@ export class IncidentCreateComponent implements OnInit {
     this.dialogRef.afterClosed().subscribe(() => {
       this.router.navigate([this.data.navigateTo]);
     });
-
-    console.log(new OlFormatWKT().writeFeature(this.data.feature));
   }
+
+  /**
+   * on change input file value
+   * @param event
+   */
+  public onFileChanged = (event): void => {
+
+    console.log(this.file);
+
+    const target = event.target || event.srcElement; //if target isn't there then take srcElement
+    this.file = target.files[0];
+    // have to be defined, else -> "undefined"
+    this.file.popis = "";
+    console.log(this.file);
+  };
 
   onSubmit(value: any): void {
+    /**
+     * workflow
+     * 1. have to be a valid form
+     * 2. the user selects required foto
+     * 3. next foto or finish editing (cancel button change to finish button)
+     */
     if (!this.form.invalid) {
-
       console.log(value);
-      
+
+      this.loading = true;
+      setTimeout(() => {
+        // submit form, as result get id incident
+        this.loading = false;
+        this.idIncident = 69;        
+        // disable all inputs
+        Object.keys(this.form.controls).forEach(key => {
+          this.form.controls[key].disable();
+        });   
+        // active file input
+        this.activeFileInput();
+      }, 1200);
     }
   }
+
+  private activeFileInput = () => {
+    const fileInput: HTMLElement = document.getElementById(
+      "fileInput"
+    ) as HTMLElement;
+    console.log(fileInput);
+    fileInput.click();
+  };
 }

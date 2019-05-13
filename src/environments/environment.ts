@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: "http://test65.vumop.cz/monitoring/public"
+  apiUrl: "https://test65.vumop.cz/monitoring/public"
 };
 
 /*
