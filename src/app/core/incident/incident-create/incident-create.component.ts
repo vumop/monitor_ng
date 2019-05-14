@@ -31,7 +31,7 @@ export interface DataModel {
 })
 export class IncidentCreateComponent implements OnInit {
   public loading: boolean;
-  private idIncident: number;
+  public idIncident: number;
   public file: any;
 
   public form: FormGroup;
@@ -119,7 +119,6 @@ export class IncidentCreateComponent implements OnInit {
     const fileInput: HTMLElement = document.getElementById(
       "fileInput"
     ) as HTMLElement;
-    console.log(fileInput);
     fileInput.click();
   };
 }

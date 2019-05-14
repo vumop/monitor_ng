@@ -1,4 +1,3 @@
-import { Injectable } from "@angular/core";
 
 import Draw from "ol/interaction/Draw";
 import { Map } from "ol";
@@ -11,9 +10,6 @@ import {
   Style as OlStyle
 } from "ol/style.js";
 
-@Injectable({
-  providedIn: "root"
-})
 export class Drawing {
   /**
    * Ol draw interation
@@ -42,7 +38,7 @@ export class Drawing {
   //
   private map: Map;
 
-  constructor(layer, map) {
+  constructor(layer: any, map: Map) {
     this.vectorClear = false;
     this.delayClear = 2500;
     this.autoDeative = true;

@@ -24,12 +24,15 @@
       >
         <input type="hidden" formControlName="geom" />
         <input
+          name="fileInput"
           style="display: none"
           type="file"
           accept="image/*"
           (change)="onFileChanged($event)"
           id="fileInput"
         />
+        <input type="file" accept="image/*" (change)="onFileChanged($event)" />
+
         <mat-form-field hintLabel="Pro validaci záznámu je nutný e-mail">
           <input
             matInput
