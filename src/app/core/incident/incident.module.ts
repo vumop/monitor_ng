@@ -20,6 +20,8 @@ import { BasicTabComponent } from "./components/basic-tab/basic-tab.component";
 
 import { IncidentLayer } from "./incident-layer/incident.layer";
 import { IncidentCreateInfoComponent } from './incident-create-info/incident-create-info.component';
+import { FormCreateComponent } from './components/form-create/form-create.component';
+import { FormImageComponent } from './components/form-image/form-image.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { IncidentCreateInfoComponent } from './incident-create-info/incident-cre
     FotosTabComponent,
     BasicTabComponent,
     IncidentCreateComponent,
-    IncidentCreateInfoComponent
+    IncidentCreateInfoComponent,
+    FormCreateComponent,
+    FormImageComponent
   ],
   entryComponents: [IncidentDetailComponent, IncidentCreateComponent, IncidentCreateInfoComponent],
   imports: [

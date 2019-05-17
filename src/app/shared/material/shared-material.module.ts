@@ -26,6 +26,8 @@ import { MatListModule } from "@angular/material/list";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
+import { MatStepperModule } from "@angular/material/stepper";
+import { MatBadgeModule } from "@angular/material/badge";
 
 @NgModule({
   imports: [
@@ -51,7 +53,9 @@ import { MatAutocompleteModule } from "@angular/material/autocomplete";
     MatSidenavModule,
     MatExpansionModule,
     MatAutocompleteModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatStepperModule,
+    MatBadgeModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -76,7 +80,9 @@ import { MatAutocompleteModule } from "@angular/material/autocomplete";
     MatSidenavModule,
     MatExpansionModule,
     MatAutocompleteModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatStepperModule,
+    MatBadgeModule
   ]
 })
 export class SharedMaterialModule {}

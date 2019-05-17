@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import { UserService } from './user.service';
+import { DrawingService } from './drawing.service';
 
-describe('UserService', () => {
+describe('DrawingService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [
       HttpClientTestingModule
@@ -11,7 +11,7 @@ describe('UserService', () => {
   }));
 
   it('should be created', () => {
-    const service: UserService = TestBed.get(UserService);
+    const service: DrawingService = TestBed.get(DrawingService);
     expect(service).toBeTruthy();
   });
 });

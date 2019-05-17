@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <div>Nový záznam</div>
+    <div>Nová událost</div>
     <div fxFlex></div>
     <button [disabled]="idIncident" mat-icon-button mat-dialog-close>
       <mat-icon class="mat-18">close</mat-icon>
@@ -10,127 +10,43 @@
 <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
 <div *ngIf="!loading" style="height: 4px;"></div>
 <mat-dialog-content>
-  <form
-    autocomplete="off"
-    novalidate
-    (ngSubmit)="onSubmit(form.value)"
-    [formGroup]="form"
-  >
-    <mat-card>
-      <mat-card-content
-        fxLayout="column wrap"
-        fxLayoutGap="15px"
-        fxLayoutAlign="stretch"
-      >
-        <input type="hidden" formControlName="geom" />
-        <input
-          name="fileInput"
-          style="display: none"
-          type="file"
-          accept="image/*"
-          (change)="onFileChanged($event)"
-          id="fileInput"
-        />
-        <input type="file" accept="image/*" (change)="onFileChanged($event)" />
+  <mat-horizontal-stepper [linear]="isLinear" #stepper>
+    <mat-step [completed]="false" [editable]="false">
+      <ng-template matStepLabel>Popis</ng-template>
 
-        <mat-form-field hintLabel="Pro validaci záznámu je nutný e-mail">
-          <input
-            matInput
-            type="email"
-            placeholder="E-mail"
-            required
-            formControlName="email"
-          />
-          <mat-error
-            *ngIf="
-              formControls.email.hasError('email') &&
-              !formControls.email.hasError('required')
-            "
-          >
-            Emailová adresa musí být ve formátu: uživatel@doména.cz
-          </mat-error>
-          <mat-error *ngIf="formControls.email.hasError('required')">
-            vyplňte <strong>e-mail</strong>!
-          </mat-error>
-        </mat-form-field>
-        <div fxLayout="row" fxFill fxLayoutGap="15px">
-          <mat-form-field hintLabel="Datum vzniku eroze" fxFlex="50">
-            <input
-              matInput
-              [matDatepicker]="picker"
-              placeholder=""
-              required
-              formControlName="datum_vzniku_od"
-            />
-            <mat-datepicker-toggle
-              matSuffix
-              [for]="picker"
-            ></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-            <mat-error
-              *ngIf="formControls.datum_vzniku_od.hasError('required')"
-            >
-              vyplňte <strong>datum</strong>!
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field hintLabel="Čas vzniku eroze" fxFlex="50">
-            <input
-              matInput
-              type="time"
-              placeholder=""
-              required
-              formControlName="cas_vzniku_od"
-            />
-            <mat-error *ngIf="formControls.cas_vzniku_od.hasError('required')">
-              vyplňte <strong>čas</strong>!
-            </mat-error>
-          </mat-form-field>
+      <app-incident-form-create
+        [feature]="feature"
+        (nextStep)="nextStep()"
+        (setLoading)="setLoading($event)"
+        (setIdIncident)="setIdIncident($event)"
+      ></app-incident-form-create>
+    </mat-step>
+    <mat-step [completed]="false" [editable]="false">
+      <ng-template matStepLabel>Fotky</ng-template>
+
+      <app-incident-form-image
+        (nextStep)="nextStep()"
+        (setLoading)="setLoading($event)"
+      ></app-incident-form-image>
+    </mat-step>
+    <mat-step [completed]="false" [editable]="false">
+      <ng-template matStepLabel>Závěr</ng-template>
+
+      <div fxLayout="row">
+        <div style="width: 65px">
+          <mat-icon style="font-size: 42px">info_outline</mat-icon>
         </div>
-
-        <mat-form-field
-          hintLabel="(Vyplňte například plodiny nebo intenzitu srážky...)"
-        >
-          <textarea
-            matInput
-            placeholder="Poznámky k zázmanu"
-            formControlName="popis"
-          ></textarea>
-        </mat-form-field>
-
-        <mat-form-field *ngIf="file">
-          <textarea
-            matInput
-            placeholder="{{ file.name }} - popisek"
-            [(ngModel)]="file.popis"
-          ></textarea>
-        </mat-form-field>
-      </mat-card-content>
-      <mat-card-actions>
-        <button
-          *ngIf="idIncident"
-          routerLink="/"
-          mat-dialog-close
-          mat-raised-button
-          color="primary"
-        >
-          Hotovo
+        <div>
+          Erozní událost byla úspěšně uložena. Následně dojde k její validaci a
+          následnému zveřejnění.
+        </div>
+      </div>
+      <br />
+      <div>
+        <button mat-raised-button color="primary" mat-dialog-close>
+          Ukončit
         </button>
-        <button type="submit" mat-raised-button color="primary">
-          <mat-icon>add_photo_alternate</mat-icon>
-          {{ idIncident ? "Přidat další fotku" : " Uložit a přidat fotku" }}
-        </button>
-
-        <div fxFlex></div>
-        <button
-          [disabled]="idIncident"
-          mat-raised-button
-          color="warn"
-          routerLink="/"
-          mat-dialog-close
-        >
-          Zavřít
-        </button>
-      </mat-card-actions>
-    </mat-card>
-  </form>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
 </mat-dialog-content>

@@ -6,3 +6,7 @@
   margin: 0px !important;
   padding: 0px !important;
 }
+
+::ng-deep .mat-horizontal-stepper-header{
+  pointer-events: none !important;
+}

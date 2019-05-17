@@ -1,0 +1,48 @@
+<form autocomplete="off" novalidate>
+  <div fxLayout="column" fxLayoutAlign="stretch">
+    <input
+      name="fileInput"
+      style="display: none"
+      type="file"
+      accept="image/*"
+      (change)="onFileChanged($event)"
+      id="fileInput"
+    />
+
+    <div fxLayout="row">
+      <div style="width: 65px">
+        <mat-icon style="font-size: 42px">info_outline</mat-icon>
+      </div>
+      <div>
+        Pořízení fotografií erozní události je velmi důležité. Zkuste se zaměřit
+        na rostlinný kryt nebo vzniklé škody.
+      </div>
+    </div>
+    <mat-form-field *ngIf="file" hintLabel="{{ file.name }}">
+      <textarea
+        matInput
+        placeholder="Napište popisek"
+        [ngModelOptions]="{ standalone: true }"
+        [(ngModel)]="file.popis"
+      ></textarea>
+    </mat-form-field>
+  </div>
+  <br />
+  <div>
+    <button
+      type="submit"
+      mat-raised-button
+      color="primary"
+      (click)="addImage()"
+      matBadge="{{ savedImg }}"
+      matBadgeColor="accent"
+    >
+      <mat-icon>add_photo_alternate</mat-icon>
+      Přidat fotku
+    </button>
+    <div fxFlex></div>
+    <button mat-raised-button color="primary" (click)="saveImage(true)">
+      Další
+    </button>
+  </div>
+</form>

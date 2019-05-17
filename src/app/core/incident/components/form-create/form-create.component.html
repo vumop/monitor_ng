@@ -1,0 +1,81 @@
+<form
+  autocomplete="off"
+  novalidate
+  (ngSubmit)="onSubmit(form.value)"
+  [formGroup]="form"
+>
+  <div fxLayout="column wrap" fxLayoutGap="15px" fxLayoutAlign="stretch">
+    <input type="hidden" formControlName="geom" />
+
+    <mat-form-field hintLabel="Pro validaci záznámu je nutný e-mail">
+      <input
+        matInput
+        type="email"
+        placeholder="E-mail"
+        required
+        formControlName="email"
+      />
+      <mat-error
+        *ngIf="
+          formControls.email.hasError('email') &&
+          !formControls.email.hasError('required')
+        "
+      >
+        Emailová adresa musí být ve formátu: uživatel@doména.cz
+      </mat-error>
+      <mat-error *ngIf="formControls.email.hasError('required')">
+        vyplňte <strong>e-mail</strong>!
+      </mat-error>
+    </mat-form-field>
+    <div fxLayout="row" fxFill fxLayoutGap="15px">
+      <mat-form-field hintLabel="Datum vzniku eroze" fxFlex="50">
+        <input
+          matInput
+          [matDatepicker]="picker"
+          placeholder=""
+          required
+          formControlName="datum_vzniku_od"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="formControls.datum_vzniku_od.hasError('required')">
+          vyplňte <strong>datum</strong>!
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field hintLabel="Čas vzniku eroze" fxFlex="50">
+        <input
+          matInput
+          type="time"
+          placeholder=""
+          required
+          formControlName="cas_vzniku_od"
+        />
+        <mat-error *ngIf="formControls.cas_vzniku_od.hasError('required')">
+          vyplňte <strong>čas</strong>!
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field
+      hintLabel="(Vyplňte například plodiny nebo intenzitu srážky...)"
+    >
+      <textarea
+        matInput
+        placeholder="Poznámky k zázmanu"
+        formControlName="popis"
+      ></textarea>
+    </mat-form-field>
+  </div>
+  <br />
+  <div>
+    <button type="submit" mat-raised-button color="primary">
+      <mat-icon>save</mat-icon>
+      Uložit a další
+    </button>
+
+    <div fxFlex></div>
+    <button mat-raised-button color="warn" routerLink="/" mat-dialog-close>
+      Zavřít
+    </button>
+  </div>
+</form>
