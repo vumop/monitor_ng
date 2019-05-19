@@ -1,0 +1,8 @@
+.info-section {
+  margin: 16px 0px 16px 0px;
+}
+
+.info-section mat-icon {
+  font-size: 42px;
+  color: rgba(0, 0, 0, 0.54);
+}

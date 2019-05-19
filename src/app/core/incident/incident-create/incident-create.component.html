@@ -2,15 +2,12 @@
   <mat-toolbar-row>
     <div>Nová událost</div>
     <div fxFlex></div>
-    <button [disabled]="idIncident" mat-icon-button mat-dialog-close>
-      <mat-icon class="mat-18">close</mat-icon>
-    </button>
   </mat-toolbar-row>
 </mat-toolbar>
 <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
 <div *ngIf="!loading" style="height: 4px;"></div>
 <mat-dialog-content>
-  <mat-horizontal-stepper [linear]="isLinear" #stepper>
+  <mat-horizontal-stepper [linear]="true" #stepper>
     <mat-step [completed]="false" [editable]="false">
       <ng-template matStepLabel>Popis</ng-template>
 
@@ -32,17 +29,25 @@
     <mat-step [completed]="false" [editable]="false">
       <ng-template matStepLabel>Závěr</ng-template>
 
-      <div fxLayout="row">
-        <div style="width: 65px">
-          <mat-icon style="font-size: 42px">info_outline</mat-icon>
-        </div>
+      <section class="mat-typography" fxLayout="column wrap" fxLayoutGap="20px">
         <div>
-          Erozní událost byla úspěšně uložena. Následně dojde k její validaci a
-          následnému zveřejnění.
+          Erozní událost byla <b>úspěšně uložena</b>. Následně dojde k její
+          validaci a zveřejnění.
         </div>
-      </div>
+        <div fxLayout="row" fxLayoutGap="20px">
+          <div>
+            <img src="./assets/vumop_43_B.png" width="80" alt="" />
+          </div>
+          <div>
+            <p>Správce systému: VUMOP - Půdní služba, v.v.i.</p>
+            <p>kontakt: <cite>sowac-gis[at]vumop.cz</cite></p>
+          </div>
+        </div>
+      </section>
+
       <br />
       <div>
+        <div fxFlex></div>
         <button mat-raised-button color="primary" mat-dialog-close>
           Ukončit
         </button>

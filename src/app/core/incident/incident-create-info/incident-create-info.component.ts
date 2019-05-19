@@ -39,6 +39,8 @@ export class IncidentCreateInfoComponent implements OnInit {
     this.drawingService.getDraw().drawing.on("drawend", evt => {
       const dialogCreateRef = this.dialog.open(IncidentCreateComponent, {
         disableClose: true,
+        maxWidth: (window.screen.width > 600) ? 500 : undefined,
+        width: (window.screen.width < 600) ? '100%' : undefined,
         data: { feature: evt.feature, navigateTo: "map" }
       });
 

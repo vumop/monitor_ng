@@ -9,21 +9,27 @@
       id="fileInput"
     />
 
-    <div fxLayout="row">
-      <div style="width: 65px">
-        <mat-icon style="font-size: 42px">info_outline</mat-icon>
+    <section
+      class="mat-typography info-section"
+      fxLayout="row"
+      fxLayoutGap="40px"
+    >
+      <div>
+        <mat-icon>info_outline</mat-icon>
       </div>
       <div>
         Pořízení fotografií erozní události je velmi důležité. Zkuste se zaměřit
-        na rostlinný kryt nebo vzniklé škody.
+        na rostlinný kryt a vzniklé škody.
       </div>
-    </div>
-    <mat-form-field *ngIf="file" hintLabel="{{ file.name }}">
+    </section>
+
+    <mat-form-field hintLabel="vložte obrázek">
       <textarea
         matInput
-        placeholder="Napište popisek"
+        disabled="true"
+        placeholder="Popisek obrázku"
         [ngModelOptions]="{ standalone: true }"
-        [(ngModel)]="file.popis"
+        [(ngModel)]="popis"
       ></textarea>
     </mat-form-field>
   </div>
