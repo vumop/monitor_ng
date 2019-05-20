@@ -1,16 +1,20 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { FormImageComponent } from './form-image.component';
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 
-describe('FormImageComponent', () => {
+import { FormImageComponent } from "./form-image.component";
+
+import { SharedMaterialModule } from "./../../../../shared/material/shared-material.module";
+
+describe("FormImageComponent", () => {
   let component: FormImageComponent;
   let fixture: ComponentFixture<FormImageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormImageComponent ]
-    })
-    .compileComponents();
+      declarations: [FormImageComponent],
+      imports: [ReactiveFormsModule, FormsModule, SharedMaterialModule]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +23,12 @@ describe('FormImageComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
+
+  it("should file variable null", () => {
+    expect(component.file === null).toBeTruthy();
+  });
+
 });
