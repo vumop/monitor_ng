@@ -1,11 +1,14 @@
 // Section 1
 import { State, Action, StateContext, Selector } from "@ngxs/store";
+import { tap } from "rxjs/operators";
 
 import {
   GetIncident,
   PageIncident,
   SortIncident,
-  FilterIncident
+  FilterIncident,
+  CreateIncident,
+  AddImage
 } from "./../actions/incident.actions";
 
 import { IncidentService } from "../services/incident.service";
@@ -17,6 +20,8 @@ export class IncidentStateModel {
   page: object;
   filter: object;
   detail: object;
+  additionIncident: object | undefined;
+  additionImage: object | undefined;
 }
 
 @State<IncidentStateModel>({
@@ -30,7 +35,9 @@ export class IncidentStateModel {
       date: null,
       district: ""
     },
-    detail: {}
+    detail: {},
+    additionIncident: undefined,
+    additionImage: undefined
   }
 })
 export class IncidentState {
@@ -107,5 +114,35 @@ export class IncidentState {
         });
         break;
     }
+  }
+
+  @Action(CreateIncident)
+  create(
+    { getState, setState, patchState }: StateContext<IncidentStateModel>,
+    { payload }: CreateIncident
+  ) {
+    return this.incidentService.createIncident(payload).pipe(
+      tap(result => {
+        const state = getState();
+        patchState({
+          additionIncident: { payload, id: 69 /*result.id*/ }
+        });
+      })
+    );
+  }
+
+  @Action(AddImage)
+  addImage(
+    { getState, setState, patchState }: StateContext<IncidentStateModel>,
+    { payload, idIncident }: AddImage
+  ) {
+    return this.incidentService.addImage(payload).pipe(
+      tap(result => {
+        const state = getState();
+        patchState({
+          additionImage: { payload, idIncident }
+        });
+      })
+    );
   }
 }

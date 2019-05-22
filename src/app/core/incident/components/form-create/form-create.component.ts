@@ -8,6 +8,9 @@ import {
   FormControl
 } from "@angular/forms";
 
+import { Store, Select } from "@ngxs/store";
+import { CreateIncident } from "../../../../actions/incident.actions";
+
 @Component({
   selector: "app-incident-form-create",
   templateUrl: "./form-create.component.html",
@@ -30,7 +33,7 @@ export class FormCreateComponent implements OnInit {
     return this.form.controls;
   }
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private store: Store) {}
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -54,20 +57,18 @@ export class FormCreateComponent implements OnInit {
      * 3. next foto or finish editing (cancel button change to finish button)
      */
     if (!this.form.invalid) {
-      console.log(value);
-
       this.setLoading.emit(true);
-      setTimeout(() => {
+      this.store.dispatch(new CreateIncident(value)).subscribe(res => {
+        console.log("sub Create incidcent", res);
         // submit form, as result get id incident
         this.setLoading.emit(false);
-        this.setIdIncident.emit(69);
+        this.setIdIncident.emit(res.Incidents.additionIncident.id);
         this.nextStep.emit();
         // disable all inputs
         Object.keys(this.form.controls).forEach(key => {
           this.form.controls[key].disable();
         });
-        // active file input
-      }, 1200);
+      });
     }
   }
 }

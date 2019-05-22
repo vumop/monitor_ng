@@ -11,7 +11,7 @@
     <mat-step [completed]="false" [editable]="false">
       <ng-template matStepLabel>Popis</ng-template>
 
-      <app-incident-form-create
+      <app-incident-form-create       
         [feature]="feature"
         (nextStep)="nextStep()"
         (setLoading)="setLoading($event)"
@@ -22,6 +22,7 @@
       <ng-template matStepLabel>Fotky</ng-template>
 
       <app-incident-form-image
+        [idIncident]="idIncident"
         (nextStep)="nextStep()"
         (setLoading)="setLoading($event)"
       ></app-incident-form-image>

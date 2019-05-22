@@ -1,4 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
+import { Store } from "@ngxs/store";
+import { AddImage } from "../../../../actions/incident.actions";
 
 @Component({
   selector: "app-incident-form-image",
@@ -6,6 +8,8 @@ import { Component, OnInit, Output, EventEmitter } from "@angular/core";
   styleUrls: ["./form-image.component.css"]
 })
 export class FormImageComponent implements OnInit {
+  @Input() idIncident: number;
+
   @Output() setLoading = new EventEmitter<boolean>();
 
   @Output() nextStep = new EventEmitter();
@@ -21,7 +25,7 @@ export class FormImageComponent implements OnInit {
    */
   public loadedImg: number;
 
-  constructor() {
+  constructor(private store: Store) {
     this.loadedImg = 0;
     this.setToDefault();
   }
@@ -42,19 +46,31 @@ export class FormImageComponent implements OnInit {
    */
   public saveImage = (next: boolean) => {
     console.log(this.file);
-    if (this.file) {
+    if (this.file && this.idIncident) {
       this.setLoading.emit(true);
-      setTimeout(() => {
-        // submit form, as result get id incident
-        this.setLoading.emit(false);
-        // change step
-        if (next) {
-          this.nextStep.emit();
-        }
-        // set to default
-        this.setToDefault();
-        // active file input
-      }, 1200);
+
+      this.store
+        .dispatch(
+          new AddImage(
+            {
+              fileToUpload: this.file,
+              popis: this.desc,
+              id_udalost: this.idIncident
+            },
+            this.idIncident
+          )
+        )
+        .subscribe(res => {
+          // submit form, as result get id incident
+          this.setLoading.emit(false);
+          // change step
+          if (next) {
+            this.nextStep.emit();
+          }
+          // set to default
+          this.setToDefault();
+          // active file input
+        });
     }
   };
 
