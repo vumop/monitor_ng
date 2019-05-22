@@ -23,13 +23,13 @@
       </div>
     </section>
 
-    <mat-form-field hintLabel="vložte obrázek">
+    <mat-form-field hintLabel=" {{ name ? name : 'vložte obrázek' }}">
       <textarea
         matInput
-        disabled="true"
+        disabled="{{ file == null }}"
         placeholder="Popisek obrázku"
         [ngModelOptions]="{ standalone: true }"
-        [(ngModel)]="popis"
+        [(ngModel)]="desc"
       ></textarea>
     </mat-form-field>
   </div>
@@ -40,7 +40,7 @@
       mat-raised-button
       color="primary"
       (click)="addImage()"
-      matBadge="{{ savedImg }}"
+      matBadge="{{ loadedImg }}"
       matBadgeColor="accent"
     >
       <mat-icon>add_photo_alternate</mat-icon>

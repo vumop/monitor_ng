@@ -7,8 +7,13 @@
     <mat-list>
       <div *ngFor="let dpb of data">
         <mat-list-item>
-          <h3 mat-subheader>Zk. kód a čtverec:&nbsp;</h3>
-          <p>{{ dpb.zkod }} {{ dpb.ctverec }}</p>
+          <h3 mat-subheader>Zk. kód:&nbsp;</h3>
+          <p>{{ dpb.zkod }}</p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <h3 mat-subheader>Čtverec:&nbsp;</h3>
+          <p>{{ dpb.ctverec }}</p>
         </mat-list-item>
         <mat-divider></mat-divider>
         <mat-list-item>

@@ -14,17 +14,16 @@ export class FormImageComponent implements OnInit {
    * default NULL
    */
   public file: any;
-
-  public popis: string;
+  public name: string;
+  public desc: string;
   /**
-   * count of saved images
+   * count of loaded images
    */
-  public savedImg: number;
+  public loadedImg: number;
 
   constructor() {
-    this.savedImg = 0;
-    this.file = null;
-    this.popis = '';
+    this.loadedImg = 0;
+    this.setToDefault();
   }
 
   ngOnInit() {}
@@ -53,9 +52,7 @@ export class FormImageComponent implements OnInit {
           this.nextStep.emit();
         }
         // set to default
-        this.file = null;
-        this.popis = '';
-        this.savedImg++;
+        this.setToDefault();
         // active file input
       }, 1200);
     }
@@ -69,6 +66,8 @@ export class FormImageComponent implements OnInit {
     //if target isn't there then take srcElement
     const target = event.target || event.srcElement;
     this.file = target.files[0];
+    this.name = this.file.name;
+    this.loadedImg++;
   };
 
   private activeFileInput = () => {
@@ -76,5 +75,11 @@ export class FormImageComponent implements OnInit {
       "fileInput"
     ) as HTMLElement;
     fileInput.click();
+  };
+
+  private setToDefault = () => {
+    this.file = null;
+    this.desc = undefined;
+    this.name = undefined;
   };
 }

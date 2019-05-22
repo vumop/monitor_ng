@@ -8,10 +8,6 @@
   width: 15px;
 }
 
-mat-toolbar {
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-}
-
 .active .material-icons {
   font-size: 28px !important;
 }

@@ -5,7 +5,8 @@
   [formGroup]="form"
 >
   <div fxLayout="column wrap" fxLayoutGap="15px" fxLayoutAlign="stretch">
-    <input type="hidden" formControlName="geom" />
+    <input type="hidden" name="geom" formControlName="geom" />
+    <input type="hidden" name="valid" formControlName="valid" />
 
     <mat-form-field hintLabel="Pro validaci záznámu je nutný e-mail">
       <input

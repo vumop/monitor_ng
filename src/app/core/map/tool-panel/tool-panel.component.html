@@ -1,21 +1,21 @@
 <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="8px">
   <div>
-    <button mat-raised-button (click)="activeDrawer('tree')">
+    <button mat-raised-button (click)="activeDrawer('tree')" class="mat-elevation-z4">
       <mat-icon>layers</mat-icon>
       <span fxHide.xs> Přehled vrstev</span>
     </button>
   </div>
   <div>
-    <button mat-raised-button (click)="activeDrawer('search')">
+    <button mat-raised-button (click)="activeDrawer('search')" class="mat-elevation-z4">
       <mat-icon>search</mat-icon>
     </button>
   </div>
   <div>
-    <button mat-raised-button [matMenuTriggerFor]="toolsMenu">
+    <button mat-raised-button [matMenuTriggerFor]="toolsMenu" class="mat-elevation-z4">
       <mat-icon>build</mat-icon>
     </button>
     <mat-menu #toolsMenu="matMenu">
-      <button mat-menu-item (click)="getArea()">
+      <button mat-menu-item (click)="getArea()" >
         <mat-icon>border_style</mat-icon>
         <span>Výměra</span>
       </button>

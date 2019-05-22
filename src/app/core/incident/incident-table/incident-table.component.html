@@ -14,6 +14,7 @@
         mat-fab
         color="primary"
         routerLink="/incident/create/"
+        class="mat-elevation-z6"
       >
         <mat-icon>add</mat-icon>
       </a>
@@ -28,7 +29,14 @@
     ></app-search-filter>
 
     <div fxShow fxHide.xs fxFlex="5"></div>
-    <a fxShow fxHide.xs mat-fab color="primary" routerLink="/incident/create/">
+    <a
+      fxShow
+      fxHide.xs
+      mat-fab
+      color="primary"
+      routerLink="/incident/create/"
+      class="mat-elevation-z6"
+    >
       <mat-icon>add</mat-icon>
     </a>
   </form>
@@ -96,6 +104,7 @@
             mat-icon-button
             routerLink="/map/detail/{{ element.id }}"
             routerLinkActive="active"
+            style="color: rgba(0,0,0,0.54)"
           >
             <mat-icon class="mat-18">search</mat-icon>
           </a>
@@ -103,6 +112,7 @@
             mat-icon-button
             routerLink="/incident/detail/{{ element.id }}"
             routerLinkActive="active"
+            style="color: rgba(0,0,0,0.54)"
           >
             <mat-icon class="mat-18">open_in_new</mat-icon>
           </a>

@@ -41,7 +41,8 @@ export class FormCreateComponent implements OnInit {
       datum_vzniku_od: [new Date(), Validators.compose([Validators.required])],
       cas_vzniku_od: ["23:00", Validators.compose([Validators.required])],
       popis: ["description"],
-      geom: [this.feature, Validators.compose([Validators.required])]
+      geom: [this.feature, Validators.compose([Validators.required])],
+      valid: [false, Validators.compose([Validators.required])]
     });
   }
 
