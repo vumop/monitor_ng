@@ -125,7 +125,7 @@ export class IncidentState {
       tap(result => {
         const state = getState();
         patchState({
-          additionIncident: { payload, id: 69 /*result.id*/ }
+          additionIncident: { payload, id: 69, ...result /*result.id*/ }
         });
       })
     );
@@ -140,7 +140,7 @@ export class IncidentState {
       tap(result => {
         const state = getState();
         patchState({
-          additionImage: { payload, idIncident }
+          additionImage: { payload, idIncident, ...result}
         });
       })
     );

@@ -1,7 +1,12 @@
-<form autocomplete="off" novalidate>
+<form
+  autocomplete="off"
+  novalidate
+  (ngSubmit)="onSubmit(true)"
+  [formGroup]="form"
+>
   <div fxLayout="column" fxLayoutAlign="stretch">
     <input
-      name="fileInput"
+      formControlName="fileToUpload"
       style="display: none"
       type="file"
       accept="image/*"
@@ -26,17 +31,15 @@
     <mat-form-field hintLabel=" {{ name ? name : 'vložte obrázek' }}">
       <textarea
         matInput
-        disabled="{{ file == null }}"
+        formControlName="popis"
         placeholder="Popisek obrázku"
-        [ngModelOptions]="{ standalone: true }"
-        [(ngModel)]="desc"
       ></textarea>
     </mat-form-field>
   </div>
   <br />
   <div>
     <button
-      type="submit"
+      type="button"
       mat-raised-button
       color="primary"
       (click)="addImage()"
@@ -47,7 +50,11 @@
       Přidat fotku
     </button>
     <div fxFlex></div>
-    <button mat-raised-button color="primary" (click)="saveImage(true)">
+    <button
+      type="submit"
+      mat-raised-button
+      color="primary"
+    >
       Další
     </button>
   </div>

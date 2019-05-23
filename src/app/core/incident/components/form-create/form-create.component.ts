@@ -10,6 +10,7 @@ import {
 
 import { Store, Select } from "@ngxs/store";
 import { CreateIncident } from "../../../../actions/incident.actions";
+import { take } from "rxjs/operators";
 
 @Component({
   selector: "app-incident-form-create",
@@ -58,17 +59,20 @@ export class FormCreateComponent implements OnInit {
      */
     if (!this.form.invalid) {
       this.setLoading.emit(true);
-      this.store.dispatch(new CreateIncident(value)).subscribe(res => {
-        console.log("sub Create incidcent", res);
-        // submit form, as result get id incident
-        this.setLoading.emit(false);
-        this.setIdIncident.emit(res.Incidents.additionIncident.id);
-        this.nextStep.emit();
-        // disable all inputs
-        Object.keys(this.form.controls).forEach(key => {
-          this.form.controls[key].disable();
+      this.store
+        .dispatch(new CreateIncident(value))
+        .pipe(take(1))
+        .subscribe(res => {
+          console.log("sub Create incidcent", res);
+          // submit form, as result get id incident
+          this.setLoading.emit(false);
+          this.setIdIncident.emit(res.Incidents.additionIncident.id);
+          this.nextStep.emit();
+          // disable all inputs
+          Object.keys(this.form.controls).forEach(key => {
+            this.form.controls[key].disable();
+          });
         });
-      });
     }
   }
 }

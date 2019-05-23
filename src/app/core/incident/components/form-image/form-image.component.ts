@@ -1,6 +1,16 @@
 import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
+
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+  FormControl
+} from "@angular/forms";
+
 import { Store } from "@ngxs/store";
 import { AddImage } from "../../../../actions/incident.actions";
+import { take } from "rxjs/operators";
 
 @Component({
   selector: "app-incident-form-image",
@@ -14,52 +24,44 @@ export class FormImageComponent implements OnInit {
 
   @Output() nextStep = new EventEmitter();
   /**
-   * if defined img file else NULL
-   * default NULL
+   * name of file
    */
-  public file: any;
   public name: string;
-  public desc: string;
   /**
    * count of loaded images
    */
   public loadedImg: number;
 
-  constructor(private store: Store) {
-    this.loadedImg = 0;
-    this.setToDefault();
+  public form: FormGroup;
+
+  get formControls(): {
+    [key: string]: AbstractControl;
+  } {
+    return this.form.controls;
   }
 
-  ngOnInit() {}
+  constructor(private formBuilder: FormBuilder, private store: Store) {
+    this.loadedImg = 0;
+    this.name = undefined;
+  }
 
-  /**
-   * add incident image
-   */
-  public addImage = () => {
-    if (this.file) {
-      this.saveImage(false);
-    }
-    this.activeFileInput();
-  };
+  ngOnInit() {
+    this.form = this.formBuilder.group({
+      fileToUpload: [undefined, Validators.compose([Validators.required])],
+      popis: [{ value: undefined, disabled: true }],
+      id_udalost: [],
+      valid: [false, Validators.compose([Validators.required])]
+    });
+  }
   /**
    * save loaded image
    */
-  public saveImage = (next: boolean) => {
-    console.log(this.file);
-    if (this.file && this.idIncident) {
-      this.setLoading.emit(true);
-
+  public onSubmit = (next: boolean) => {
+    if (this.form.valid && this.idIncident) {
+      this.form.controls["id_udalost"].setValue(this.idIncident);
       this.store
-        .dispatch(
-          new AddImage(
-            {
-              fileToUpload: this.file,
-              popis: this.desc,
-              id_udalost: this.idIncident
-            },
-            this.idIncident
-          )
-        )
+        .dispatch(new AddImage(this.form.value, this.idIncident))
+        .pipe(take(1))
         .subscribe(res => {
           // submit form, as result get id incident
           this.setLoading.emit(false);
@@ -67,11 +69,20 @@ export class FormImageComponent implements OnInit {
           if (next) {
             this.nextStep.emit();
           }
-          // set to default
-          this.setToDefault();
-          // active file input
+          // reset inputs
+          this.form.controls["fileToUpload"].reset();
+          this.form.controls["popis"].reset();
         });
     }
+  };
+
+  /**
+   * add incident image
+   */
+  public addImage = () => {
+    // if the user already selected file, the form is submitted
+    this.onSubmit(false);
+    this.activeFileInput();
   };
 
   /**
@@ -81,8 +92,8 @@ export class FormImageComponent implements OnInit {
   public onFileChanged = (event): void => {
     //if target isn't there then take srcElement
     const target = event.target || event.srcElement;
-    this.file = target.files[0];
-    this.name = this.file.name;
+    this.name = target.files[0].name;
+    this.form.controls["popis"].enable();
     this.loadedImg++;
   };
 
@@ -91,11 +102,5 @@ export class FormImageComponent implements OnInit {
       "fileInput"
     ) as HTMLElement;
     fileInput.click();
-  };
-
-  private setToDefault = () => {
-    this.file = null;
-    this.desc = undefined;
-    this.name = undefined;
   };
 }
