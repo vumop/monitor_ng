@@ -25,7 +25,7 @@ export class UserState {
     return state.isLogged;
   }
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) { }
 
   @Action(Login)
   login(
@@ -37,11 +37,13 @@ export class UserState {
       .pipe(first())
       .subscribe(
         result => {
-          patchState({
-            token: result.token,
-            username: result.username,
-            isLogged: true
-          });
+          if (result.success) {
+            patchState({
+              token: result.id,
+              username: result.jmeno_uzivatel,
+              isLogged: true
+            });
+          }
         },
         err => {
           alert(err);

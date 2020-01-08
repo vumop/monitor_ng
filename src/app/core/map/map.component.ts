@@ -3,6 +3,8 @@ import { MatDialog, MatDialogRef } from "@angular/material";
 
 import { ActivatedRoute, Router } from "@angular/router";
 import { Subject } from "rxjs/Subject";
+import { Observable } from 'rxjs/internal/Observable';
+import { Select } from '@ngxs/store';
 
 import { MapService } from "../../services/map.service";
 import { LayersService } from "../../services/layers.service";
@@ -13,6 +15,7 @@ import { Layers } from "./layers/layers";
 import { IncidentDetailComponent } from "../incident/incident-detail/incident-detail.component";
 import { IncidentCreateInfoComponent } from "../incident/incident-create-info/incident-create-info.component";
 import { SelectModel } from "./../../models/select.model";
+import { UserState } from '../../state/user.state';
 
 @Component({
   selector: "app-map",
@@ -20,10 +23,13 @@ import { SelectModel } from "./../../models/select.model";
   styleUrls: ["./map.component.css"]
 })
 export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
+  @Select(UserState.isLoggend) selectedIsLoggend: Observable<boolean>;
+
   public sideType$ = new Subject<string>();
   public drawerType: string;
   private subscription = [];
   public selector: SelectModel;
+  public isLogged: boolean;
 
   constructor(
     private mapService: MapService,
@@ -46,6 +52,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.mapService.getMap().setTarget(null);
     this.selectActivation();
+    this.selectedIsLoggend.subscribe(val => {
+      this.isLogged = val;
+    });
   }
 
   ngAfterViewInit() {

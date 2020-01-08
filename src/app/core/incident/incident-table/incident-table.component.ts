@@ -37,6 +37,7 @@ import { UserState } from "./../../../state/user.state";
 
 import { IncidentDetailComponent } from "../incident-detail/incident-detail.component";
 
+
 @Component({
   selector: "app-incident-table",
   templateUrl: "./incident-table.component.html",
@@ -48,6 +49,8 @@ export class IncidentTableComponent
   @Select(IncidentState.getIncidents) selectedIncidents: Observable<
     IncidentStateModel
   >;
+
+  @Select(UserState.isLoggend) selectedIsLoggend: Observable<boolean>;
 
   public displayedColumns: string[] = [
     "id",
@@ -66,6 +69,7 @@ export class IncidentTableComponent
   private searchTextChanged = new Subject<string>();
   private subscription = [];
   public filterForm: FormGroup;
+  public isLogged: boolean;
 
   constructor(
     private store: Store,
@@ -90,6 +94,10 @@ export class IncidentTableComponent
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
+    this.selectedIsLoggend.subscribe(val => {
+      this.isLogged = val;
+    });
+    
     this.defaultFilter = this.incidents.filterPredicate;
     this.incidents.sort = this.sort;
     this.incidents.paginator = this.paginator;

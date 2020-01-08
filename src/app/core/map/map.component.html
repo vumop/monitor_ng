@@ -26,6 +26,7 @@
       <div fxFlex id="map"></div>
       <app-zoom-panel id="zoom-panel"></app-zoom-panel>
       <a
+        *ngIf="isLogged"  
         mat-fab
         color="primary"
         routerLink="/incident/create/"
