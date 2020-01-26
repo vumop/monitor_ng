@@ -1,54 +1,73 @@
 <div fxLayout="column" style="height: 100%;">
-  <app-menu ></app-menu>
-  <div
-    fxLayout="column"
-    fxLayoutGap="20px"
-    fxLayoutAlign="space-between"
-    style="padding-left: 7%; padding-right: 7%; overflow: auto; scroll-behavior: auto;"
-  >
-    <br />
-    <div>
+  <app-menu></app-menu>
+  <div class="info-panel" fxLayout="column" fxLayoutGap="8px">
+
+    <mat-card class="info-card">
+      <mat-card-content>
+        <p>
+          Aplikace
+          <b>Monitoringu eroze zemědělské půdy</b> je koncipována jako volně dostupná webová aplikace určená pro mobilní zařízení.
+          Její funkčnost umožňuje nad mapovými podklady provést zákres místa vzniku erozní události, pořídit přímo mobilním
+          zařízením fotodokumentaci s lokalizací, doplnit textové informace a veškerá data odeslat a uložit do databáze.
+        </p>
+      </mat-card-content>
+      <mat-card-content>
+        <p>
+          Aplikace vznikla v rámci výzkumného projektu NAZV č. QK1720289 – „Vývoj automatizovaného nástroje pro optimalizaci monitoringu
+          eroze zemědělské půdy pomocí distančních metod“.
+        </p>
+        <p>
+          <b>Popis funkčnosti aplikace je uveden
+            <a href="./assets/docs/navod_popis_funkcnosti.pdf" target="_blank">zde</a>
+          </b>
+        </p>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="info-card">
       <mat-card-title> PROČ MONITORUJEME EROZI V ČR? </mat-card-title>
       <mat-card-content>
         <p>
-          Půda je jedním z nejcennějších přírodních bohatství každého státu a
-          neobnovitelným přírodním zdrojem. Představuje významnou složku
-          životního prostředí s širokým rozsahem funkcí a je základním výrobním
-          prostředkem v zemědělství a lesnictví. Je ovšem ohrožena celou řadou
-          procesů z části přírodních, z větší části však vyvolaných činností
-          člověka, které vedou k omezení nebo až zničení schopnosti půdy plnit
-          své základní produkční a mimoprodukční funkce.
+          Půda je jedním z nejcennějších přírodních bohatství každého státu a neobnovitelným přírodním zdrojem. Představuje významnou
+          složku životního prostředí s širokým rozsahem funkcí a je základním výrobním prostředkem v zemědělství a lesnictví.
+          Je ovšem ohrožena celou řadou procesů z části přírodních, z větší části však vyvolaných činností člověka, které
+          vedou k omezení nebo až zničení schopnosti půdy plnit své základní produkční a mimoprodukční funkce.
         </p>
       </mat-card-content>
-    </div>
-
-    <div>
       <mat-card-title> KDYŽ SE SETKÁM S EROZNÍ UDÁLOSTÍ </mat-card-title>
       <mat-card-content>
         <p>
-          V případě zjištění erozní události je třeba se obrátit na místně
-          příslušnou pobočku Státního pozemkového úřadu (SPÚ), případně přímo na
-          pověřeného pracovníka SPÚ. Pověřený pracovník následně provede terénní
-          rekognoskaci a zjištěné informace zanese prostřednictvím webového
-          portálu Monitoringu eroze zemědělské půdy do databáze.
+          V případě zjištění erozní události je třeba se obrátit na místně příslušnou pobočku Státního pozemkového úřadu (SPÚ), případně
+          přímo na pověřeného pracovníka SPÚ. Pověřený pracovník následně provede terénní rekognoskaci a zjištěné informace
+          zanese prostřednictvím webového portálu Monitoringu eroze zemědělské půdy do databáze.
         </p>
       </mat-card-content>
-    </div>
-    <div>
       <mat-card-title> MONITORING EROZE ZEMĚDĚLSKÉ PŮDY </mat-card-title>
       <mat-card-content>
         <p>
-          Je nástrojem pro celorepublikový sběr dat o erozních událostech a
-          hodnocení účinnosti protierozních opatření definovaných v platných
-          právních normách. V rámci Monitoringu se zajišťují a vyhodnocují
-          informace o proběhlých erozních událostech, které po vyhodnocení
-          poskytují Ministerstvu zemědělství zpětnou vazbu o účinnosti přijatých
-          opatření. Výstupy Monitoringu tak slouží pro definici nutných úprav
-          opatření pro zmírnění negativních účinků erozních událostí na úrovni
-          jednotlivých událostí i na národní úrovni.
+          Je nástrojem pro celorepublikový sběr dat o erozních událostech a hodnocení účinnosti protierozních opatření definovaných
+          v platných právních normách. V rámci Monitoringu se zajišťují a vyhodnocují informace o proběhlých erozních událostech,
+          které po vyhodnocení poskytují Ministerstvu zemědělství zpětnou vazbu o účinnosti přijatých opatření. Výstupy Monitoringu
+          tak slouží pro definici nutných úprav opatření pro zmírnění negativních účinků erozních událostí na úrovni jednotlivých
+          událostí i na národní úrovni.
         </p>
       </mat-card-content>
-    </div>
-    <br /><br />
+    </mat-card>
+    <div style="flex: 1;"></div>
+    <footer class="docs-footer" fxLayout="row" fxLayoutGap="3.5%">
+      <div>
+        <p>
+          <img width="57" height="57" align="top" src="./assets/ME_lista_beztextu_white.png" />
+        </p>
+      </div>
+      <div>
+        <p>
+          <small>Správce systému: VUMOP - Půdní služba, v.v.i.</small>
+        </p>
+        <small>kontakt:
+          <cite>sowac-gis[at]vumop.cz</cite>
+        </small>
+      </div>
+    </footer>
   </div>
+
 </div>

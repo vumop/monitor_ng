@@ -1,0 +1,17 @@
+.info-panel {
+    flex: 1;
+    margin-top: 2rem;
+    overflow: auto;
+    scroll-behavior: auto;
+}
+
+.info-card{
+    margin-left: 7%;
+    margin-right: 7%;
+}
+
+.docs-footer {
+    background: #3f51b5;
+    color: #fff;
+    padding: 1rem;
+}
