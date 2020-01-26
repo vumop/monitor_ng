@@ -66,7 +66,6 @@ export class FormCreateComponent implements OnInit {
         .dispatch(new CreateIncident(value))
         .pipe(take(1))
         .subscribe(res => {
-          console.log("sub Create incidcent", res);
           // submit form, as result get id incident
           this.setLoading.emit(false);
           this.setIdIncident.emit(res.Incidents.additionIncident.id);

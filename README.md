@@ -16,7 +16,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 Deploy to GitHub pages `ng build --prod --output-path docs --base-href /monitor_ng/`
 
-Localhost build `ng build --prod --base-href /monitoring_ng/ng-app/dist/ng-app/`
+Prod build `ng build --prod --base-href /mobile/`
 
 ## Running unit tests
 
