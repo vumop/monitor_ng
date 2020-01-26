@@ -41,7 +41,7 @@ export class IncidentStateModel {
   }
 })
 export class IncidentState {
-  constructor(private incidentService: IncidentService) {}
+  constructor(private incidentService: IncidentService) { }
 
   @Selector()
   static getIncidents(state: IncidentStateModel) {
@@ -137,12 +137,16 @@ export class IncidentState {
     { payload, idIncident }: AddImage
   ) {
     return this.incidentService.addImage(payload).pipe(
-      tap(result => {
-        const state = getState();
-        patchState({
-          additionImage: { payload, idIncident, ...result}
-        });
-      })
+      tap(
+        result => {
+          patchState({
+            additionImage: { idIncident, ...result }
+          });
+        },
+        err => {
+          alert(err);
+        }
+      )
     );
   }
 }

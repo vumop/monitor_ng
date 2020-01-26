@@ -1,42 +1,19 @@
 <div fxFlex fxLayout="column">
   <form [formGroup]="filterForm" fxLayout="row" fxLayout.xs="column">
     <div fxLayout.xs="row">
-      <app-date-filter
-        fxFlex
-        [parentForm]="filterForm"
-        (parentApplyDateFilter)="applyDateFilter($event)"
-      ></app-date-filter>
+      <app-date-filter fxFlex [parentForm]="filterForm" (parentApplyDateFilter)="applyDateFilter($event)"></app-date-filter>
 
       <div fxHide fxShow.xs fxFlex="5"></div>
-      <a
-        fxHide
-        fxShow.xs
-        mat-fab
-        color="primary"
-        routerLink="/incident/create/"
-        class="mat-elevation-z6"
-      >
+      <a *ngIf="isLogged" fxHide fxShow.xs mat-fab color="primary" routerLink="/incident/create/" class="mat-elevation-z6">
         <mat-icon>add</mat-icon>
       </a>
     </div>
     <div fxShow fxHide.xs fxFlex="5"></div>
 
-    <app-search-filter
-      fxFlex
-      [parentForm]="filterForm"
-      (parentApplyFilter)="applyFilter($event)"
-      (parentSearchDistrict)="searchDistrict($event)"
-    ></app-search-filter>
+    <app-search-filter fxFlex [parentForm]="filterForm" (parentApplyFilter)="applyFilter($event)" (parentSearchDistrict)="searchDistrict($event)"></app-search-filter>
 
     <div fxShow fxHide.xs fxFlex="5"></div>
-    <a
-      fxShow
-      fxHide.xs
-      mat-fab
-      color="primary"
-      routerLink="/incident/create/"
-      class="mat-elevation-z6"
-    >
+    <a *ngIf="isLogged" fxShow fxHide.xs mat-fab color="primary" routerLink="/incident/create/" class="mat-elevation-z6">
       <mat-icon>add</mat-icon>
     </a>
   </form>
@@ -44,22 +21,10 @@
   <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
 
   <div fxFlex style="overflow: auto;" class="mat-elevation-z2">
-    <table
-      mat-table
-      [dataSource]="incidents"
-      matSort
-      (matSortChange)="changeSort($event)"
-      matSortDirection="{{ sortState.direction }}"
-      matSortActive="{{ sortState.active }}"
-    >
+    <table mat-table [dataSource]="incidents" matSort (matSortChange)="changeSort($event)" matSortDirection="{{ sortState.direction }}"
+      matSortActive="{{ sortState.active }}">
       <ng-container matColumnDef="id">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          mat-sort-header
-          fxShow
-          fxHide.lt-md
-        >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header fxShow fxHide.lt-md>
           ID
         </th>
         <td mat-cell *matCellDef="let element" fxShow fxHide.lt-md>
@@ -100,20 +65,10 @@
       <ng-container matColumnDef="zoom">
         <th mat-header-cell *matHeaderCellDef>Mapa / Detail</th>
         <td mat-cell *matCellDef="let element">
-          <a
-            mat-icon-button
-            routerLink="/map/detail/{{ element.id }}"
-            routerLinkActive="active"
-            style="color: rgba(0,0,0,0.54)"
-          >
+          <a mat-icon-button routerLink="/map/detail/{{ element.id }}" routerLinkActive="active" style="color: rgba(0,0,0,0.54)">
             <mat-icon class="mat-18">search</mat-icon>
           </a>
-          <a
-            mat-icon-button
-            routerLink="/incident/detail/{{ element.id }}"
-            routerLinkActive="active"
-            style="color: rgba(0,0,0,0.54)"
-          >
+          <a mat-icon-button routerLink="/incident/detail/{{ element.id }}" routerLinkActive="active" style="color: rgba(0,0,0,0.54)">
             <mat-icon class="mat-18">open_in_new</mat-icon>
           </a>
         </td>
@@ -124,13 +79,7 @@
     </table>
   </div>
   <div class="mat-elevation-z2">
-    <mat-paginator
-      [pageSizeOptions]="[50, 100]"
-      showFirstLastButtons
-      hidePageSize="true"
-      (page)="changePage($event)"
-      pageIndex="{{ pageState.pageIndex }}"
-      pageSize="{{ pageState.pageSize }}"
-    ></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[50, 100]" showFirstLastButtons hidePageSize="true" (page)="changePage($event)" pageIndex="{{ pageState.pageIndex }}"
+      pageSize="{{ pageState.pageSize }}"></mat-paginator>
   </div>
 </div>

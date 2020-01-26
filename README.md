@@ -16,6 +16,8 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 Deploy to GitHub pages `ng build --prod --output-path docs --base-href /monitor_ng/`
 
+Prod build `ng build --prod --base-href /mobile/`
+
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).

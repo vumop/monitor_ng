@@ -14,7 +14,7 @@ import { delay, mergeMap, materialize, dematerialize } from "rxjs/operators";
   providedIn: "root"
 })
 export class FakeBackendService implements HttpInterceptor {
-  constructor() {}
+  constructor() { }
 
   intercept(
     request: HttpRequest<any>,
@@ -58,13 +58,37 @@ export class FakeBackendService implements HttpInterceptor {
               });
             }
           }
- 
+
           if (
             request.url.endsWith("/users/lostPass") &&
             request.method === "POST"
           ) {
             const body = {
               email: request.body.email
+            };
+            return of(new HttpResponse({ status: 200, body }));
+          }
+
+          if (
+            request.url.endsWith("/incident/new/") &&
+            request.method === "POST"
+          ) {
+            const body = {
+              id: 9999,
+              success: true,
+              msg: "Byla uložena nová událost",
+            };
+            return of(new HttpResponse({ status: 200, body }));
+          }
+
+          if (
+            request.url.endsWith("/incident/foto-save/") &&
+            request.method === "POST"
+          ) {
+            const body = {
+              success: true,
+              uploaded_file: "uploaded file",
+              msg: "soubor uložen.",
             };
             return of(new HttpResponse({ status: 200, body }));
           }

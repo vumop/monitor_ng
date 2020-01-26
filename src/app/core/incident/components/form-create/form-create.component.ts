@@ -15,7 +15,7 @@ import { take } from "rxjs/operators";
 @Component({
   selector: "app-incident-form-create",
   templateUrl: "./form-create.component.html",
-  styleUrls: ["./form-create.component.css"]
+  styleUrls: ["./form-create.component.css"],
 })
 export class FormCreateComponent implements OnInit {
   @Input() feature: string;
@@ -42,9 +42,12 @@ export class FormCreateComponent implements OnInit {
         { value: "test@mail.cz", disabled: false },
         Validators.compose([Validators.required, Validators.email])
       ),
-      datum_vzniku_od: [new Date(), Validators.compose([Validators.required])],
-      cas_vzniku_od: ["23:00", Validators.compose([Validators.required])],
-      popis: ["description"],
+      misto_nazev: [""],
+      datum_vzniku_od: [undefined, Validators.compose([Validators.required])],
+      cas_vzniku_od: [undefined, Validators.compose([Validators.required])],
+      datum_vzniku_do: [undefined, Validators.compose([Validators.required])],
+      cas_vzniku_do: [undefined, Validators.compose([Validators.required])], 
+      datum_setreni: [new Date(), Validators.compose([Validators.required])],      
       geom: [this.feature, Validators.compose([Validators.required])],
       valid: [false, Validators.compose([Validators.required])]
     });
@@ -63,7 +66,6 @@ export class FormCreateComponent implements OnInit {
         .dispatch(new CreateIncident(value))
         .pipe(take(1))
         .subscribe(res => {
-          console.log("sub Create incidcent", res);
           // submit form, as result get id incident
           this.setLoading.emit(false);
           this.setIdIncident.emit(res.Incidents.additionIncident.id);

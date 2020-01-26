@@ -1,14 +1,9 @@
-<form
-  autocomplete="off"
-  novalidate
-  (ngSubmit)="onSubmit(form.value)"
-  [formGroup]="form"
->
+<form autocomplete="off" novalidate (ngSubmit)="onSubmit(form.value)" [formGroup]="form">
   <div fxLayout="column wrap" fxLayoutGap="15px" fxLayoutAlign="stretch">
     <input type="hidden" name="geom" formControlName="geom" />
     <input type="hidden" name="valid" formControlName="valid" />
 
-    <mat-form-field hintLabel="Pro validaci záznámu je nutný e-mail">
+    <!-- <mat-form-field hintLabel="Pro validaci záznámu je nutný e-mail">
       <input
         matInput
         type="email"
@@ -27,45 +22,61 @@
       <mat-error *ngIf="formControls.email.hasError('required')">
         vyplňte <strong>e-mail</strong>!
       </mat-error>
+    </mat-form-field> -->
+
+    <mat-form-field hintLabel="Lokalizace">
+      <input matInput placeholder="Místní název" formControlName="misto_nazev">
     </mat-form-field>
-    <div fxLayout="row" fxFill fxLayoutGap="15px">
-      <mat-form-field hintLabel="Datum vzniku eroze" fxFlex="50">
-        <input
-          matInput
-          [matDatepicker]="picker"
-          placeholder=""
-          required
-          formControlName="datum_vzniku_od"
-        />
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+
+
+    <div fxLayout="row" fxFill fxLayoutAlign="space-between">
+      <mat-form-field hintLabel="Vzniku eroze od" fxFlex="48">
+        <input matInput [matDatepicker]="pickerFrom" placeholder="" required formControlName="datum_vzniku_od" />
+        <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+        <mat-datepicker #pickerFrom></mat-datepicker>
         <mat-error *ngIf="formControls.datum_vzniku_od.hasError('required')">
-          vyplňte <strong>datum</strong>!
+          vyplňte
+          <strong>datum</strong>!
         </mat-error>
       </mat-form-field>
-      <mat-form-field hintLabel="Čas vzniku eroze" fxFlex="50">
-        <input
-          matInput
-          type="time"
-          placeholder=""
-          required
-          formControlName="cas_vzniku_od"
-        />
+      <mat-form-field hintLabel="Čas vzniku eroze" fxFlex="48">
+        <input matInput type="time" placeholder="" required formControlName="cas_vzniku_od" />
         <mat-error *ngIf="formControls.cas_vzniku_od.hasError('required')">
-          vyplňte <strong>čas</strong>!
+          vyplňte
+          <strong>čas</strong>!
         </mat-error>
       </mat-form-field>
     </div>
 
-    <mat-form-field
-      hintLabel="(Vyplňte například plodiny nebo intenzitu srážky...)"
-    >
-      <textarea
-        matInput
-        placeholder="Poznámky k zázmanu"
-        formControlName="popis"
-      ></textarea>
+    <div fxLayout="row" fxFill fxLayoutAlign="space-between">
+      <mat-form-field hintLabel="Vzniku eroze do" fxFlex="48">
+        <input matInput [matDatepicker]="pickerTo" placeholder="" required formControlName="datum_vzniku_do" />
+        <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+        <mat-datepicker #pickerTo></mat-datepicker>
+        <mat-error *ngIf="formControls.datum_vzniku_do.hasError('required')">
+          vyplňte
+          <strong>datum</strong>!
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field hintLabel="Čas vzniku eroze" fxFlex="48">
+        <input matInput type="time" placeholder="" required formControlName="cas_vzniku_do" />
+        <mat-error *ngIf="formControls.cas_vzniku_do.hasError('required')">
+          vyplňte
+          <strong>čas</strong>!
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field hintLabel="Datum šetření">
+      <input matInput [matDatepicker]="pickerExplore" placeholder="" required formControlName="datum_setreni" />
+      <mat-datepicker-toggle matSuffix [for]="pickerExplore"></mat-datepicker-toggle>
+      <mat-datepicker #pickerExplore></mat-datepicker>
+      <mat-error *ngIf="formControls.datum_setreni.hasError('required')">
+        vyplňte
+        <strong>datum</strong>!
+      </mat-error>
     </mat-form-field>
+
   </div>
   <br />
   <div>

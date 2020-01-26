@@ -56,23 +56,30 @@ export class FormImageComponent implements OnInit {
   /**
    * save loaded image
    */
-  public onSubmit = (next: boolean) => {
-    if (this.form.valid && this.idIncident) {
-      this.form.controls["id_udalost"].setValue(this.idIncident);
-      this.store
-        .dispatch(new AddImage(this.form.value, this.idIncident))
-        .pipe(take(1))
-        .subscribe(res => {
-          // submit form, as result get id incident
-          this.setLoading.emit(false);
-          // change step
-          if (next) {
-            this.nextStep.emit();
-          }
-          // reset inputs
+  public saveImage = (next: boolean) => {
+    this.form.controls["id_udalost"].setValue(this.idIncident);
+    this.store
+      .dispatch(new AddImage(this.form.value, this.idIncident))
+      .pipe(take(1))
+      .subscribe(res => {
+        // submit form, as result get id incident
+        this.setLoading.emit(false);
+        // reset inputs
+        if (res.Incidents.additionImage.success) {
+          this.loadedImg++;
           this.form.controls["fileToUpload"].reset();
           this.form.controls["popis"].reset();
-        });
+          if (next) {
+            this.nextStep.emit();
+
+          }
+        }
+      });
+  }
+
+  public onSubmit = (next: boolean = true) => {
+    if (this.form.valid && this.idIncident) {
+      this.saveImage(next);
     }
   };
 
@@ -94,7 +101,6 @@ export class FormImageComponent implements OnInit {
     const target = event.target || event.srcElement;
     this.name = target.files[0].name;
     this.form.controls["popis"].enable();
-    this.loadedImg++;
   };
 
   private activeFileInput = () => {
